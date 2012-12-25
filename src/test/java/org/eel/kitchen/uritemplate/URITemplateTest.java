@@ -30,6 +30,18 @@ public final class URITemplateTest
     }
 
     @Test
+    public void illegalURIWithEmptySubstitutionsIsConsideredAnError()
+    {
+        try {
+            new URITemplate("^{hello}");
+            fail("No exception thrown!");
+        } catch (InvalidTemplateException e) {
+            assertEquals(e.getMessage(), "calculated URI would be invalid");
+            assertSame(e.getCause().getClass(), IllegalArgumentException.class);
+        }
+    }
+
+    @Test
     public void toStringReturnsTemplateItself()
         throws InvalidTemplateException
     {
