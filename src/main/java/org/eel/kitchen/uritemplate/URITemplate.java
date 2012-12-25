@@ -18,6 +18,7 @@
 package org.eel.kitchen.uritemplate;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.base.Preconditions;
 
 import java.net.URI;
 import java.util.regex.Pattern;
@@ -31,8 +32,7 @@ public final class URITemplate
     public URITemplate(final String tmpl)
         throws InvalidTemplateException
     {
-        if (tmpl == null)
-            throw new NullPointerException("null template not accepted");
+        Preconditions.checkNotNull(tmpl, "null template not accepted");
 
         final String withoutTemplates = PATTERN.matcher(tmpl).replaceAll("");
         if (BRACKETS.matchesAnyOf(withoutTemplates))
