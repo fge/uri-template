@@ -20,18 +20,13 @@ package org.eel.kitchen.uritemplate;
 public final class InvalidTemplateException
     extends Exception
 {
-    public InvalidTemplateException(String message)
+    public InvalidTemplateException(final String message)
     {
         super(message);
     }
 
-    public InvalidTemplateException(String message, Throwable cause)
+    public InvalidTemplateException(final String message, final Throwable cause)
     {
         super(message, cause);
-    }
-
-    public InvalidTemplateException(Throwable cause)
-    {
-        super(cause);
     }
 }
