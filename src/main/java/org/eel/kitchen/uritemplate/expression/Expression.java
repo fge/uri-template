@@ -17,21 +17,22 @@
 
 package org.eel.kitchen.uritemplate.expression;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableList;
 
 import java.util.Collection;
+import java.util.List;
 
 public final class Expression
 {
-    private final String varName;
+    private final List<String> varNames;
 
-    public Expression(final String varName)
+    public Expression(final List<String> varNames)
     {
-        this.varName = varName;
+        this.varNames = ImmutableList.copyOf(varNames);
     }
 
     public Collection<String> getVarNames()
     {
-        return ImmutableSet.of(varName);
+        return varNames;
     }
 }

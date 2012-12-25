@@ -47,4 +47,14 @@ public final class ExpressionParserTest
             assertEquals(e.getMessage(), "variable names cannot be empty");
         }
     }
+
+    @Test
+    public void multipleVariableReferencesAreParsedCorrectly()
+        throws InvalidTemplateException
+    {
+        final String input = "foo,bar";
+        final Expression expression = ExpressionParser.parse(input);
+
+        assertEquals(expression.getVarNames(), ImmutableSet.of("foo", "bar"));
+    }
 }

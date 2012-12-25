@@ -17,10 +17,17 @@
 
 package org.eel.kitchen.uritemplate.expression;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import org.eel.kitchen.uritemplate.InvalidTemplateException;
+
+import java.util.List;
 
 public final class ExpressionParser
 {
+    // What separates variable names in an expression (after operators)
+    private static final Splitter SPLITTER = Splitter.on(',');
+
     private ExpressionParser()
     {
     }
@@ -28,9 +35,20 @@ public final class ExpressionParser
     public static Expression parse(final String input)
         throws InvalidTemplateException
     {
-        if (input.isEmpty())
+        final List<String> list = Lists.newArrayList();
+
+        for (final String varName: SPLITTER.split(input)) {
+            parseVariableName(varName);
+            list.add(varName);
+        }
+        return new Expression(list);
+    }
+
+    private static void parseVariableName(final String s)
+        throws InvalidTemplateException
+    {
+        if (s.isEmpty())
             throw new InvalidTemplateException("variable names cannot be " +
                 "empty");
-        return new Expression(input);
     }
 }
