@@ -18,18 +18,33 @@
 package org.eel.kitchen.uritemplate.expression;
 
 import com.google.common.collect.ImmutableSet;
+import org.eel.kitchen.uritemplate.InvalidTemplateException;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public final class ExpressionParserTest
 {
     @Test
     public void legalSingleVariableReferenceIsParsedCorrectly()
+        throws InvalidTemplateException
     {
         final String input = "foo";
         final Expression expression = ExpressionParser.parse(input);
 
         assertEquals(expression.getVarNames(), ImmutableSet.of(input));
+    }
+
+    // As the RFC requires at least one character in a variable name, this means
+    // empty inputs are not accepted
+    @Test
+    public void emptySingleVariableReferenceIsIllegal()
+    {
+        try {
+            ExpressionParser.parse("");
+            fail("No exception thrown!");
+        } catch (InvalidTemplateException e) {
+            assertEquals(e.getMessage(), "variable names cannot be empty");
+        }
     }
 }

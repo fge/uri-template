@@ -17,6 +17,8 @@
 
 package org.eel.kitchen.uritemplate.expression;
 
+import org.eel.kitchen.uritemplate.InvalidTemplateException;
+
 public final class ExpressionParser
 {
     private ExpressionParser()
@@ -24,7 +26,11 @@ public final class ExpressionParser
     }
 
     public static Expression parse(final String input)
+        throws InvalidTemplateException
     {
+        if (input.isEmpty())
+            throw new InvalidTemplateException("variable names cannot be " +
+                "empty");
         return new Expression(input);
     }
 }
