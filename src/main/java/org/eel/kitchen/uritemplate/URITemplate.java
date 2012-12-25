@@ -21,4 +21,10 @@ public final class URITemplate
             throw new InvalidTemplateException("unpaired brackets");
         this.tmpl = tmpl;
     }
+
+    @Override
+    public String toString()
+    {
+        return tmpl;
+    }
 }

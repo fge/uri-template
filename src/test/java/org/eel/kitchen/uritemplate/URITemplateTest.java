@@ -19,7 +19,7 @@ public final class URITemplateTest
     }
 
     @Test
-    public void nonPairedBracketPairsAreNotAccepted()
+    public void nonPairedBracketsAreNotAccepted()
     {
         try {
             new URITemplate("{");
@@ -27,5 +27,14 @@ public final class URITemplateTest
         } catch (InvalidTemplateException e) {
             assertEquals(e.getMessage(), "unpaired brackets");
         }
+    }
+
+    @Test
+    public void toStringReturnsTemplateItself()
+        throws InvalidTemplateException
+    {
+        final String tmpl = "http://foo.bar/{baz}";
+        final URITemplate template = new URITemplate(tmpl);
+        assertEquals(template.toString(), tmpl);
     }
 }
