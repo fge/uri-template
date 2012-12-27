@@ -26,21 +26,8 @@ public final class PercentEncodedVarSpecTokenParser
     implements TokenParser
 {
     // When we arrive here, the '%' has already been swallowed
-    private static final CharMatcher MATCHER;
-
-    static {
-        CharMatcher matcher;
-
-        // ALPHA
-        matcher = CharMatcher.inRange('a', 'z')
-            .or(CharMatcher.inRange('A', 'Z'));
-
-        // DIGIT
-        matcher = matcher.or(CharMatcher.inRange('0', '9'));
-
-        // build
-        MATCHER = matcher.precomputed();
-    }
+    private static final CharMatcher MATCHER
+        = CharMatcher.anyOf("abcdefABCDEF0123456789").precomputed();
 
     private final CharBuffer buf;
     private final int index;
@@ -78,14 +65,14 @@ public final class PercentEncodedVarSpecTokenParser
 
         c = buf.get(index);
         if (!MATCHER.matches(c))
-            throw new IllegalArgumentException("illegal character in " +
-                "percent-encoded sequence");
+            throw new InvalidTemplateException("illegal percent-escaped " +
+                "sequence: unexpected character");
         sb.append(c);
 
         c = buf.get(index + 1);
         if (!MATCHER.matches(c))
-            throw new IllegalArgumentException("illegal character in " +
-                "percent-encoded sequence");
+            throw new InvalidTemplateException("illegal percent-escaped " +
+                "sequence: unexpected character");
         sb.append(c);
 
         return total >= index + 2;

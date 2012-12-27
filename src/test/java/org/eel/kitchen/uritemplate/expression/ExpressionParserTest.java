@@ -74,4 +74,37 @@ public final class ExpressionParserTest
             assertEquals(e.getMessage(), "variable names cannot be empty");
         }
     }
+
+    @DataProvider
+    public Iterator<Object[]> illegalPercentEscapes()
+    {
+        final Set<String> names = ImmutableSet.of(
+            "%", // Single % without any chars behind
+            "a%", // Same but with preceeding legal char
+            "%x", // One token which is not a legal char
+            "%fx", // One legal token and one illegal one
+            "%a" // One legal token but no second one
+        );
+
+        final Set<Object[]> set = Sets.newHashSet();
+
+        for (final String name: names)
+            set.add(new Object[]{ name });
+
+        return set.iterator();
+    }
+
+    @Test(dataProvider = "illegalPercentEscapes")
+    public void illegalPercentEscapesAreDetected(final String name)
+    {
+        try {
+            ExpressionParser.parse(name);
+            fail("No exception thrown!");
+        } catch (InvalidTemplateException e) {
+            // FIXME: hardcoded
+            final String message = e.getMessage();
+            assertTrue(message.startsWith("illegal percent-escaped sequence: "),
+                "unexpected error message");
+        }
+    }
 }
