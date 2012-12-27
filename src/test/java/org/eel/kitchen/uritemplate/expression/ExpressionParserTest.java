@@ -18,21 +18,44 @@
 package org.eel.kitchen.uritemplate.expression;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import org.eel.kitchen.uritemplate.InvalidTemplateException;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.Iterator;
+import java.util.Set;
 
 import static org.testng.Assert.*;
 
 public final class ExpressionParserTest
 {
-    @Test
-    public void legalSingleVariableReferenceIsParsedCorrectly()
+    @DataProvider
+    public Iterator<Object[]> singleVariables()
+    {
+        final Set<String> names = ImmutableSet.of(
+            "foo", // Only alpha
+            "foo_bar", // Alpha and underscore
+            "_", // Underscore only
+            "0", // Digit only
+            "0_a" // All three
+        );
+
+        final Set<Object[]> set = Sets.newHashSet();
+
+        for (final String name: names)
+            set.add(new Object[]{ name });
+
+        return set.iterator();
+    }
+
+    @Test(dataProvider = "singleVariables")
+    public void legalSingleVariableReferenceIsParsedCorrectly(final String name)
         throws InvalidTemplateException
     {
-        final String input = "foo";
-        final Expression expression = ExpressionParser.parse(input);
+        final Expression expression = ExpressionParser.parse(name);
 
-        assertEquals(expression.getVarNames(), ImmutableSet.of(input));
+        assertEquals(expression.getVarNames(), ImmutableSet.of(name));
     }
 
     // As the RFC requires at least one character in a variable name, this means
