@@ -20,18 +20,30 @@ package org.eel.kitchen.uritemplate.expression;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import org.eel.kitchen.uritemplate.InvalidTemplateException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.nio.CharBuffer;
 import java.util.Iterator;
 import java.util.Set;
 
 import static org.testng.Assert.*;
 
-public final class ExpressionParserTest
+public final class VarSpecTokenParserTest
 {
+    private ExpressionBuilder builder;
+    private StringBuilder sb;
+
+    @BeforeMethod
+    public void initParser()
+    {
+        builder = new ExpressionBuilder();
+        sb = new StringBuilder();
+    }
+
     @DataProvider
-    public Iterator<Object[]> singleVariables()
+    public Iterator<Object[]> legalVariableSpecs()
     {
         final Set<String> names = ImmutableSet.of(
             "foo", // Only alpha
@@ -53,13 +65,17 @@ public final class ExpressionParserTest
         return set.iterator();
     }
 
-    @Test(dataProvider = "singleVariables")
-    public void legalSingleVariableReferenceIsParsedCorrectly(final String name)
+    @Test(dataProvider = "legalVariableSpecs")
+    public void legalVariableSpecIsParsedCorrectly(final String name)
         throws InvalidTemplateException
     {
-        final Expression expression = ExpressionParser.parse(name);
+        final CharBuffer buf = CharBuffer.wrap(name.toCharArray());
+        TokenParser parser = new VarSpecTokenParser(buf, 0, builder, sb);
 
-        assertEquals(expression.getVarNames(), ImmutableSet.of(name));
+        while (parser.parse())
+            parser = parser.next();
+
+        assertTrue(true);
     }
 
     // As the RFC requires at least one character in a variable name, this means
@@ -67,8 +83,12 @@ public final class ExpressionParserTest
     @Test
     public void emptySingleVariableReferenceIsIllegal()
     {
+        final CharBuffer buf = CharBuffer.wrap("".toCharArray());
+        TokenParser parser = new VarSpecTokenParser(buf, 0, builder, sb);
+
         try {
-            ExpressionParser.parse("");
+            while (parser.parse())
+                parser = parser.next();
             fail("No exception thrown!");
         } catch (InvalidTemplateException e) {
             assertEquals(e.getMessage(), "variable names cannot be empty");
@@ -97,8 +117,12 @@ public final class ExpressionParserTest
     @Test(dataProvider = "illegalPercentEscapes")
     public void illegalPercentEscapesAreDetected(final String name)
     {
+        final CharBuffer buf = CharBuffer.wrap(name.toCharArray());
+        TokenParser parser = new VarSpecTokenParser(buf, 0, builder, sb);
+
         try {
-            ExpressionParser.parse(name);
+            while (parser.parse())
+                parser = parser.next();
             fail("No exception thrown!");
         } catch (InvalidTemplateException e) {
             // FIXME: hardcoded
