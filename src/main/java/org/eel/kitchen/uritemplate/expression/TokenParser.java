@@ -17,21 +17,12 @@
 
 package org.eel.kitchen.uritemplate.expression;
 
-import com.google.common.collect.ImmutableSet;
+import org.eel.kitchen.uritemplate.InvalidTemplateException;
 
-import java.util.Collection;
-
-public final class Expression
+public interface TokenParser
 {
-    private final String varName;
+    boolean parse()
+        throws InvalidTemplateException;
 
-    public Expression(final ExpressionBuilder builder)
-    {
-        varName = builder.varNames.get(0);
-    }
-
-    public Collection<String> getVarNames()
-    {
-        return ImmutableSet.of(varName);
-    }
+    TokenParser next();
 }
