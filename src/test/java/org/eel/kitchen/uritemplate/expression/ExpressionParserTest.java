@@ -38,7 +38,11 @@ public final class ExpressionParserTest
             "foo_bar", // Alpha and underscore
             "_", // Underscore only
             "0", // Digit only
-            "0_a" // All three
+            "0_a", // All three
+            "a%25a", // Percent sequence in the middle
+            "a%25", // Percent sequence at the end
+            "%25a", // Percent sequence at the beginning
+            "a%ff%a00" // Two subsequent percent sequences
         );
 
         final Set<Object[]> set = Sets.newHashSet();

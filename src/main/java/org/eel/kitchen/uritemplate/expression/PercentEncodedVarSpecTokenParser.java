@@ -22,9 +22,10 @@ import org.eel.kitchen.uritemplate.InvalidTemplateException;
 
 import java.nio.CharBuffer;
 
-public final class VarSpecTokenParser
+public final class PercentEncodedVarSpecTokenParser
     implements TokenParser
 {
+    // When we arrive here, the '%' has already been swallowed
     private static final CharMatcher MATCHER;
 
     static {
@@ -37,9 +38,6 @@ public final class VarSpecTokenParser
         // DIGIT
         matcher = matcher.or(CharMatcher.inRange('0', '9'));
 
-        // "_"
-        matcher = matcher.or(CharMatcher.is('_'));
-
         // build
         MATCHER = matcher.precomputed();
     }
@@ -49,8 +47,9 @@ public final class VarSpecTokenParser
     private final ExpressionBuilder builder;
     private final StringBuilder sb;
 
-    public VarSpecTokenParser(final CharBuffer buf, final int index,
-        final ExpressionBuilder builder, final StringBuilder sb)
+    public PercentEncodedVarSpecTokenParser(final CharBuffer buf,
+        final int index, final ExpressionBuilder builder,
+        final StringBuilder sb)
     {
         this.buf = buf;
         this.index = index;
@@ -58,42 +57,43 @@ public final class VarSpecTokenParser
         this.sb = sb;
     }
 
-    TokenParser next;
-
     @Override
     public boolean parse()
         throws InvalidTemplateException
     {
-        if (index == buf.length()) {
-            final String varName = sb.toString();
-            if (varName.isEmpty())
-                throw new InvalidTemplateException("variable names cannot be " +
-                    "empty");
-            builder.addVarName(varName);
-            return false;
-        }
+        final int total = buf.length();
+        final int remaining = total - index;
 
-        final char c = buf.get(index);
+        if (remaining < 2)
+            throw new InvalidTemplateException("illegal percent-escaped " +
+                "sequence: not enough characters remaining");
 
-        switch (c) {
-            case '%':
-                sb.append(c);
-                next = new PercentEncodedVarSpecTokenParser(buf, index + 1,
-                    builder, sb);
-                break;
-            default:
-                if (!MATCHER.matches(c))
-                    throw new InvalidTemplateException("illegal varspec " +
-                        "character");
-                next = new VarSpecTokenParser(buf, index + 1, builder, sb);
-                sb.append(c);
-        }
-        return true;
+        /*
+         * CharBuffer does not have any absolute get() method into a char array.
+         * We therefore read one char at a time and check whether it matches
+         * what we want.
+         */
+
+        char c;
+
+        c = buf.get(index);
+        if (!MATCHER.matches(c))
+            throw new IllegalArgumentException("illegal character in " +
+                "percent-encoded sequence");
+        sb.append(c);
+
+        c = buf.get(index + 1);
+        if (!MATCHER.matches(c))
+            throw new IllegalArgumentException("illegal character in " +
+                "percent-encoded sequence");
+        sb.append(c);
+
+        return total >= index + 2;
     }
 
     @Override
     public TokenParser next()
     {
-        return next;
+        return new VarSpecTokenParser(buf, index + 2, builder, sb);
     }
 }
