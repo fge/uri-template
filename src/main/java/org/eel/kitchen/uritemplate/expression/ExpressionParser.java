@@ -37,9 +37,7 @@ public final class ExpressionParser
     {
         final List<String> list = Lists.newArrayList();
 
-        final TemplateOperator operator = TemplateOperator.detectFrom(input);
-
-        for (final String varName: SPLITTER.split(operator.varSpecs(input))) {
+        for (final String varName: SPLITTER.split(input)) {
             parseVariableName(varName);
             list.add(varName);
         }
