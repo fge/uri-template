@@ -18,20 +18,21 @@
 package org.eel.kitchen.uritemplate.expression;
 
 import com.google.common.collect.ImmutableSet;
+import org.eel.kitchen.uritemplate.expression.variable.Variable;
 
 import java.util.Collection;
 
 public final class Expression
 {
-    private final String varName;
+    private final Variable variable;
 
     public Expression(final ExpressionBuilder builder)
     {
-        varName = builder.varNames.get(0);
+        variable = builder.variables.get(0);
     }
 
-    public Collection<String> getVarNames()
+    public Collection<Variable> getVariables()
     {
-        return ImmutableSet.of(varName);
+        return ImmutableSet.of(variable);
     }
 }

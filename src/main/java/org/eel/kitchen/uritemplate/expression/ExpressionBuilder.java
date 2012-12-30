@@ -18,15 +18,16 @@
 package org.eel.kitchen.uritemplate.expression;
 
 import com.google.common.collect.Lists;
+import org.eel.kitchen.uritemplate.expression.variable.Variable;
 
 import java.util.List;
 
 public final class ExpressionBuilder
 {
-    final List<String> varNames = Lists.newArrayList();
+    final List<Variable> variables = Lists.newArrayList();
 
-    void addVarName(final String varName)
+    void addVariable(final Variable variable)
     {
-        varNames.add(varName);
+        variables.add(variable);
     }
 }
