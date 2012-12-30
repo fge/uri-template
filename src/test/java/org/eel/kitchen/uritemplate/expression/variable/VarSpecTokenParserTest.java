@@ -15,11 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.eel.kitchen.uritemplate.expression;
+package org.eel.kitchen.uritemplate.expression.variable;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import org.eel.kitchen.uritemplate.InvalidTemplateException;
+import org.eel.kitchen.uritemplate.expression.TokenParser;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -32,13 +33,13 @@ import static org.testng.Assert.*;
 
 public final class VarSpecTokenParserTest
 {
-    private ExpressionBuilder builder;
+    private VariableBuilder builder;
     private StringBuilder sb;
 
     @BeforeMethod
     public void initParser()
     {
-        builder = new ExpressionBuilder();
+        builder = new VariableBuilder();
         sb = new StringBuilder();
     }
 

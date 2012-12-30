@@ -15,10 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.eel.kitchen.uritemplate.expression;
+package org.eel.kitchen.uritemplate.expression.variable;
 
 import com.google.common.base.CharMatcher;
 import org.eel.kitchen.uritemplate.InvalidTemplateException;
+import org.eel.kitchen.uritemplate.expression.TokenParser;
 
 import java.nio.CharBuffer;
 
@@ -31,11 +32,11 @@ public final class PercentEncodedVarSpecTokenParser
 
     private final CharBuffer buf;
     private final int index;
-    private final ExpressionBuilder builder;
+    private final VariableBuilder builder;
     private final StringBuilder sb;
 
     public PercentEncodedVarSpecTokenParser(final CharBuffer buf,
-        final int index, final ExpressionBuilder builder,
+        final int index, final VariableBuilder builder,
         final StringBuilder sb)
     {
         this.buf = buf;
