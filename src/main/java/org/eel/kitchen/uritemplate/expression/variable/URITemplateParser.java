@@ -16,6 +16,10 @@ public class URITemplateParser
     /*
      * Section 2.3: variables
      */
+
+    /*
+     * Basic rules
+     */
     public Rule ASCIILetter()
     {
         return FirstOf(CharRange('a', 'z'), CharRange('A', 'Z'));
@@ -54,11 +58,17 @@ public class URITemplateParser
         );
     }
 
+    /*
+     * Variable with no modifiers
+     */
     public Rule SimpleVarName()
     {
         return Sequence(VarName(), push(new SimpleVariable(match())));
     }
 
+    /*
+     * Variable with "explode" modifier
+     */
     public Rule VarNameExploded()
     {
         final Var<String> name = new Var<String>();
@@ -70,6 +80,9 @@ public class URITemplateParser
         );
     }
 
+    /*
+     * Variable with "substring" modifier
+     */
     public Rule VarNameSubstring()
     {
         final Var<String> name = new Var<String>();
@@ -87,6 +100,9 @@ public class URITemplateParser
         );
     }
 
+    /*
+     * Any variable
+     */
     public Rule VarSpec()
     {
         return Sequence(
