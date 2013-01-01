@@ -105,13 +105,19 @@ public class URITemplateParser
      */
     public Rule VarSpec()
     {
+        return  FirstOf(
+            VarNameSubstring(),
+            VarNameExploded(),
+            SimpleVarName()
+        );
+    }
+
+    public Rule Expression()
+    {
         return Sequence(
-            FirstOf(
-                VarNameSubstring(),
-                VarNameExploded(),
-                SimpleVarName()
-            ),
-            EOI);
+            VarSpec(), ZeroOrMore(',', VarSpec()),
+            EOI
+        );
     }
 
     public static void main(final String... args)
@@ -128,7 +134,7 @@ public class URITemplateParser
             while(true) {
                 System.out.print("Enter expression: ");
                 input = scanner.nextLine();
-                runner = new BasicParseRunner<Object>(parser.VarSpec());
+                runner = new BasicParseRunner<Object>(parser.Expression());
                 result = runner.run(input);
                 if (!result.matched)
                     break;
