@@ -110,6 +110,7 @@ class URITemplateParser
             ':',
             // Integer, less than or equal to 10000
             OneOrMore(Digit()),
+            ACTION(match().length() <= 5),
             subLength.set(Integer.parseInt(match())),
             ACTION(subLength.get() <= 10000),
             push(new SubLengthVariable(name.get(), subLength.get()))
@@ -165,15 +166,17 @@ class URITemplateParser
         String input;
         ParsingResult<Variable> result;
         ParseRunner<Variable> runner;
+        Rule rule;
 
         try {
             while(true) {
                 builder = new ExpressionBuilder();
                 parser = Parboiled.createParser(URITemplateParser.class,
                     builder);
+                rule = parser.Expression();
                 System.out.print("Enter expression: ");
                 input = scanner.nextLine();
-                runner = new BasicParseRunner<Variable>(parser.Expression());
+                runner = new BasicParseRunner<Variable>(rule);
                 result = runner.run(input);
                 if (!result.matched)
                     break;
