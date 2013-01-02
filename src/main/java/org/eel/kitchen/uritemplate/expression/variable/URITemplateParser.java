@@ -16,7 +16,7 @@ import org.parboiled.support.Var;
 
 import java.util.Scanner;
 
-public class URITemplateParser
+class URITemplateParser
     extends BaseParser<Variable>
 {
     static final Rule OPCHAR
@@ -24,7 +24,7 @@ public class URITemplateParser
 
     private final ExpressionBuilder builder;
 
-    public URITemplateParser(final ExpressionBuilder builder)
+    URITemplateParser(final ExpressionBuilder builder)
     {
         this.builder = builder;
     }
@@ -36,37 +36,37 @@ public class URITemplateParser
     /*
      * Basic rules
      */
-    public Rule ASCIILetter()
+    Rule ASCIILetter()
     {
         return FirstOf(CharRange('a', 'z'), CharRange('A', 'Z'));
     }
 
-    public Rule Digit()
+    Rule Digit()
     {
         return CharRange('0', '9');
     }
 
-    public Rule NotPercentEscape()
+    Rule NotPercentEscape()
     {
         return FirstOf(ASCIILetter(), Digit(), '_');
     }
 
-    public Rule HexDigit()
+    Rule HexDigit()
     {
         return FirstOf(CharRange('a', 'f'), CharRange('A', 'F'), Digit());
     }
 
-    public Rule PercentEscape()
+    Rule PercentEscape()
     {
         return Sequence('%', HexDigit(), HexDigit());
     }
 
-    public Rule VarChar()
+    Rule VarChar()
     {
         return OneOrMore(FirstOf(NotPercentEscape(), PercentEscape()));
     }
 
-    public Rule VarName()
+    Rule VarName()
     {
         return Sequence(
             VarChar(),
@@ -77,7 +77,7 @@ public class URITemplateParser
     /*
      * Variable with no modifiers
      */
-    public Rule SimpleVarName()
+    Rule SimpleVarName()
     {
         return Sequence(VarName(), push(new SimpleVariable(match())));
     }
@@ -85,7 +85,7 @@ public class URITemplateParser
     /*
      * Variable with "explode" modifier
      */
-    public Rule VarNameExploded()
+    Rule VarNameExploded()
     {
         final Var<String> name = new Var<String>();
         return Sequence(
@@ -99,7 +99,7 @@ public class URITemplateParser
     /*
      * Variable with "substring" modifier
      */
-    public Rule VarNameSubstring()
+    Rule VarNameSubstring()
     {
         final Var<String> name = new Var<String>();
         final Var<Integer> subLength = new Var<Integer>();
@@ -119,12 +119,12 @@ public class URITemplateParser
     /*
      * Any variable
      */
-    public Rule VarSpec()
+    Rule VarSpec()
     {
         return  FirstOf(VarNameSubstring(), VarNameExploded(), SimpleVarName());
     }
 
-    public Rule Expression()
+    Rule Expression()
     {
         return Sequence(
             // Operator
@@ -136,7 +136,7 @@ public class URITemplateParser
         );
     }
 
-    public Rule Operator()
+    Rule Operator()
     {
         final Var<Character> opchar = new Var<Character>();
         return Sequence(
