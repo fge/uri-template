@@ -1,18 +1,34 @@
 package org.eel.kitchen.uritemplate.expression.variable;
 
+import org.eel.kitchen.uritemplate.expression.ExpressionBuilder;
+import org.eel.kitchen.uritemplate.expression.Operator;
+import org.parboiled.Action;
 import org.parboiled.BaseParser;
+import org.parboiled.Context;
 import org.parboiled.Parboiled;
 import org.parboiled.Rule;
+import org.parboiled.matchers.AnyOfMatcher;
 import org.parboiled.parserunners.BasicParseRunner;
 import org.parboiled.parserunners.ParseRunner;
+import org.parboiled.support.Characters;
 import org.parboiled.support.ParsingResult;
 import org.parboiled.support.Var;
 
 import java.util.Scanner;
 
 public class URITemplateParser
-    extends BaseParser<Object>
+    extends BaseParser<Variable>
 {
+    static final Rule OPCHAR
+        = new AnyOfMatcher(Characters.of(Operator.validChars()));
+
+    private final ExpressionBuilder builder;
+
+    public URITemplateParser(final ExpressionBuilder builder)
+    {
+        this.builder = builder;
+    }
+
     /*
      * Section 2.3: variables
      */
@@ -105,41 +121,64 @@ public class URITemplateParser
      */
     public Rule VarSpec()
     {
-        return  FirstOf(
-            VarNameSubstring(),
-            VarNameExploded(),
-            SimpleVarName()
-        );
+        return  FirstOf(VarNameSubstring(), VarNameExploded(), SimpleVarName());
     }
 
     public Rule Expression()
     {
         return Sequence(
+            // Operator
+            Optional(Operator()),
+            // Variable list
             VarSpec(), ZeroOrMore(',', VarSpec()),
+            // End of input
             EOI
+        );
+    }
+
+    public Rule Operator()
+    {
+        final Var<Character> opchar = new Var<Character>();
+        return Sequence(
+            OPCHAR,
+            opchar.set(matchedChar()),
+            new Action<Object>()
+            {
+                @Override
+                public boolean run(Context<Object> context)
+                {
+                    final Operator operator = Operator.fromChar(opchar.get());
+                    builder.setOperator(operator);
+                    return true;
+                }
+            }
         );
     }
 
     public static void main(final String... args)
     {
         final Scanner scanner = new Scanner(System.in);
-        final URITemplateParser parser
-            = Parboiled.createParser(URITemplateParser.class);
+
+        ExpressionBuilder builder;
+        URITemplateParser parser;
 
         String input;
-        ParsingResult<Object> result;
-        ParseRunner<Object> runner;
+        ParsingResult<Variable> result;
+        ParseRunner<Variable> runner;
 
         try {
             while(true) {
+                builder = new ExpressionBuilder();
+                parser = Parboiled.createParser(URITemplateParser.class,
+                    builder);
                 System.out.print("Enter expression: ");
                 input = scanner.nextLine();
-                runner = new BasicParseRunner<Object>(parser.Expression());
+                runner = new BasicParseRunner<Variable>(parser.Expression());
                 result = runner.run(input);
                 if (!result.matched)
                     break;
-                for (final Object o : result.valueStack)
-                    System.out.println(o);
+                builder.setVariables(result.valueStack);
+                System.out.println(builder);
             }
         } finally {
             scanner.close();
