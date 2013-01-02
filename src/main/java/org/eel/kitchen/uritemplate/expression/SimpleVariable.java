@@ -1,4 +1,4 @@
-package org.eel.kitchen.uritemplate.expression.variable;
+package org.eel.kitchen.uritemplate.expression;
 
 final class SimpleVariable
     extends Variable

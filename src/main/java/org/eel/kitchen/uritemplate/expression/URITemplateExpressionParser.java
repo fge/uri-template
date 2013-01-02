@@ -1,7 +1,5 @@
-package org.eel.kitchen.uritemplate.expression.variable;
+package org.eel.kitchen.uritemplate.expression;
 
-import org.eel.kitchen.uritemplate.expression.ExpressionBuilder;
-import org.eel.kitchen.uritemplate.expression.Operator;
 import org.parboiled.Action;
 import org.parboiled.BaseParser;
 import org.parboiled.Context;
@@ -16,7 +14,7 @@ import org.parboiled.support.Var;
 
 import java.util.Scanner;
 
-class URITemplateParser
+class URITemplateExpressionParser
     extends BaseParser<Variable>
 {
     static final Rule OPCHAR
@@ -24,7 +22,7 @@ class URITemplateParser
 
     private final ExpressionBuilder builder;
 
-    URITemplateParser(final ExpressionBuilder builder)
+    URITemplateExpressionParser(final ExpressionBuilder builder)
     {
         this.builder = builder;
     }
@@ -161,7 +159,7 @@ class URITemplateParser
         final Scanner scanner = new Scanner(System.in);
 
         ExpressionBuilder builder;
-        URITemplateParser parser;
+        URITemplateExpressionParser parser;
 
         String input;
         ParsingResult<Variable> result;
@@ -171,7 +169,7 @@ class URITemplateParser
         try {
             while(true) {
                 builder = new ExpressionBuilder();
-                parser = Parboiled.createParser(URITemplateParser.class,
+                parser = Parboiled.createParser(URITemplateExpressionParser.class,
                     builder);
                 rule = parser.Expression();
                 System.out.print("Enter expression: ");

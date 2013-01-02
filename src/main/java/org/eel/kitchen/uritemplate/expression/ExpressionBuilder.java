@@ -1,12 +1,11 @@
 package org.eel.kitchen.uritemplate.expression;
 
 import com.google.common.collect.Lists;
-import org.eel.kitchen.uritemplate.expression.variable.Variable;
 
 import java.util.Collections;
 import java.util.List;
 
-public final class ExpressionBuilder
+final class ExpressionBuilder
 {
     private Operator operator;
     private List<Variable> variables;

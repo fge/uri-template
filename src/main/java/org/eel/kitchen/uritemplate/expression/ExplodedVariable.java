@@ -1,6 +1,6 @@
-package org.eel.kitchen.uritemplate.expression.variable;
+package org.eel.kitchen.uritemplate.expression;
 
-public final class ExplodedVariable
+final class ExplodedVariable
     extends Variable
 {
     ExplodedVariable(final String name)
