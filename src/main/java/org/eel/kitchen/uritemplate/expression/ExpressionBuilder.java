@@ -8,17 +8,17 @@ import java.util.List;
 final class ExpressionBuilder
 {
     Operator operator;
-    List<Variable> variables;
+    List<VarSpec> varSpecs;
 
     void setOperator(final Operator operator)
     {
         this.operator = operator;
     }
 
-    void setVariables(final Iterable<Variable> iterable)
+    void setVarSpecs(final Iterable<VarSpec> iterable)
     {
-        variables = Lists.newArrayList(iterable);
-        Collections.reverse(variables);
+        varSpecs = Lists.newArrayList(iterable);
+        Collections.reverse(varSpecs);
     }
 
     @Override
@@ -26,7 +26,7 @@ final class ExpressionBuilder
     {
         final StringBuilder sb = new StringBuilder("operator: ");
         sb.append(operator == null ? "(none)" : operator)
-            .append("; variables: ");
-        return sb.append(variables).toString();
+            .append("; varSpecs: ");
+        return sb.append(varSpecs).toString();
     }
 }

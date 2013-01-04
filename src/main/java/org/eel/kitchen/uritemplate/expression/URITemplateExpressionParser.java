@@ -15,7 +15,7 @@ import org.parboiled.support.Var;
 import java.util.Scanner;
 
 class URITemplateExpressionParser
-    extends BaseParser<Variable>
+    extends BaseParser<VarSpec>
 {
     static final Rule OPCHAR
         = new AnyOfMatcher(Characters.of(Operator.validChars()));
@@ -75,29 +75,29 @@ class URITemplateExpressionParser
     /*
      * Variable with no modifiers
      */
-    Rule SimpleVarName()
+    Rule SimpleVarSpec()
     {
-        return Sequence(VarName(), push(new SimpleVariable(match())));
+        return Sequence(VarName(), push(new SimpleVarSpec(match())));
     }
 
     /*
      * Variable with "explode" modifier
      */
-    Rule VarNameExploded()
+    Rule ExplodedVarSpec()
     {
         final Var<String> name = new Var<String>();
         return Sequence(
             VarName(),
             name.set(match()),
             '*',
-            push(new ExplodedVariable(name.get()))
+            push(new ExplodedVarSpec(name.get()))
         );
     }
 
     /*
      * Variable with "substring" modifier
      */
-    Rule VarNameSubstring()
+    Rule SubLenVarSpec()
     {
         final Var<String> name = new Var<String>();
         final Var<Integer> subLength = new Var<Integer>();
@@ -111,7 +111,7 @@ class URITemplateExpressionParser
             ACTION(match().length() <= 5),
             subLength.set(Integer.parseInt(match())),
             ACTION(subLength.get() <= 10000),
-            push(new SubLengthVariable(name.get(), subLength.get()))
+            push(new SubLengthVarSpec(name.get(), subLength.get()))
         );
     }
 
@@ -120,7 +120,7 @@ class URITemplateExpressionParser
      */
     Rule VarSpec()
     {
-        return  FirstOf(VarNameSubstring(), VarNameExploded(), SimpleVarName());
+        return  FirstOf(SubLenVarSpec(), ExplodedVarSpec(), SimpleVarSpec());
     }
 
     Rule Expression()
@@ -162,8 +162,8 @@ class URITemplateExpressionParser
         URITemplateExpressionParser parser;
 
         String input;
-        ParsingResult<Variable> result;
-        ParseRunner<Variable> runner;
+        ParsingResult<VarSpec> result;
+        ParseRunner<VarSpec> runner;
         Rule rule;
 
         try {
@@ -174,11 +174,11 @@ class URITemplateExpressionParser
                 rule = parser.Expression();
                 System.out.print("Enter expression: ");
                 input = scanner.nextLine();
-                runner = new BasicParseRunner<Variable>(rule);
+                runner = new BasicParseRunner<VarSpec>(rule);
                 result = runner.run(input);
                 if (!result.matched)
                     break;
-                builder.setVariables(result.valueStack);
+                builder.setVarSpecs(result.valueStack);
                 System.out.println(builder);
             }
         } finally {

@@ -1,11 +1,11 @@
 package org.eel.kitchen.uritemplate.expression;
 
-final class SubLengthVariable
-    extends Variable
+final class SubLengthVarSpec
+    extends VarSpec
 {
     private final int subLength;
 
-    SubLengthVariable(final String name, final int subLength)
+    SubLengthVarSpec(final String name, final int subLength)
     {
         super(name);
         this.subLength = subLength;

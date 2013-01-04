@@ -1,10 +1,10 @@
 package org.eel.kitchen.uritemplate.expression;
 
-public abstract class Variable
+public abstract class VarSpec
 {
     protected final String name;
 
-    protected Variable(final String name)
+    protected VarSpec(final String name)
     {
         this.name = name;
     }

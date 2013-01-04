@@ -24,11 +24,11 @@ import java.util.List;
 public final class Expression
 {
     final Operator operator;
-    final List<Variable> variables;
+    final List<VarSpec> varSpecs;
 
     Expression(final ExpressionBuilder builder)
     {
         operator = builder.operator;
-        variables = ImmutableList.copyOf(builder.variables);
+        varSpecs = ImmutableList.copyOf(builder.varSpecs);
     }
 }

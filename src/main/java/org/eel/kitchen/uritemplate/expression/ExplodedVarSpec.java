@@ -1,9 +1,9 @@
 package org.eel.kitchen.uritemplate.expression;
 
-final class ExplodedVariable
-    extends Variable
+final class ExplodedVarSpec
+    extends VarSpec
 {
-    ExplodedVariable(final String name)
+    ExplodedVarSpec(final String name)
     {
         super(name);
     }

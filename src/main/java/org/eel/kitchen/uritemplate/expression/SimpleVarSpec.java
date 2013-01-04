@@ -1,9 +1,9 @@
 package org.eel.kitchen.uritemplate.expression;
 
-final class SimpleVariable
-    extends Variable
+final class SimpleVarSpec
+    extends VarSpec
 {
-    SimpleVariable(final String name)
+    SimpleVarSpec(final String name)
     {
         super(name);
     }
