@@ -7,15 +7,15 @@ import java.util.List;
 
 final class ExpressionBuilder
 {
-    private Operator operator;
-    private List<Variable> variables;
+    Operator operator;
+    List<Variable> variables;
 
-    public void setOperator(final Operator operator)
+    void setOperator(final Operator operator)
     {
         this.operator = operator;
     }
 
-    public void setVariables(final Iterable<Variable> iterable)
+    void setVariables(final Iterable<Variable> iterable)
     {
         variables = Lists.newArrayList(iterable);
         Collections.reverse(variables);
