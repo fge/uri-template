@@ -9,13 +9,15 @@ import java.util.List;
 
 public final class URITemplateParser
 {
-    private final List<URITemplateExpression> expressions
-        = Lists.newArrayList();
+    private URITemplateParser()
+    {
+    }
 
-    public void parse(final String input)
+    public static List<URITemplateExpression> parse(final String input)
         throws URITemplateException
     {
-        final CharBuffer buffer = CharBuffer.wrap(input);
+        final CharBuffer buffer = CharBuffer.wrap(input).asReadOnlyBuffer();
+        final List<URITemplateExpression> ret = Lists.newArrayList();
 
         ExpressionParser expressionParser;
         URITemplateExpression expression;
@@ -25,8 +27,10 @@ public final class URITemplateParser
             if (expressionParser == null)
                 throw new URITemplateException();
             expression = expressionParser.parse(buffer);
-            expressions.add(expression);
+            ret.add(expression);
         }
+
+        return ret;
     }
 
     private static ExpressionParser selectParser(final CharBuffer buffer)
