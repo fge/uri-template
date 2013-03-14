@@ -2,7 +2,7 @@ package com.github.fge.uritemplate.parse;
 
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
-import com.github.fge.uritemplate.vars.TemplateVariable;
+import com.github.fge.uritemplate.vars.VariableValue;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
@@ -16,7 +16,7 @@ import static org.testng.Assert.*;
 
 public final class LiteralParsingTest
 {
-    private static final Map<String, TemplateVariable> VARS
+    private static final Map<String, VariableValue> VARS
         = ImmutableMap.of();
 
     @DataProvider
