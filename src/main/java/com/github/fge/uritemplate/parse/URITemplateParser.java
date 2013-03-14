@@ -1,7 +1,7 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.uritemplate.ExceptionMessages;
-import com.github.fge.uritemplate.URITemplateException;
+import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
 import com.google.common.collect.Lists;
 
@@ -15,7 +15,7 @@ public final class URITemplateParser
     }
 
     public static List<URITemplateExpression> parse(final String input)
-        throws URITemplateException
+        throws URITemplateParseException
     {
         final CharBuffer buffer = CharBuffer.wrap(input).asReadOnlyBuffer();
         final List<URITemplateExpression> ret = Lists.newArrayList();
@@ -25,8 +25,6 @@ public final class URITemplateParser
 
         while (buffer.hasRemaining()) {
             expressionParser = selectParser(buffer);
-            if (expressionParser == null)
-                throw new URITemplateException(ExceptionMessages.NO_PARSER);
             expression = expressionParser.parse(buffer);
             ret.add(expression);
         }
@@ -35,8 +33,14 @@ public final class URITemplateParser
     }
 
     private static ExpressionParser selectParser(final CharBuffer buffer)
+        throws URITemplateParseException
     {
         final char c = buffer.charAt(0);
-        return Matchers.LITERALS.matches(c) ? new LiteralParser() : null;
+        final ExpressionParser parser = Matchers.LITERALS.matches(c)
+            ? new LiteralParser() : null;
+        if (parser == null)
+            throw new URITemplateParseException(ExceptionMessages.NO_PARSER,
+                buffer);
+        return parser;
     }
 }

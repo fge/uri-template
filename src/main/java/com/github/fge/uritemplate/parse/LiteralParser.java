@@ -46,15 +46,18 @@ public final class LiteralParser
         throws URITemplateParseException
     {
         if (buffer.remaining() < 2)
-            throw new URITemplateParseException(PERCENT_SHORT_READ, buffer);
+            throw new URITemplateParseException(PERCENT_SHORT_READ, buffer,
+                true);
 
         final char first = buffer.get();
         if (!HEXDIGIT.matches(first))
-            throw new URITemplateParseException(ILLEGAL_PERCENT, buffer);
+            throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
+                true);
 
         final char second = buffer.get();
         if (!HEXDIGIT.matches(second))
-            throw new URITemplateParseException(ILLEGAL_PERCENT, buffer);
+            throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
+                true);
 
         sb.append(first).append(second);
     }
