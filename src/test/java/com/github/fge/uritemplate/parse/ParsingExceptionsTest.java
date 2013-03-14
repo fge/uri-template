@@ -28,6 +28,11 @@ public final class ParsingExceptionsTest
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
+        input = "foo%r";
+        message = ExceptionMessages.PERCENT_SHORT_READ;
+        offset = 3;
+        list.add(new Object[]{input, message, offset});
+
         input = "foo%ra";
         message = ExceptionMessages.ILLEGAL_PERCENT;
         offset = 4;
