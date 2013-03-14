@@ -2,10 +2,10 @@ package com.github.fge.uritemplate.parse;
 
 import com.google.common.base.CharMatcher;
 
-final class Matchers
+public final class Matchers
 {
-    static final CharMatcher LITERALS;
-    static final CharMatcher OPEN_BRACKET = CharMatcher.is('{');
+    public static final CharMatcher LITERALS;
+    public static final CharMatcher OPEN_BRACKET = CharMatcher.is('{');
 
     /*
      * Note: may not be exact... Best effort to match against RFC 6570 section
