@@ -35,6 +35,7 @@ public final class URITemplateParser
 
     private static ExpressionParser selectParser(final CharBuffer buffer)
     {
-        return null;
+        final char c = buffer.charAt(0);
+        return Matchers.LITERALS.matches(c) ? new LiteralParser() : null;
     }
 }
