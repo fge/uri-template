@@ -8,7 +8,7 @@ import java.nio.CharBuffer;
 /*
  * Note: in spite of its name, this also parses literals
  */
-interface ExpressionParser
+public interface ExpressionParser
 {
     /*
      * Rules:
