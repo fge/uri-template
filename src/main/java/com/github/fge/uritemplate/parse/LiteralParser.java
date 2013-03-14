@@ -3,7 +3,6 @@ package com.github.fge.uritemplate.parse;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.TemplateLiteral;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
-import com.google.common.base.CharMatcher;
 
 import java.nio.CharBuffer;
 
@@ -12,13 +11,6 @@ import static com.github.fge.uritemplate.ExceptionMessages.*;
 public final class LiteralParser
     implements ExpressionParser
 {
-    private static final CharMatcher PERCENT = CharMatcher.is('%');
-    private static final CharMatcher HEXDIGIT
-        = CharMatcher.inRange('0', '9')
-            .or(CharMatcher.inRange('a', 'f'))
-            .or(CharMatcher.inRange('A', 'F'))
-            .precomputed();
-
     @Override
     public URITemplateExpression parse(final CharBuffer buffer)
         throws URITemplateParseException
@@ -34,7 +26,7 @@ public final class LiteralParser
             if (!Matchers.LITERALS.matches(c))
                 break;
             sb.append(buffer.get());
-            if (PERCENT.matches(c))
+            if (Matchers.PERCENT.matches(c))
                 parsePercentEncoded(buffer, sb);
         }
 
@@ -50,12 +42,12 @@ public final class LiteralParser
                 true);
 
         final char first = buffer.get();
-        if (!HEXDIGIT.matches(first))
+        if (!Matchers.HEXDIGIT.matches(first))
             throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
                 true);
 
         final char second = buffer.get();
-        if (!HEXDIGIT.matches(second))
+        if (!Matchers.HEXDIGIT.matches(second))
             throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
                 true);
 

@@ -6,6 +6,10 @@ public final class Matchers
 {
     public static final CharMatcher LITERALS;
     public static final CharMatcher OPEN_BRACKET = CharMatcher.is('{');
+    public static final CharMatcher PERCENT = CharMatcher.is('%');
+    public static final CharMatcher HEXDIGIT = CharMatcher.inRange('0', '9')
+        .or(CharMatcher.inRange('a', 'f')).or(CharMatcher.inRange('A', 'F'))
+        .precomputed();
 
     /*
      * Note: may not be exact... Best effort to match against RFC 6570 section
