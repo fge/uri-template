@@ -1,5 +1,6 @@
 package com.github.fge.uritemplate.parse;
 
+import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
 import com.google.common.collect.Lists;
@@ -25,7 +26,7 @@ public final class URITemplateParser
         while (buffer.hasRemaining()) {
             expressionParser = selectParser(buffer);
             if (expressionParser == null)
-                throw new URITemplateException();
+                throw new URITemplateException(ExceptionMessages.NO_PARSER);
             expression = expressionParser.parse(buffer);
             ret.add(expression);
         }
