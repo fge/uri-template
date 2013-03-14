@@ -113,4 +113,12 @@ public final class URITemplateParserTest
             assertEquals(e.getOffset(), offset);
         }
     }
+
+    @Test
+    public void parsingEmptyInputGivesEmptyList()
+        throws URITemplateParseException
+    {
+        final List<URITemplateExpression> list = URITemplateParser.parse("");
+        assertTrue(list.isEmpty());
+    }
 }
