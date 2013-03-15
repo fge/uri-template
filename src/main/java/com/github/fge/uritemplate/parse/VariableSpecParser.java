@@ -1,5 +1,6 @@
 package com.github.fge.uritemplate.parse;
 
+import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.vars.SimpleVariable;
 import com.github.fge.uritemplate.vars.VariableSpec;
@@ -67,7 +68,11 @@ public final class VariableSpecParser
                 parsePercentEncoded(buffer, sb);
         }
 
-        return sb.toString();
+        final String ret = sb.toString();
+        if (ret.isEmpty())
+            throw new URITemplateParseException(ExceptionMessages.EMPTY_NAME,
+                buffer);
+        return ret;
     }
 
     private static void parsePercentEncoded(final CharBuffer buffer,

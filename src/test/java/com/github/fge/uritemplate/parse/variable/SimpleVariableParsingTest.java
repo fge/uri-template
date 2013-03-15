@@ -17,6 +17,7 @@
 
 package com.github.fge.uritemplate.parse.variable;
 
+import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.parse.VariableSpecParser;
 import com.github.fge.uritemplate.vars.VariableSpec;
@@ -28,7 +29,7 @@ import java.nio.CharBuffer;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public final class SimpleVariableParsingTest
 {
@@ -71,5 +72,50 @@ public final class SimpleVariableParsingTest
         final VariableSpec varspec = VariableSpecParser.parse(buffer);
 
         assertEquals(varspec.getName(), input);
+    }
+
+    @DataProvider
+    public Iterator<Object[]> invalidInputs()
+    {
+        final List<Object[]> list = Lists.newArrayList();
+
+        String input;
+        String message;
+        int offset;
+
+        input = "";
+        message = ExceptionMessages.EMPTY_NAME;
+        offset = 0;
+        list.add(new Object[]{input, message, offset});
+
+        input = "%";
+        message = ExceptionMessages.PERCENT_SHORT_READ;
+        offset = 0;
+        list.add(new Object[]{input, message, offset});
+
+        input = "foo..bar";
+        message = ExceptionMessages.EMPTY_NAME;
+        offset = 4;
+        list.add(new Object[]{input, message, offset});
+
+        input = ".";
+        message = ExceptionMessages.EMPTY_NAME;
+        offset = 0;
+        list.add(new Object[]{input, message, offset});
+
+        return list.iterator();
+    }
+
+    @Test(dataProvider = "invalidInputs")
+    public void invalidInputsThrowAppropriateExceptions(final String input,
+        final String message, final int offset)
+    {
+        try {
+            VariableSpecParser.parse(CharBuffer.wrap(input).asReadOnlyBuffer());
+            fail("No exception thrown!!");
+        } catch (URITemplateParseException e) {
+            assertEquals(e.getOriginalMessage(), message);
+            assertEquals(e.getOffset(), offset);
+        }
     }
 }
