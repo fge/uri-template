@@ -3,6 +3,7 @@ package com.github.fge.uritemplate.parse;
 import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 
 import java.nio.CharBuffer;
@@ -17,7 +18,13 @@ public final class URITemplateParser
     public static List<URITemplateExpression> parse(final String input)
         throws URITemplateParseException
     {
-        final CharBuffer buffer = CharBuffer.wrap(input).asReadOnlyBuffer();
+        return parse(CharBuffer.wrap(input).asReadOnlyBuffer());
+    }
+
+    @VisibleForTesting
+    static List<URITemplateExpression> parse(final CharBuffer buffer)
+        throws URITemplateParseException
+    {
         final List<URITemplateExpression> ret = Lists.newArrayList();
 
         ExpressionParser expressionParser;

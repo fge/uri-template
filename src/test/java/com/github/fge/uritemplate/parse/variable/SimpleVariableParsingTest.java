@@ -75,6 +75,7 @@ public final class SimpleVariableParsingTest
         assertEquals(varspec.getName(), input);
         assertSame(varspec.getClass(), SimpleVariable.class,
             "unexpected class for parsed variable");
+        assertFalse(buffer.hasRemaining());
     }
 
     @DataProvider

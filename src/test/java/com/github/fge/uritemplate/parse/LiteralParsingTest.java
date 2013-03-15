@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.nio.CharBuffer;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -63,16 +64,22 @@ public final class LiteralParsingTest
     public void validInputsAreParsedCorrectly(final String input)
         throws URITemplateParseException
     {
-        final List<URITemplateExpression> list = URITemplateParser.parse(input);
+        final CharBuffer buffer = CharBuffer.wrap(input).asReadOnlyBuffer();
+        final List<URITemplateExpression> list
+            = URITemplateParser.parse(buffer);
 
         assertEquals(list.get(0).expand(VARS), input);
+        assertFalse(buffer.hasRemaining());
     }
 
     @Test
     public void parsingEmptyInputGivesEmptyList()
         throws URITemplateParseException
     {
-        final List<URITemplateExpression> list = URITemplateParser.parse("");
+        final CharBuffer buffer = CharBuffer.wrap("").asReadOnlyBuffer();
+        final List<URITemplateExpression> list
+            = URITemplateParser.parse(buffer);
         assertTrue(list.isEmpty());
+        assertFalse(buffer.hasRemaining());
     }
 }

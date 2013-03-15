@@ -75,5 +75,6 @@ public final class ExplodedVariableParsingTest
             input.substring(0, input.length() - 1));
         assertSame(varspec.getClass(), ExplodedVariable.class,
             "unexpected class for parsed variable");
+        assertFalse(buffer.hasRemaining());
     }
 }

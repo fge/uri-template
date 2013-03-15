@@ -76,6 +76,7 @@ public final class PrefixVariableParsingTest
             input.substring(0, input.indexOf(':')));
         assertSame(varspec.getClass(), PrefixVariable.class,
             "unexpected class for parsed variable");
+        assertFalse(buffer.hasRemaining());
     }
 
     @DataProvider
