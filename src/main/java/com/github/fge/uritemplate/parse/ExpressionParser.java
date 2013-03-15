@@ -18,13 +18,55 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.uritemplate.URITemplateParseException;
+import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
+import com.google.common.collect.ImmutableMap;
 
 import java.nio.CharBuffer;
+import java.util.Map;
 
 public final class ExpressionParser
     implements TemplateParser
 {
+    private static final Map<Character, ExpressionType> EXPRESSION_TYPE_MAP;
+
+    static {
+        final ImmutableMap.Builder<Character, ExpressionType> builder
+            = ImmutableMap.builder();
+
+        char c;
+        ExpressionType type;
+
+        c = '+';
+        type = ExpressionType.RESERVED;
+        builder.put(c, type);
+
+        c = '#';
+        type = ExpressionType.FRAGMENT;
+        builder.put(c, type);
+
+        c = '.';
+        type = ExpressionType.NAME_LABELS;
+        builder.put(c, type);
+
+        c = '/';
+        type = ExpressionType.PATH_SEGMENTS;
+        builder.put(c, type);
+
+        c = ';';
+        type = ExpressionType.PATH_PARAMETERS;
+        builder.put(c, type);
+
+        c = '?';
+        type = ExpressionType.QUERY_STRING;
+        builder.put(c, type);
+
+        c = '&';
+        type = ExpressionType.QUERY_CONT;
+        builder.put(c, type);
+
+        EXPRESSION_TYPE_MAP = builder.build();
+    }
     @Override
     public URITemplateExpression parse(final CharBuffer buffer)
         throws URITemplateParseException

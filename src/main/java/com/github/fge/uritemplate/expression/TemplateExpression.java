@@ -18,17 +18,20 @@
 package com.github.fge.uritemplate.expression;
 
 import com.github.fge.uritemplate.vars.VariableSpec;
+import com.github.fge.uritemplate.vars.VariableValue;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 
 import java.util.List;
+import java.util.Map;
 
-public abstract class TemplateExpression
+public final class TemplateExpression
     implements URITemplateExpression
 {
-    protected final ExpressionType expressionType;
-    protected final List<VariableSpec> variableSpecs;
+    private final ExpressionType expressionType;
+    private final List<VariableSpec> variableSpecs;
 
-    protected TemplateExpression(final ExpressionType expressionType,
+    public TemplateExpression(final ExpressionType expressionType,
         final List<VariableSpec> variableSpecs)
     {
         this.expressionType = expressionType;
@@ -38,5 +41,17 @@ public abstract class TemplateExpression
     public ExpressionType getExpressionType()
     {
         return expressionType;
+    }
+
+    @VisibleForTesting
+    public List<VariableSpec> getVariableSpecs()
+    {
+        return variableSpecs;
+    }
+
+    @Override
+    public String expand(final Map<String, VariableValue> vars)
+    {
+        return null;
     }
 }
