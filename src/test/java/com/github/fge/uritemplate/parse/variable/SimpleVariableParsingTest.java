@@ -103,6 +103,16 @@ public final class SimpleVariableParsingTest
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
+        input = "foo%ra";
+        message = ExceptionMessages.ILLEGAL_PERCENT;
+        offset = 4;
+        list.add(new Object[]{input, message, offset});
+
+        input = "foo%ar";
+        message = ExceptionMessages.ILLEGAL_PERCENT;
+        offset = 5;
+        list.add(new Object[]{input, message, offset});
+
         return list.iterator();
     }
 
