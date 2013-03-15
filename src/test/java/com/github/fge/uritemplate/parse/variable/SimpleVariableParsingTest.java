@@ -48,6 +48,12 @@ public final class SimpleVariableParsingTest
         input = "foo%20";
         list.add(new Object[]{ input });
 
+        input = "foo_%20bar";
+        list.add(new Object[]{ input });
+
+        input = "FoOb%02ZAZE287";
+        list.add(new Object[]{ input });
+
         return list.iterator();
     }
 
