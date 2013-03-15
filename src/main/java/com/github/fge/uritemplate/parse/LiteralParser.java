@@ -9,7 +9,7 @@ import java.nio.CharBuffer;
 import static com.github.fge.uritemplate.ExceptionMessages.*;
 
 public final class LiteralParser
-    implements ExpressionParser
+    implements TemplateParser
 {
     @Override
     public URITemplateExpression parse(final CharBuffer buffer)

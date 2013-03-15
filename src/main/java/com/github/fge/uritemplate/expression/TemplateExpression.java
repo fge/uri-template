@@ -17,13 +17,26 @@
 
 package com.github.fge.uritemplate.expression;
 
+import com.github.fge.uritemplate.vars.VariableSpec;
+import com.google.common.collect.ImmutableList;
+
+import java.util.List;
+
 public abstract class TemplateExpression
     implements URITemplateExpression
 {
     protected final ExpressionType expressionType;
+    protected final List<VariableSpec> variableSpecs;
 
-    protected TemplateExpression(final ExpressionType expressionType)
+    protected TemplateExpression(final ExpressionType expressionType,
+        final List<VariableSpec> variableSpecs)
     {
         this.expressionType = expressionType;
+        this.variableSpecs = ImmutableList.copyOf(variableSpecs);
+    }
+
+    public ExpressionType getExpressionType()
+    {
+        return expressionType;
     }
 }

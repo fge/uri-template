@@ -27,23 +27,23 @@ public final class URITemplateParser
     {
         final List<URITemplateExpression> ret = Lists.newArrayList();
 
-        ExpressionParser expressionParser;
+        TemplateParser templateParser;
         URITemplateExpression expression;
 
         while (buffer.hasRemaining()) {
-            expressionParser = selectParser(buffer);
-            expression = expressionParser.parse(buffer);
+            templateParser = selectParser(buffer);
+            expression = templateParser.parse(buffer);
             ret.add(expression);
         }
 
         return ret;
     }
 
-    private static ExpressionParser selectParser(final CharBuffer buffer)
+    private static TemplateParser selectParser(final CharBuffer buffer)
         throws URITemplateParseException
     {
         final char c = buffer.charAt(0);
-        final ExpressionParser parser = Matchers.LITERALS.matches(c)
+        final TemplateParser parser = Matchers.LITERALS.matches(c)
             ? new LiteralParser() : null;
         if (parser == null)
             throw new URITemplateParseException(ExceptionMessages.NO_PARSER,
