@@ -127,7 +127,7 @@ public final class VariableSpecParser
 
         final String s = sb.toString();
         if (s.isEmpty())
-            throw new URITemplateParseException(EMPTY_PREFIX, buffer);
+            throw new URITemplateParseException(EMPTY_PREFIX, buffer, true);
         final int ret;
         try {
             ret = Integer.parseInt(s);

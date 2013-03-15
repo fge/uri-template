@@ -17,6 +17,7 @@
 
 package com.github.fge.uritemplate.parse.variable;
 
+import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.parse.VariableSpecParser;
 import com.github.fge.uritemplate.vars.PrefixVariable;
@@ -75,5 +76,35 @@ public final class PrefixVariableParsingTest
             input.substring(0, input.indexOf(':')));
         assertSame(varspec.getClass(), PrefixVariable.class,
             "unexpected class for parsed variable");
+    }
+
+    @DataProvider
+    public Iterator<Object[]> invalidInputs()
+    {
+        final List<Object[]> list = Lists.newArrayList();
+
+        String input;
+        String message;
+        int offset;
+
+        input = "foo:";
+        message = ExceptionMessages.EMPTY_PREFIX;
+        offset = 3;
+        list.add(new Object[]{input, message, offset});
+
+        return list.iterator();
+    }
+
+    @Test(dataProvider = "invalidInputs")
+    public void illegalInputsRaiseAppropriateExceptions(final String input,
+        final String message, final int offset)
+    {
+        try {
+            VariableSpecParser.parse(CharBuffer.wrap(input).asReadOnlyBuffer());
+            fail("No exception thrown!!");
+        } catch (URITemplateParseException e) {
+            assertEquals(e.getOriginalMessage(), message);
+            assertEquals(e.getOffset(), offset);
+        }
     }
 }
