@@ -2,7 +2,7 @@ package com.github.fge.uritemplate.vars;
 
 public abstract class VariableSpec
 {
-    private final String name;
+    protected final String name;
 
     protected VariableSpec(final String name)
     {
@@ -13,4 +13,13 @@ public abstract class VariableSpec
     {
         return name;
     }
+
+    @Override
+    public abstract int hashCode();
+
+    @Override
+    public abstract boolean equals(final Object obj);
+
+    @Override
+    public abstract String toString();
 }
