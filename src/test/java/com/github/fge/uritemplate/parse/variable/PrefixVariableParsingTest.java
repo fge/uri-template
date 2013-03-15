@@ -92,6 +92,26 @@ public final class PrefixVariableParsingTest
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
+        input = "foo:-1";
+        message = ExceptionMessages.EMPTY_PREFIX;
+        offset = 3;
+        list.add(new Object[]{input, message, offset});
+
+        input = "foo:a";
+        message = ExceptionMessages.EMPTY_PREFIX;
+        offset = 3;
+        list.add(new Object[]{input, message, offset});
+
+        input = "foo:10001";
+        message = ExceptionMessages.PREFIX_TOO_LARGE;
+        offset = 8;
+        list.add(new Object[]{input, message, offset});
+
+        input = "foo:2147483648";
+        message = ExceptionMessages.PREFIX_TOO_LARGE;
+        offset = 13;
+        list.add(new Object[]{input, message, offset});
+
         return list.iterator();
     }
 

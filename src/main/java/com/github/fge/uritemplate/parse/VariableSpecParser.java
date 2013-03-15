@@ -135,7 +135,7 @@ public final class VariableSpecParser
                 throw new NumberFormatException();
             return ret;
         } catch (NumberFormatException ignored) {
-            throw new URITemplateParseException(PREFIX_TOO_LARGE, buffer);
+            throw new URITemplateParseException(PREFIX_TOO_LARGE, buffer, true);
         }
     }
 }
