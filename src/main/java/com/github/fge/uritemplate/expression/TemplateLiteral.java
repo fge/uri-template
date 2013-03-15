@@ -1,6 +1,6 @@
 package com.github.fge.uritemplate.expression;
 
-import com.github.fge.uritemplate.vars.VariableSpec;
+import com.github.fge.uritemplate.vars.VariableValue;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public final class TemplateLiteral
     }
 
     @Override
-    public String expand(final Map<String, VariableSpec> vars)
+    public String expand(final Map<String, VariableValue> vars)
     {
         return literal;
     }

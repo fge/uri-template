@@ -8,4 +8,9 @@ public abstract class VariableSpec
     {
         this.name = name;
     }
+
+    public String getName()
+    {
+        return name;
+    }
 }

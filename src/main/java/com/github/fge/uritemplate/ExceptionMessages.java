@@ -7,6 +7,8 @@ public final class ExceptionMessages
         = "not enough remaining characters for a percent-encoded sequence";
     public static final String ILLEGAL_PERCENT
         = "illegal character in percent-encoded sequence";
+    public static final String EMPTY_NAME = "empty variable name";
+
     private ExceptionMessages()
     {
     }

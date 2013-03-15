@@ -10,13 +10,6 @@ public final class Matchers
     public static final CharMatcher HEXDIGIT = CharMatcher.inRange('0', '9')
         .or(CharMatcher.inRange('a', 'f')).or(CharMatcher.inRange('A', 'F'))
         .precomputed();
-    public static final CharMatcher VARCHAR = CharMatcher.inRange('0', '9')
-        .or(CharMatcher.inRange('a', 'z')).or(CharMatcher.inRange('A', 'Z'))
-        .or(CharMatcher.is('_')).precomputed();
-    public static final CharMatcher DOT = CharMatcher.is('.');
-    public static final CharMatcher VARPREFIX = CharMatcher.is(':');
-    public static final CharMatcher DIGIT = CharMatcher.inRange('0', '9')
-        .precomputed();
 
     /*
      * Note: may not be exact... Best effort to match against RFC 6570 section
