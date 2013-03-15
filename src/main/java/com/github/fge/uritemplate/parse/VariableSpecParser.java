@@ -39,7 +39,7 @@ public final class VariableSpecParser
         if (!buffer.hasRemaining())
             return new SimpleVariable(name);
 
-        final char c = buffer.charAt(1);
+        final char c = buffer.charAt(0);
         if (STAR.matches(c)) {
             buffer.get();
             return new ExplodedVariable(name);
