@@ -1,7 +1,8 @@
 package com.github.fge.uritemplate.parse;
 
-import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
+import com.github.fge.uritemplate.vars.ExplodedVariable;
+import com.github.fge.uritemplate.vars.PrefixVariable;
 import com.github.fge.uritemplate.vars.SimpleVariable;
 import com.github.fge.uritemplate.vars.VariableSpec;
 import com.google.common.base.CharMatcher;
@@ -21,7 +22,8 @@ public final class VariableSpecParser
         .or(CharMatcher.inRange('a', 'z')).or(CharMatcher.inRange('A', 'Z'))
         .or(CharMatcher.is('_')).or(Matchers.PERCENT).precomputed();
     private static final CharMatcher DOT = CharMatcher.is('.');
-    private static final CharMatcher VARPREFIX = CharMatcher.is(':');
+    private static final CharMatcher COLON = CharMatcher.is(':');
+    private static final CharMatcher STAR = CharMatcher.is('*');
     private static final CharMatcher DIGIT = CharMatcher.inRange('0', '9')
         .precomputed();
 
@@ -33,6 +35,21 @@ public final class VariableSpecParser
         throws URITemplateParseException
     {
         final String name = parseFullName(buffer);
+
+        if (!buffer.hasRemaining())
+            return new SimpleVariable(name);
+
+        final char c = buffer.charAt(1);
+        if (STAR.matches(c)) {
+            buffer.get();
+            return new ExplodedVariable(name);
+        }
+
+        if (COLON.matches(c)) {
+            buffer.get();
+            return new PrefixVariable(name, getPrefixLength(buffer));
+        }
+
         return new SimpleVariable(name);
     }
 
@@ -70,8 +87,7 @@ public final class VariableSpecParser
 
         final String ret = sb.toString();
         if (ret.isEmpty())
-            throw new URITemplateParseException(ExceptionMessages.EMPTY_NAME,
-                buffer);
+            throw new URITemplateParseException(EMPTY_NAME, buffer);
         return ret;
     }
 
@@ -94,5 +110,32 @@ public final class VariableSpecParser
                 true);
 
         sb.append(first).append(second);
+    }
+
+    private static int getPrefixLength(final CharBuffer buffer)
+        throws URITemplateParseException
+    {
+        final StringBuilder sb = new StringBuilder();
+
+        char c;
+        while (buffer.hasRemaining()) {
+            c = buffer.charAt(0);
+            if (!DIGIT.matches(c))
+                break;
+            sb.append(buffer.get());
+        }
+
+        final String s = sb.toString();
+        if (s.isEmpty())
+            throw new URITemplateParseException(EMPTY_PREFIX, buffer);
+        final int ret;
+        try {
+            ret = Integer.parseInt(s);
+            if (ret > 10000)
+                throw new NumberFormatException();
+            return ret;
+        } catch (NumberFormatException ignored) {
+            throw new URITemplateParseException(PREFIX_TOO_LARGE, buffer);
+        }
     }
 }
