@@ -4,13 +4,18 @@ import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.vars.SimpleVariable;
 import com.github.fge.uritemplate.vars.VariableSpec;
 import com.google.common.base.CharMatcher;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 
 import java.nio.CharBuffer;
+import java.util.List;
 
 import static com.github.fge.uritemplate.ExceptionMessages.*;
 
 public final class VariableSpecParser
 {
+    private static final Joiner JOINER = Joiner.on('.');
+
     private static final CharMatcher VARCHAR = CharMatcher.inRange('0', '9')
         .or(CharMatcher.inRange('a', 'z')).or(CharMatcher.inRange('A', 'Z'))
         .or(CharMatcher.is('_')).or(Matchers.PERCENT).precomputed();
@@ -26,8 +31,25 @@ public final class VariableSpecParser
     public static VariableSpec parse(final CharBuffer buffer)
         throws URITemplateParseException
     {
-        final String name = readName(buffer);
+        final String name = parseFullName(buffer);
         return new SimpleVariable(name);
+    }
+
+    private static String parseFullName(final CharBuffer buffer)
+        throws URITemplateParseException
+    {
+        final List<String> components = Lists.newArrayList();
+
+        while (true) {
+            components.add(readName(buffer));
+            if (!buffer.hasRemaining())
+                break;
+            if (!DOT.matches(buffer.charAt(0)))
+                break;
+            buffer.get(); // Read the dot
+        }
+
+        return JOINER.join(components);
     }
 
     private static String readName(final CharBuffer buffer)
