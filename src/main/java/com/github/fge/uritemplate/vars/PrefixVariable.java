@@ -7,7 +7,7 @@ public final class PrefixVariable
 
     public PrefixVariable(final String name, final int length)
     {
-        super(name);
+        super(VariableSpecType.PREFIX, name);
         this.length = length;
     }
 

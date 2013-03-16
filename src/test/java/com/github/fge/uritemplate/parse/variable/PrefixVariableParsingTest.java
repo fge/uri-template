@@ -20,8 +20,8 @@ package com.github.fge.uritemplate.parse.variable;
 import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.parse.VariableSpecParser;
-import com.github.fge.uritemplate.vars.PrefixVariable;
 import com.github.fge.uritemplate.vars.VariableSpec;
+import com.github.fge.uritemplate.vars.VariableSpecType;
 import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -74,7 +74,7 @@ public final class PrefixVariableParsingTest
 
         assertEquals(varspec.getName(),
             input.substring(0, input.indexOf(':')));
-        assertSame(varspec.getClass(), PrefixVariable.class,
+        assertSame(varspec.getType(), VariableSpecType.PREFIX,
             "unexpected class for parsed variable");
         assertFalse(buffer.hasRemaining());
     }

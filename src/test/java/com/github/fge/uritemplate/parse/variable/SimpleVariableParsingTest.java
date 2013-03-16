@@ -20,8 +20,8 @@ package com.github.fge.uritemplate.parse.variable;
 import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.parse.VariableSpecParser;
-import com.github.fge.uritemplate.vars.SimpleVariable;
 import com.github.fge.uritemplate.vars.VariableSpec;
+import com.github.fge.uritemplate.vars.VariableSpecType;
 import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -73,7 +73,7 @@ public final class SimpleVariableParsingTest
         final VariableSpec varspec = VariableSpecParser.parse(buffer);
 
         assertEquals(varspec.getName(), input);
-        assertSame(varspec.getClass(), SimpleVariable.class,
+        assertSame(varspec.getType(), VariableSpecType.SIMPLE,
             "unexpected class for parsed variable");
         assertFalse(buffer.hasRemaining());
     }

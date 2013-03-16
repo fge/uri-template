@@ -19,8 +19,8 @@ package com.github.fge.uritemplate.parse.variable;
 
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.parse.VariableSpecParser;
-import com.github.fge.uritemplate.vars.ExplodedVariable;
 import com.github.fge.uritemplate.vars.VariableSpec;
+import com.github.fge.uritemplate.vars.VariableSpecType;
 import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -73,7 +73,7 @@ public final class ExplodedVariableParsingTest
 
         assertEquals(varspec.getName(),
             input.substring(0, input.length() - 1));
-        assertSame(varspec.getClass(), ExplodedVariable.class,
+        assertSame(varspec.getType(), VariableSpecType.EXPLODED,
             "unexpected class for parsed variable");
         assertFalse(buffer.hasRemaining());
     }

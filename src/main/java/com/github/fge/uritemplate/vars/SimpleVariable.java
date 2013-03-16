@@ -5,7 +5,7 @@ public final class SimpleVariable
 {
     public SimpleVariable(final String name)
     {
-        super(name);
+        super(VariableSpecType.SIMPLE, name);
     }
 
     @Override

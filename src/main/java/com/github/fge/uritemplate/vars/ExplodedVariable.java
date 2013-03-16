@@ -5,7 +5,7 @@ public final class ExplodedVariable
 {
     public ExplodedVariable(final String name)
     {
-        super(name);
+        super(VariableSpecType.EXPLODED, name);
     }
 
     @Override
