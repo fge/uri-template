@@ -50,6 +50,17 @@ public final class ExpressionParsingTest
         varspecs = ImmutableList.<VariableSpec>of(new SimpleVariable("foo"));
         list.add(new Object[]{input, type, varspecs});
 
+        input = "{foo,bar}";
+        type = ExpressionType.NONE;
+        varspecs = ImmutableList.<VariableSpec>of(new SimpleVariable("foo"),
+            new SimpleVariable("bar"));
+        list.add(new Object[]{input, type, varspecs});
+
+        input = "{+foo}";
+        type = ExpressionType.RESERVED;
+        varspecs = ImmutableList.<VariableSpec>of(new SimpleVariable("foo"));
+        list.add(new Object[]{input, type, varspecs});
+
         return list.iterator();
     }
 
