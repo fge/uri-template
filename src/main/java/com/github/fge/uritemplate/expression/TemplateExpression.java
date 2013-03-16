@@ -19,7 +19,6 @@ package com.github.fge.uritemplate.expression;
 
 import com.github.fge.uritemplate.vars.VariableSpec;
 import com.github.fge.uritemplate.vars.VariableValue;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 
 import java.util.List;
@@ -38,20 +37,29 @@ public final class TemplateExpression
         this.variableSpecs = ImmutableList.copyOf(variableSpecs);
     }
 
-    public ExpressionType getExpressionType()
-    {
-        return expressionType;
-    }
-
-    @VisibleForTesting
-    public List<VariableSpec> getVariableSpecs()
-    {
-        return variableSpecs;
-    }
-
     @Override
     public String expand(final Map<String, VariableValue> vars)
     {
         return null;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return 31 * expressionType.hashCode() + variableSpecs.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (obj == null)
+            return false;
+        if (this == obj)
+            return true;
+        if (getClass() != obj.getClass())
+            return false;
+        final TemplateExpression other = (TemplateExpression) obj;
+        return expressionType == other.expressionType
+            && variableSpecs.equals(other.variableSpecs);
     }
 }
