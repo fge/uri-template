@@ -11,6 +11,10 @@ public final class ExceptionMessages
     public static final String EMPTY_PREFIX = "prefix is empty";
     public static final String PREFIX_TOO_LARGE
         = "prefix length is too large (maximum 10000)";
+    public static final String UNEXPECTED_EOF = "unexpected end of input: " +
+        "expected a comma or a closing bracket";
+    public static final String UNEXPECTED_TOKEN = "unexpected token: " +
+        "expected a comma or a closing bracket";
     private ExceptionMessages()
     {
     }

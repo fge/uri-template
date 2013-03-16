@@ -19,16 +19,25 @@ package com.github.fge.uritemplate.parse;
 
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.ExpressionType;
+import com.github.fge.uritemplate.expression.TemplateExpression;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
+import com.github.fge.uritemplate.vars.VariableSpec;
+import com.google.common.base.CharMatcher;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 
 import java.nio.CharBuffer;
+import java.util.List;
 import java.util.Map;
+
+import static com.github.fge.uritemplate.ExceptionMessages.*;
 
 public final class ExpressionParser
     implements TemplateParser
 {
     private static final Map<Character, ExpressionType> EXPRESSION_TYPE_MAP;
+    private static final CharMatcher COMMA = CharMatcher.is(',');
+    private static final CharMatcher END_EXPRESSION = CharMatcher.is('}');
 
     static {
         final ImmutableMap.Builder<Character, ExpressionType> builder
@@ -67,10 +76,58 @@ public final class ExpressionParser
 
         EXPRESSION_TYPE_MAP = builder.build();
     }
+
     @Override
     public URITemplateExpression parse(final CharBuffer buffer)
         throws URITemplateParseException
     {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        // Swallow the '{'
+        buffer.get();
+        /*
+         * If the next char is a known expression type, swallow it; otherwise,
+         * select NONE.
+         */
+        ExpressionType type = ExpressionType.NONE;
+        char c = buffer.charAt(0);
+        if (EXPRESSION_TYPE_MAP.containsKey(c))
+            type = EXPRESSION_TYPE_MAP.get(buffer.get());
+
+        /*
+         * Now, swallow varspec by varspec.
+         */
+        final List<VariableSpec> varspecs = Lists.newArrayList();
+
+        while (true) {
+            /*
+             * Swallow one varspec
+             */
+            varspecs.add(VariableSpecParser.parse(buffer));
+            /*
+             * Error if the buffer is empty after that
+             */
+            if (!buffer.hasRemaining())
+                throw new URITemplateParseException(UNEXPECTED_EOF, buffer);
+            /*
+             * Grab next character
+             */
+            c = buffer.get();
+            /*
+             * If it is a comma, swallow next varspec
+             */
+            if (COMMA.matches(c))
+                continue;
+            /*
+             * If it is a closing bracket, we're done
+             */
+            if (END_EXPRESSION.matches(c))
+                break;
+            /*
+             * If we reach this point, this is an error
+             */
+            throw new URITemplateParseException(UNEXPECTED_TOKEN,
+                buffer);
+        }
+
+        return new TemplateExpression(type, varspecs);
     }
 }
