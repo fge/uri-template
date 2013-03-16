@@ -21,6 +21,8 @@ import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.expression.TemplateExpression;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
+import com.github.fge.uritemplate.vars.ExplodedVariable;
+import com.github.fge.uritemplate.vars.PrefixVariable;
 import com.github.fge.uritemplate.vars.SimpleVariable;
 import com.github.fge.uritemplate.vars.VariableSpec;
 import com.google.common.collect.ImmutableList;
@@ -59,6 +61,12 @@ public final class ExpressionParsingTest
         input = "{+foo}";
         type = ExpressionType.RESERVED;
         varspecs = ImmutableList.<VariableSpec>of(new SimpleVariable("foo"));
+        list.add(new Object[]{input, type, varspecs});
+
+        input = "{.foo:10,bar*}";
+        type = ExpressionType.NAME_LABELS;
+        varspecs = ImmutableList.of(new PrefixVariable("foo", 10),
+            new ExplodedVariable("bar"));
         list.add(new Object[]{input, type, varspecs});
 
         return list.iterator();
