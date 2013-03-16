@@ -17,6 +17,7 @@
 
 package com.github.fge.uritemplate.parse;
 
+import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.expression.TemplateExpression;
@@ -87,5 +88,41 @@ public final class ExpressionParsingTest
             = new TemplateExpression(type, varspecs);
 
         assertEquals(actual, expected);
+    }
+
+    @DataProvider
+    public Iterator<Object[]> invalidInputs()
+    {
+        final List<Object[]> list = Lists.newArrayList();
+
+        String input;
+        String message;
+        int offset;
+
+        input = "{foo";
+        message = ExceptionMessages.UNEXPECTED_EOF;
+        offset = 3;
+        list.add(new Object[]{input, message, offset});
+
+        input = "{foo#bar}";
+        message = ExceptionMessages.UNEXPECTED_TOKEN;
+        offset = 4;
+        list.add(new Object[]{input, message, offset});
+
+        return list.iterator();
+    }
+
+    @Test(dataProvider = "invalidInputs")
+    public void invalidInputsRaiseAppropriateExceptions(final String input,
+        final String message, final int offset)
+    {
+        final CharBuffer buffer = CharBuffer.wrap(input).asReadOnlyBuffer();
+        try {
+            new ExpressionParser().parse(buffer);
+            fail("No exception thrown!!");
+        } catch (URITemplateParseException e) {
+            assertEquals(e.getOriginalMessage(), message);
+            assertEquals(e.getOffset(), offset);
+        }
     }
 }

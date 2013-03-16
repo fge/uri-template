@@ -106,7 +106,8 @@ public final class ExpressionParser
              * Error if the buffer is empty after that
              */
             if (!buffer.hasRemaining())
-                throw new URITemplateParseException(UNEXPECTED_EOF, buffer);
+                throw new URITemplateParseException(UNEXPECTED_EOF, buffer,
+                    true);
             /*
              * Grab next character
              */
@@ -124,8 +125,8 @@ public final class ExpressionParser
             /*
              * If we reach this point, this is an error
              */
-            throw new URITemplateParseException(UNEXPECTED_TOKEN,
-                buffer);
+            throw new URITemplateParseException(UNEXPECTED_TOKEN, buffer,
+                true);
         }
 
         return new TemplateExpression(type, varspecs);
