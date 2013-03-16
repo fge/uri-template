@@ -71,8 +71,7 @@ public final class ExplodedVariableParsingTest
         final CharBuffer buffer = CharBuffer.wrap(input).asReadOnlyBuffer();
         final VariableSpec varspec = VariableSpecParser.parse(buffer);
 
-        assertEquals(varspec.getName(),
-            input.substring(0, input.length() - 1));
+        assertEquals(varspec.getName(), input.substring(0, input.length() - 1));
         assertSame(varspec.getType(), VariableSpecType.EXPLODED,
             "unexpected class for parsed variable");
         assertFalse(buffer.hasRemaining());
