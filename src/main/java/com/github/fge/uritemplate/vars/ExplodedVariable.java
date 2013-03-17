@@ -1,11 +1,22 @@
 package com.github.fge.uritemplate.vars;
 
+import com.github.fge.uritemplate.URITemplateException;
+import com.github.fge.uritemplate.expression.URITemplateExpression;
+
 public final class ExplodedVariable
     extends VariableSpec
 {
     public ExplodedVariable(final String name)
     {
         super(VariableSpecType.EXPLODED, name);
+    }
+
+    @Override
+    public String render(final URITemplateExpression expression,
+        final VariableValue value)
+        throws URITemplateException
+    {
+        return null;
     }
 
     @Override

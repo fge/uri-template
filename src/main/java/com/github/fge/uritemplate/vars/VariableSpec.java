@@ -1,5 +1,8 @@
 package com.github.fge.uritemplate.vars;
 
+import com.github.fge.uritemplate.URITemplateException;
+import com.github.fge.uritemplate.expression.URITemplateExpression;
+
 /*
  * TODO: intelligence here
  *
@@ -33,6 +36,10 @@ public abstract class VariableSpec
     {
         return name;
     }
+
+    public abstract String render(final URITemplateExpression expression,
+        VariableValue value)
+        throws URITemplateException;
 
     @Override
     public abstract int hashCode();
