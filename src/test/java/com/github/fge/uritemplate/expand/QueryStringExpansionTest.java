@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public final class QueryStringExpansionTest
-    extends ExpansionTest
+    extends Section3ExpansionTests
 {
     @DataProvider
     @Override

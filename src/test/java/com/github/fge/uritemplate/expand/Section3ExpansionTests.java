@@ -18,29 +18,13 @@
 package com.github.fge.uritemplate.expand;
 
 import com.github.fge.uritemplate.SampleVars;
-import com.github.fge.uritemplate.URITemplate;
-import com.github.fge.uritemplate.URITemplateException;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
-import java.util.Iterator;
-
-import static org.testng.Assert.*;
-
-public abstract class ExpansionTest
+public abstract class Section3ExpansionTests
+    extends AbstractExpansionTest
 {
-    @DataProvider
-    public abstract Iterator<Object[]> getData();
-
-    @Test(dataProvider = "getData")
-    public final void expansionsAreCorrect(final String input,
-        final String expected)
-        throws URITemplateException
+    protected Section3ExpansionTests()
     {
-        final URITemplate template = new URITemplate(input);
-        final String actual = template.expand(SampleVars.get());
-
-        assertEquals(expected, actual, "expansion differs from expectations");
+        vars.putAll(SampleVars.get());
     }
 }
 
