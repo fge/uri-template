@@ -32,6 +32,7 @@ public final class SimpleExpansionTest
     {
         final List<Object[]> list = Lists.newArrayList();
 
+        // Section 3.2.2
         list.add(new Object[]{"{var}", "value"});
         list.add(new Object[]{"{hello}", "Hello%20World%21"});
         list.add(new Object[]{"{half}", "50%25"});

@@ -23,16 +23,25 @@ import java.util.Map;
 public abstract class VariableSpec
 {
     private static final CharMatcher UNRESERVED;
+    private static final CharMatcher RESERVED_PLUS_UNRESERVED;
 
     static {
         /*
-         * Set of unreserved characters as defined by RFC 6570, section 1.5
+         * Charsets defined by RFC 6570, section 1.5
          */
-        final CharMatcher matcher = CharMatcher.inRange('a', 'z')
+        // reserved
+        final CharMatcher reserved = CharMatcher.inRange('a', 'z')
             .or(CharMatcher.inRange('A', 'Z'))
             .or(CharMatcher.inRange('0', '9'))
             .or(CharMatcher.anyOf("-._~"));
-        UNRESERVED = matcher.precomputed();
+        // gen-delims
+        final CharMatcher genDelims = CharMatcher.anyOf(":/?#[]@");
+        // sub-delims
+        final CharMatcher subDelims = CharMatcher.anyOf("!$&'()*+,;=");
+        UNRESERVED = reserved.precomputed();
+        // "reserved" is gen-delims or sub-delims
+        RESERVED_PLUS_UNRESERVED = reserved.or(genDelims).or(subDelims)
+            .precomputed();
     }
 
     protected final VariableSpecType type;
@@ -94,11 +103,11 @@ public abstract class VariableSpec
     protected static String expandString(final ExpressionType type,
         final String s)
     {
-        if (type.isRawExpand())
-            return s;
+        final CharMatcher matcher = type.isRawExpand()
+            ? RESERVED_PLUS_UNRESERVED : UNRESERVED;
         final StringBuilder sb = new StringBuilder(s.length());
         for (final char c: s.toCharArray())
-            if (UNRESERVED.matches(c))
+            if (matcher.matches(c))
                 sb.append(c);
             else
                 sb.append('%').append(Integer.toString(c, 16));
