@@ -4,8 +4,11 @@ import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 import com.google.common.base.CharMatcher;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+
+import static com.github.fge.uritemplate.expression.ExpressionType.*;
 
 /*
  * TODO: intelligence here
@@ -22,6 +25,8 @@ import java.util.Map;
  */
 public abstract class VariableSpec
 {
+    protected static final EnumSet<ExpressionType> PARAM_STYLE_EXPRESSIONS
+        = EnumSet.of(PATH_PARAMETERS, QUERY_STRING, QUERY_CONT);
     private static final CharMatcher UNRESERVED;
     private static final CharMatcher RESERVED_PLUS_UNRESERVED;
 

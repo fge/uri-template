@@ -21,7 +21,13 @@ public final class SimpleVariable
         final String value)
         throws URITemplateException
     {
-        return expandString(type, value);
+        final String s = expandString(type, value);
+        if (!PARAM_STYLE_EXPRESSIONS.contains(type))
+            return s;
+        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        if (!(s.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
+            sb.append('=').append(s);
+        return sb.toString();
     }
 
     @Override
@@ -29,11 +35,19 @@ public final class SimpleVariable
         final List<String> value)
         throws URITemplateException
     {
+        if (value.isEmpty() && !PARAM_STYLE_EXPRESSIONS.contains(type))
+            return null;
         final Joiner joiner = Joiner.on(',');
         final List<String> list = Lists.newArrayList();
         for (final String s: value)
             list.add(expandString(type, s));
-        return joiner.join(list);
+        final String joined = joiner.join(list);
+        if (!PARAM_STYLE_EXPRESSIONS.contains(type))
+            return joined;
+        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        if (!(joined.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
+            sb.append('=').append(joined);
+        return sb.toString();
     }
 
     @Override
@@ -41,7 +55,7 @@ public final class SimpleVariable
         final Map<String, String> map)
         throws URITemplateException
     {
-        if (map.isEmpty())
+        if (map.isEmpty() && !PARAM_STYLE_EXPRESSIONS.contains(type))
             return null;
         final Joiner joiner = Joiner.on(',');
         final List<String> list = Lists.newArrayList();
@@ -49,7 +63,13 @@ public final class SimpleVariable
             list.add(expandString(type, entry.getKey()));
             list.add(expandString(type, entry.getValue()));
         }
-        return joiner.join(list);
+        final String joined = joiner.join(list);
+        if (!PARAM_STYLE_EXPRESSIONS.contains(type))
+            return joined;
+        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        if (!(joined.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
+            sb.append('=').append(joined);
+        return sb.toString();
     }
 
     @Override

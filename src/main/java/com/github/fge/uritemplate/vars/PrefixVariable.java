@@ -26,7 +26,14 @@ public final class PrefixVariable
     {
         final int len = Math.min(value.length(), length);
         final String s = value.substring(0, len);
-        return expandString(type, s);
+        final String expanded = expandString(type, s);
+        if (!PARAM_STYLE_EXPRESSIONS.contains(type))
+            return expanded;
+        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        if (!(expanded.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
+            sb.append('=').append(expanded);
+        return sb.toString();
+
     }
 
     @Override
