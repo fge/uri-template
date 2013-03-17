@@ -20,32 +20,47 @@ package com.github.fge.uritemplate.expression;
 public enum ExpressionType
 {
     // No prefix
-    NONE(false),
+    NONE(false, "", ','),
     // +
-    RESERVED(true),
+    RESERVED(true, "", ','),
     // #
-    FRAGMENT(true),
+    FRAGMENT(true, "#", ','),
     // .
-    NAME_LABELS(false),
+    NAME_LABELS(false, ".", '.'),
     // /
-    PATH_SEGMENTS(false),
+    PATH_SEGMENTS(false, "/", '/'),
     // ;
-    PATH_PARAMETERS(false),
+    PATH_PARAMETERS(false, ";", ';'),
     // ?
-    QUERY_STRING(false),
+    QUERY_STRING(false, "?", '&'),
     // &
-    QUERY_CONT(false),
+    QUERY_CONT(false, "&", '&'),
     ;
 
     private final boolean rawExpand;
+    private final String prefix;
+    private final char separator;
 
-    ExpressionType(final boolean rawExpand)
+    ExpressionType(final boolean rawExpand, final String prefix,
+        final char separator)
     {
         this.rawExpand = rawExpand;
+        this.prefix = prefix;
+        this.separator = separator;
+    }
+
+    public String getPrefix()
+    {
+        return prefix;
     }
 
     public boolean isRawExpand()
     {
         return rawExpand;
+    }
+
+    public char getSeparator()
+    {
+        return separator;
     }
 }

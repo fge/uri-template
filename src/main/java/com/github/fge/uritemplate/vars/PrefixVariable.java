@@ -1,7 +1,7 @@
 package com.github.fge.uritemplate.vars;
 
 import com.github.fge.uritemplate.URITemplateException;
-import com.github.fge.uritemplate.expression.URITemplateExpression;
+import com.github.fge.uritemplate.expression.ExpressionType;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public final class PrefixVariable
 
 
     @Override
-    protected String renderScalar(final URITemplateExpression expression,
+    protected String renderScalar(final ExpressionType type,
         final String value)
         throws URITemplateException
     {
@@ -27,7 +27,7 @@ public final class PrefixVariable
     }
 
     @Override
-    protected String renderList(final URITemplateExpression expression,
+    protected String renderList(final ExpressionType type,
         final List<String> value)
         throws URITemplateException
     {
@@ -35,7 +35,7 @@ public final class PrefixVariable
     }
 
     @Override
-    protected String renderMap(final URITemplateExpression expression,
+    protected String renderMap(final ExpressionType type,
         final Map<String, String> map)
         throws URITemplateException
     {

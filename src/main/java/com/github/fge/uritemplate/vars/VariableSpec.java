@@ -1,7 +1,7 @@
 package com.github.fge.uritemplate.vars;
 
 import com.github.fge.uritemplate.URITemplateException;
-import com.github.fge.uritemplate.expression.URITemplateExpression;
+import com.github.fge.uritemplate.expression.ExpressionType;
 
 import java.util.List;
 import java.util.Map;
@@ -40,31 +40,31 @@ public abstract class VariableSpec
         return name;
     }
 
-    public final String render(final URITemplateExpression expression,
+    public final String render(final ExpressionType type,
         final VariableValue value)
         throws URITemplateException
     {
         switch (value.getType()) {
             case SCALAR:
-                return renderScalar(expression, value.getScalarValue());
+                return renderScalar(type, value.getScalarValue());
             case ARRAY:
-                return renderList(expression, value.getListValue());
+                return renderList(type, value.getListValue());
             case MAP:
-                return renderMap(expression, value.getMapValue());
+                return renderMap(type, value.getMapValue());
         }
 
         throw new RuntimeException("How did I get there?");
     }
 
-    protected abstract String renderScalar(
-        final URITemplateExpression expression, final String value)
+    protected abstract String renderScalar(final ExpressionType type,
+        final String value)
         throws URITemplateException;
 
-    protected abstract String renderList(final URITemplateExpression expression,
+    protected abstract String renderList(final ExpressionType type,
         final List<String> value)
         throws URITemplateException;
 
-    protected abstract String renderMap(final URITemplateExpression expression,
+    protected abstract String renderMap(final ExpressionType type,
         final Map<String, String> map)
         throws URITemplateException;
 
