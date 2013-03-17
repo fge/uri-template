@@ -46,8 +46,8 @@ public final class SimpleExpansionTest
         list.add(new Object[]{"{var:30}", "value"});
         list.add(new Object[]{"{list}", "red,green,blue"});
         list.add(new Object[]{"{list*}", "red,green,blue"});
-        list.add(new Object[]{"{keys}", "semi,%3B,dot,.,comma,%2C"});
-        list.add(new Object[]{"{keys*}", "semi=%3B,dot=.,comma=%2C"});
+        list.add(new Object[]{"{keys}", "semi,%3b,dot,.,comma,%2c"});
+        list.add(new Object[]{"{keys*}", "semi=%3b,dot=.,comma=%2c"});
 
         return list.iterator();
     }
