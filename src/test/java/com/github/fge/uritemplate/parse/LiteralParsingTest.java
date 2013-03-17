@@ -1,5 +1,6 @@
 package com.github.fge.uritemplate.parse;
 
+import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
 import com.github.fge.uritemplate.vars.VariableValue;
@@ -62,7 +63,7 @@ public final class LiteralParsingTest
 
     @Test(dataProvider = "validInputs")
     public void validInputsAreParsedCorrectly(final String input)
-        throws URITemplateParseException
+        throws URITemplateException
     {
         final CharBuffer buffer = CharBuffer.wrap(input).asReadOnlyBuffer();
         final List<URITemplateExpression> list

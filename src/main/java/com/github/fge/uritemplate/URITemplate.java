@@ -35,6 +35,7 @@ public final class URITemplate
     }
 
     public String expand(final Map<String, VariableValue> vars)
+        throws URITemplateException
     {
         final StringBuilder sb = new StringBuilder();
 
