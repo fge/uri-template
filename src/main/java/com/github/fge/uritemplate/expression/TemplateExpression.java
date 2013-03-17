@@ -55,10 +55,16 @@ public final class TemplateExpression
          * variable map, add the rendered string to the list
          */
         String varname;
+        VariableValue value;
+        String rendered;
         for (final VariableSpec varspec: variableSpecs) {
             varname = varspec.getName();
-            if (vars.containsKey(varname))
-                list.add(varspec.render(expressionType, vars.get(varname)));
+            value = vars.get(varname);
+            if (value == null)
+                continue;
+            rendered = varspec.render(expressionType, value);
+            if (rendered != null)
+                list.add(rendered);
         }
 
         /*
@@ -68,8 +74,9 @@ public final class TemplateExpression
         if (list.isEmpty())
             return "";
 
-        return expressionType.getPrefix()
-            + Joiner.on(expressionType.getSeparator()).join(list);
+        final Joiner joiner = Joiner.on(expressionType.getSeparator());
+        final String joined = joiner.join(list);
+        return expressionType.getPrefix() + joined;
     }
 
     @Override

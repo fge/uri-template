@@ -41,6 +41,8 @@ public final class ExplodedVariable
         final Map<String, String> map)
         throws URITemplateException
     {
+        if (map.isEmpty())
+            return null;
         final Joiner joiner = Joiner.on(type.getSeparator());
         final List<String> list = Lists.newArrayList();
         StringBuilder sb;

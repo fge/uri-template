@@ -29,7 +29,7 @@ public final class SimpleVariable
         final List<String> value)
         throws URITemplateException
     {
-        final Joiner joiner = Joiner.on(type.getSeparator());
+        final Joiner joiner = Joiner.on(',');
         final List<String> list = Lists.newArrayList();
         for (final String s: value)
             list.add(expandString(type, s));
@@ -41,7 +41,9 @@ public final class SimpleVariable
         final Map<String, String> map)
         throws URITemplateException
     {
-        final Joiner joiner = Joiner.on(type.getSeparator());
+        if (map.isEmpty())
+            return null;
+        final Joiner joiner = Joiner.on(',');
         final List<String> list = Lists.newArrayList();
         for (final Map.Entry<String, String> entry: map.entrySet()) {
             list.add(expandString(type, entry.getKey()));
