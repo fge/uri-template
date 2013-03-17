@@ -18,22 +18,17 @@
 package com.github.fge.uritemplate.expand;
 
 import com.github.fge.uritemplate.SampleVars;
+import com.github.fge.uritemplate.URITemplate;
 import com.github.fge.uritemplate.URITemplateException;
-import com.github.fge.uritemplate.expression.URITemplateExpression;
-import com.github.fge.uritemplate.parse.ExpressionParser;
-import com.github.fge.uritemplate.parse.TemplateParser;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.nio.CharBuffer;
 import java.util.Iterator;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public abstract class ExpansionTest
 {
-    protected static final TemplateParser PARSER = new ExpressionParser();
-
     @DataProvider
     public abstract Iterator<Object[]> getData();
 
@@ -42,9 +37,8 @@ public abstract class ExpansionTest
         final String expected)
         throws URITemplateException
     {
-        final CharBuffer buffer = CharBuffer.wrap(input).asReadOnlyBuffer();
-        final URITemplateExpression expression = PARSER.parse(buffer);
-        final String actual = expression.expand(SampleVars.get());
+        final URITemplate template = new URITemplate(input);
+        final String actual = template.expand(SampleVars.get());
 
         assertEquals(expected, actual, "expansion differs from expectations");
     }
