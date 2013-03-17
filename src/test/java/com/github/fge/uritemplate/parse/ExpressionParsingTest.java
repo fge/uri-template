@@ -49,12 +49,12 @@ public final class ExpressionParsingTest
         List<VariableSpec> varspecs;
 
         input = "{foo}";
-        type = ExpressionType.NONE;
+        type = ExpressionType.SIMPLE;
         varspecs = ImmutableList.<VariableSpec>of(new SimpleVariable("foo"));
         list.add(new Object[]{input, type, varspecs});
 
         input = "{foo,bar}";
-        type = ExpressionType.NONE;
+        type = ExpressionType.SIMPLE;
         varspecs = ImmutableList.<VariableSpec>of(new SimpleVariable("foo"),
             new SimpleVariable("bar"));
         list.add(new Object[]{input, type, varspecs});

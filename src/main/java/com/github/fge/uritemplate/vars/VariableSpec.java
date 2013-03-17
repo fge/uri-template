@@ -3,6 +3,8 @@ package com.github.fge.uritemplate.vars;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
@@ -76,4 +78,17 @@ public abstract class VariableSpec
 
     @Override
     public abstract String toString();
+
+    protected static String expandString(final ExpressionType type,
+        final String s)
+    {
+        if (type.isRawExpand())
+            return s;
+        try {
+            return new URI(null, s, null).toString();
+        } catch (URISyntaxException ignored) {
+            // cannot happen
+            throw new RuntimeException("How did I get there?");
+        }
+    }
 }

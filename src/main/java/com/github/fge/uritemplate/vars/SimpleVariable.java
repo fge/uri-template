@@ -2,6 +2,8 @@ package com.github.fge.uritemplate.vars;
 
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.ExpressionType;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +21,7 @@ public final class SimpleVariable
         final String value)
         throws URITemplateException
     {
-        return null;
+        return expandString(type, value);
     }
 
     @Override
@@ -27,7 +29,11 @@ public final class SimpleVariable
         final List<String> value)
         throws URITemplateException
     {
-        return null;
+        final Joiner joiner = Joiner.on(type.getSeparator());
+        final List<String> list = Lists.newArrayList();
+        for (final String s: value)
+            list.add(expandString(type, s));
+        return joiner.join(list);
     }
 
     @Override
@@ -35,7 +41,13 @@ public final class SimpleVariable
         final Map<String, String> map)
         throws URITemplateException
     {
-        return null;
+        final Joiner joiner = Joiner.on(type.getSeparator());
+        final List<String> list = Lists.newArrayList();
+        for (final Map.Entry<String, String> entry: map.entrySet()) {
+            list.add(expandString(type, entry.getKey()));
+            list.add(expandString(type, entry.getValue()));
+        }
+        return joiner.join(list);
     }
 
     @Override

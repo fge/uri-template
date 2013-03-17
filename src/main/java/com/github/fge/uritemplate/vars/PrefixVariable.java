@@ -1,5 +1,6 @@
 package com.github.fge.uritemplate.vars;
 
+import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 
@@ -23,7 +24,9 @@ public final class PrefixVariable
         final String value)
         throws URITemplateException
     {
-        return null;
+        final int len = Math.min(value.length(), length);
+        final String s = value.substring(0, len);
+        return expandString(type, s);
     }
 
     @Override
@@ -31,7 +34,7 @@ public final class PrefixVariable
         final List<String> value)
         throws URITemplateException
     {
-        return null;
+        throw new URITemplateException(ExceptionMessages.EXPAND_INCOMPAT);
     }
 
     @Override
@@ -39,7 +42,7 @@ public final class PrefixVariable
         final Map<String, String> map)
         throws URITemplateException
     {
-        return null;
+        throw new URITemplateException(ExceptionMessages.EXPAND_INCOMPAT);
     }
 
     @Override

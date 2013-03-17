@@ -20,7 +20,7 @@ package com.github.fge.uritemplate.expression;
 public enum ExpressionType
 {
     // No prefix
-    NONE(false, "", ','),
+    SIMPLE(false, "", ','),
     // +
     RESERVED(true, "", ','),
     // #

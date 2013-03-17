@@ -2,6 +2,8 @@ package com.github.fge.uritemplate.vars;
 
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.ExpressionType;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +21,7 @@ public final class ExplodedVariable
         final String value)
         throws URITemplateException
     {
-        return null;
+        return expandString(type, value);
     }
 
     @Override
@@ -27,7 +29,11 @@ public final class ExplodedVariable
         final List<String> value)
         throws URITemplateException
     {
-        return null;
+        final Joiner joiner = Joiner.on(type.getSeparator());
+        final List<String> list = Lists.newArrayList();
+        for (final String s: value)
+            list.add(expandString(type, s));
+        return joiner.join(list);
     }
 
     @Override
@@ -35,7 +41,15 @@ public final class ExplodedVariable
         final Map<String, String> map)
         throws URITemplateException
     {
-        return null;
+        final Joiner joiner = Joiner.on(type.getSeparator());
+        final List<String> list = Lists.newArrayList();
+        StringBuilder sb;
+        for (final Map.Entry<String, String> entry: map.entrySet()) {
+            sb = new StringBuilder(expandString(type, entry.getKey()))
+                .append('=').append(expandString(type, entry.getValue()));
+            list.add(sb.toString());
+        }
+        return joiner.join(list);
     }
 
     @Override

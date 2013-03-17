@@ -17,11 +17,12 @@
 
 package com.github.fge.uritemplate.expression;
 
+import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.vars.VariableSpec;
 import com.github.fge.uritemplate.vars.VariableValue;
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.util.List;
 import java.util.Map;
@@ -41,14 +42,34 @@ public final class TemplateExpression
 
     @Override
     public String expand(final Map<String, VariableValue> vars)
+        throws URITemplateException
     {
+        /*
+         * List which will be joined with the expression type's joining
+         * character, yielding the final result
+         */
         final List<String> list = Lists.newArrayList();
-        for (final VariableSpec varspec: variableSpecs)
-            list.add(varspec.getName());
 
-        final Map<String, VariableValue> map = Maps.newLinkedHashMap(vars);
-        map.keySet().retainAll(list);
-        return null;
+        /*
+         * Walk the varspecs list: if the name of the variable exists in the
+         * variable map, add the rendered string to the list
+         */
+        String varname;
+        for (final VariableSpec varspec: variableSpecs) {
+            varname = varspec.getName();
+            if (vars.containsKey(varname))
+                list.add(varspec.render(expressionType, vars.get(varname)));
+        }
+
+        /*
+         * If the list is empty, return the empty string. Otherwise, return the
+         * prefix followed by all joined rendered strings.
+         */
+        if (list.isEmpty())
+            return "";
+
+        return expressionType.getPrefix()
+            + Joiner.on(expressionType.getSeparator()).join(list);
     }
 
     @Override

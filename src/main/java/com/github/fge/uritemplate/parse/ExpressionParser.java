@@ -85,9 +85,9 @@ public final class ExpressionParser
         buffer.get();
         /*
          * If the next char is a known expression type, swallow it; otherwise,
-         * select NONE.
+         * select SIMPLE.
          */
-        ExpressionType type = ExpressionType.NONE;
+        ExpressionType type = ExpressionType.SIMPLE;
         char c = buffer.charAt(0);
         if (EXPRESSION_TYPE_MAP.containsKey(c))
             type = EXPRESSION_TYPE_MAP.get(buffer.get());
