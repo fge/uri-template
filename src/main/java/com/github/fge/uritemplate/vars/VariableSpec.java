@@ -1,5 +1,18 @@
 package com.github.fge.uritemplate.vars;
 
+/*
+ * TODO: intelligence here
+ *
+ * A varspec has all the necessary elements to render according to the needs. It
+ * needs two elements to operate:
+ *
+ * - the type of the value;
+ * - the type of the expression.
+ *
+ * According to its own, internal information, its rendering method (name to be
+ * decided) should be able to return a String to the caller with the appropriate
+ * contents.
+ */
 public abstract class VariableSpec
 {
     protected final VariableSpecType type;

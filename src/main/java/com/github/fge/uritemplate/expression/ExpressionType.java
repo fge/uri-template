@@ -20,19 +20,32 @@ package com.github.fge.uritemplate.expression;
 public enum ExpressionType
 {
     // No prefix
-    NONE,
+    NONE(false),
     // +
-    RESERVED,
+    RESERVED(true),
     // #
-    FRAGMENT,
+    FRAGMENT(true),
     // .
-    NAME_LABELS,
+    NAME_LABELS(false),
     // /
-    PATH_SEGMENTS,
+    PATH_SEGMENTS(false),
     // ;
-    PATH_PARAMETERS,
+    PATH_PARAMETERS(false),
     // ?
-    QUERY_STRING,
+    QUERY_STRING(false),
     // &
-    QUERY_CONT,
+    QUERY_CONT(false),
+    ;
+
+    private final boolean rawExpand;
+
+    ExpressionType(final boolean rawExpand)
+    {
+        this.rawExpand = rawExpand;
+    }
+
+    public boolean isRawExpand()
+    {
+        return rawExpand;
+    }
 }

@@ -20,6 +20,8 @@ package com.github.fge.uritemplate.expression;
 import com.github.fge.uritemplate.vars.VariableSpec;
 import com.github.fge.uritemplate.vars.VariableValue;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import java.util.List;
 import java.util.Map;
@@ -40,6 +42,12 @@ public final class TemplateExpression
     @Override
     public String expand(final Map<String, VariableValue> vars)
     {
+        final List<String> list = Lists.newArrayList();
+        for (final VariableSpec varspec: variableSpecs)
+            list.add(varspec.getName());
+
+        final Map<String, VariableValue> map = Maps.newLinkedHashMap(vars);
+        map.keySet().retainAll(list);
         return null;
     }
 
