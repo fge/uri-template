@@ -21,7 +21,13 @@ public final class ExplodedVariable
         final String value)
         throws URITemplateException
     {
-        return expandString(type, value);
+        final String s = expandString(type, value);
+        if (!PARAM_STYLE_EXPRESSIONS.contains(type))
+            return s;
+        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        if (!(s.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
+            sb.append('=').append(s);
+        return sb.toString();
     }
 
     @Override
@@ -33,7 +39,18 @@ public final class ExplodedVariable
         final List<String> list = Lists.newArrayList();
         for (final String s: value)
             list.add(expandString(type, s));
-        return joiner.join(list);
+        if (!PARAM_STYLE_EXPRESSIONS.contains(type))
+            return joiner.join(list);
+        final List<String> newList = Lists.newArrayList();
+        final String prefix = expandString(type, name);
+        StringBuilder sb;
+        for (final String s: list) {
+            sb = new StringBuilder(prefix);
+            if (!(s.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
+                sb.append('=').append(s);
+            newList.add(sb.toString());
+        }
+        return joiner.join(newList);
     }
 
     @Override
@@ -41,7 +58,7 @@ public final class ExplodedVariable
         final Map<String, String> map)
         throws URITemplateException
     {
-        if (map.isEmpty())
+        if (map.isEmpty() && !PARAM_STYLE_EXPRESSIONS.contains(type))
             return null;
         final Joiner joiner = Joiner.on(type.getSeparator());
         final List<String> list = Lists.newArrayList();
