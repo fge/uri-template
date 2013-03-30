@@ -48,6 +48,11 @@ public final class ParsingExceptionsTest
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
+        input = "foo{";
+        message = ExceptionMessages.UNEXPECTED_EOF;
+        offset = 3;
+        list.add(new Object[]{input, message, offset});
+
         return list.iterator();
     }
 

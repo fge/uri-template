@@ -83,6 +83,14 @@ public final class ExpressionParser
     {
         // Swallow the '{'
         buffer.get();
+
+        /*
+         * Error if the buffer is empty after that
+         */
+        if (!buffer.hasRemaining())
+            throw new URITemplateParseException(UNEXPECTED_EOF, buffer,
+                true);
+
         /*
          * If the next char is a known expression type, swallow it; otherwise,
          * select SIMPLE.
