@@ -1,0 +1,109 @@
+/*
+ * Copyright (c) 2013, Francis Galiegue <fgaliegue@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the Lesser GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * Lesser GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package com.github.fge.uritemplate;
+
+import com.beust.jcommander.internal.Lists;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.uritemplate.vars.ListValue;
+import com.github.fge.uritemplate.vars.MapValue;
+import com.github.fge.uritemplate.vars.ScalarValue;
+import com.github.fge.uritemplate.vars.VariableValue;
+import com.google.common.collect.Maps;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.testng.Assert.*;
+
+public final class NegativeTests
+{
+    private JsonNode data;
+    private final Map<String, VariableValue> vars = Maps.newHashMap();
+
+    @BeforeClass
+    public void initData()
+        throws IOException
+    {
+        final String resourceName = "/negative-tests.json";
+        data = new ObjectMapper()
+            .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+            .readTree(NegativeTests.class.getResourceAsStream(resourceName));
+        final JsonNode node = data.get("Failure Tests").get("variables");
+        final Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();
+        Map.Entry<String, JsonNode> entry;
+        while (iterator.hasNext()) {
+            entry = iterator.next();
+            vars.put(entry.getKey(), valueOf(entry.getValue()));
+        }
+    }
+
+    @DataProvider
+    public Iterator<Object[]> getData()
+    {
+        final JsonNode node = data.get("Failure Tests").get("testcases");
+        final List<Object[]> list = Lists.newArrayList();
+
+        for (final JsonNode element: node)
+            list.add(new Object[] { element.get(0).textValue() });
+
+        return list.iterator();
+    }
+
+    @Test(dataProvider = "getData")
+    public void illegalTemplatesAreMarkedAsSuch(final String input)
+    {
+        try {
+            new URITemplate(input).expand(vars);
+            fail("No exception thrown!!");
+        } catch (URITemplateParseException ignored) {
+        } catch (URITemplateException ignored) {
+        }
+    }
+
+    private static VariableValue valueOf(final JsonNode node)
+    {
+        if (node.isTextual())
+            return new ScalarValue(node.textValue());
+        if (node.isArray()) {
+            final List<String> list = Lists.newArrayList();
+            for (final JsonNode element: node)
+                list.add(element.textValue());
+            return new ListValue(list);
+        }
+        if (node.isObject()) {
+            final Map<String, String> map = Maps.newHashMap();
+            final Iterator<Map.Entry<String, JsonNode>> iterator
+                = node.fields();
+            Map.Entry<String, JsonNode> entry;
+            while (iterator.hasNext()) {
+                entry = iterator.next();
+                map.put(entry.getKey(), entry.getValue().textValue());
+            }
+            return new MapValue(map);
+        }
+        throw new RuntimeException("cannot bind JSON to variable value");
+    }
+}
+
