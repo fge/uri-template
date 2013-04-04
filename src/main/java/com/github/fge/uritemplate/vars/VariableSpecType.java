@@ -21,5 +21,5 @@ public enum VariableSpecType
 {
     SIMPLE,
     PREFIX,
-    EXPLODED;
+    EXPLODED
 }
