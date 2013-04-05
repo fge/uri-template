@@ -24,7 +24,7 @@ public final class ExplodedVariable
         final String s = expandString(type, value);
         if (!PARAM_STYLE_EXPRESSIONS.contains(type))
             return s;
-        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        final StringBuilder sb = new StringBuilder(name);
         if (!(s.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
             sb.append('=').append(s);
         return sb.toString();
@@ -42,10 +42,9 @@ public final class ExplodedVariable
         if (!PARAM_STYLE_EXPRESSIONS.contains(type))
             return joiner.join(list);
         final List<String> newList = Lists.newArrayList();
-        final String prefix = expandString(type, name);
         StringBuilder sb;
         for (final String s: list) {
-            sb = new StringBuilder(prefix);
+            sb = new StringBuilder(name);
             if (!(s.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
                 sb.append('=').append(s);
             newList.add(sb.toString());

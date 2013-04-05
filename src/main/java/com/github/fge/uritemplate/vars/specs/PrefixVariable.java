@@ -29,7 +29,7 @@ public final class PrefixVariable
         final String expanded = expandString(type, s);
         if (!PARAM_STYLE_EXPRESSIONS.contains(type))
             return expanded;
-        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        final StringBuilder sb = new StringBuilder(name);
         if (!(expanded.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
             sb.append('=').append(expanded);
         return sb.toString();

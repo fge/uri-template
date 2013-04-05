@@ -24,7 +24,7 @@ public final class SimpleVariable
         final String s = expandString(type, value);
         if (!PARAM_STYLE_EXPRESSIONS.contains(type))
             return s;
-        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        final StringBuilder sb = new StringBuilder(name);
         if (!(s.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
             sb.append('=').append(s);
         return sb.toString();
@@ -44,7 +44,7 @@ public final class SimpleVariable
         final String joined = joiner.join(list);
         if (!PARAM_STYLE_EXPRESSIONS.contains(type))
             return joined;
-        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        final StringBuilder sb = new StringBuilder(name);
         if (!(joined.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
             sb.append('=').append(joined);
         return sb.toString();
@@ -66,7 +66,7 @@ public final class SimpleVariable
         final String joined = joiner.join(list);
         if (!PARAM_STYLE_EXPRESSIONS.contains(type))
             return joined;
-        final StringBuilder sb = new StringBuilder(expandString(type, name));
+        final StringBuilder sb = new StringBuilder(name);
         if (!(joined.isEmpty() && type == ExpressionType.PATH_PARAMETERS))
             sb.append('=').append(joined);
         return sb.toString();
