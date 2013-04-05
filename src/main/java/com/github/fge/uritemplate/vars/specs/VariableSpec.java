@@ -4,7 +4,9 @@ import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.base.CharMatcher;
+import com.google.common.primitives.UnsignedBytes;
 
+import java.nio.charset.Charset;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -113,10 +115,17 @@ public abstract class VariableSpec
             ? RESERVED_PLUS_UNRESERVED : UNRESERVED;
         final StringBuilder sb = new StringBuilder(s.length());
         for (final char c: s.toCharArray())
-            if (matcher.matches(c))
-                sb.append(c);
-            else
-                sb.append('%').append(Integer.toString(c, 16));
+            sb.append(matcher.matches(c) ? c : pctEncode(c));
+        return sb.toString();
+    }
+
+    private static String pctEncode(final char c)
+    {
+        final String tmp = new String(new char[] { c });
+        final byte[] bytes = tmp.getBytes(Charset.forName("UTF-8"));
+        final StringBuilder sb = new StringBuilder();
+        for (final byte b: bytes)
+            sb.append('%').append(UnsignedBytes.toString(b, 16));
         return sb.toString();
     }
 }
