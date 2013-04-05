@@ -19,7 +19,7 @@ package com.github.fge.uritemplate.expand;
 
 import com.github.fge.uritemplate.URITemplate;
 import com.github.fge.uritemplate.URITemplateException;
-import com.github.fge.uritemplate.vars.VariableValue;
+import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.collect.Maps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

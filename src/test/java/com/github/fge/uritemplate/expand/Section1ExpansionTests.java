@@ -17,9 +17,9 @@
 
 package com.github.fge.uritemplate.expand;
 
-import com.github.fge.uritemplate.vars.ListValue;
-import com.github.fge.uritemplate.vars.MapValue;
-import com.github.fge.uritemplate.vars.ScalarValue;
+import com.github.fge.uritemplate.vars.values.ListValue;
+import com.github.fge.uritemplate.vars.values.MapValue;
+import com.github.fge.uritemplate.vars.values.ScalarValue;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;

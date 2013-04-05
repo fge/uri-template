@@ -19,8 +19,8 @@ package com.github.fge.uritemplate.parse.variable;
 
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.parse.VariableSpecParser;
-import com.github.fge.uritemplate.vars.VariableSpec;
-import com.github.fge.uritemplate.vars.VariableSpecType;
+import com.github.fge.uritemplate.vars.specs.VariableSpec;
+import com.github.fge.uritemplate.vars.specs.VariableSpecType;
 import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

@@ -15,25 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.fge.uritemplate.vars;
+package com.github.fge.uritemplate.vars.values;
 
-import com.google.common.collect.ImmutableList;
-
-import java.util.List;
-
-public final class ListValue
+public final class ScalarValue
     extends VariableValue
 {
-    private final List<String> value;
+    private final String value;
 
-    public ListValue(final List<String> value)
+    public ScalarValue(final String value)
     {
-        super(ValueType.ARRAY);
-        this.value = ImmutableList.copyOf(value);
+        super(ValueType.SCALAR);
+        this.value = value;
     }
 
     @Override
-    public List<String> getListValue()
+    public String getScalarValue()
     {
         return value;
     }

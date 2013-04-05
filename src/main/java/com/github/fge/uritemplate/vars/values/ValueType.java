@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.fge.uritemplate.vars;
+package com.github.fge.uritemplate.vars.values;
 
 public enum ValueType
 {

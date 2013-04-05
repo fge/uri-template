@@ -1,10 +1,10 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.uritemplate.URITemplateParseException;
-import com.github.fge.uritemplate.vars.ExplodedVariable;
-import com.github.fge.uritemplate.vars.PrefixVariable;
-import com.github.fge.uritemplate.vars.SimpleVariable;
-import com.github.fge.uritemplate.vars.VariableSpec;
+import com.github.fge.uritemplate.vars.specs.ExplodedVariable;
+import com.github.fge.uritemplate.vars.specs.PrefixVariable;
+import com.github.fge.uritemplate.vars.specs.SimpleVariable;
+import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;

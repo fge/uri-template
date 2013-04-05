@@ -15,22 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.fge.uritemplate.vars;
+package com.github.fge.uritemplate.vars.specs;
 
-public final class ScalarValue
-    extends VariableValue
+public enum VariableSpecType
 {
-    private final String value;
-
-    public ScalarValue(final String value)
-    {
-        super(ValueType.SCALAR);
-        this.value = value;
-    }
-
-    @Override
-    public String getScalarValue()
-    {
-        return value;
-    }
+    SIMPLE,
+    PREFIX,
+    EXPLODED
 }

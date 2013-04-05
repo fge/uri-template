@@ -19,7 +19,7 @@ package com.github.fge.uritemplate;
 
 import com.github.fge.uritemplate.expression.URITemplateExpression;
 import com.github.fge.uritemplate.parse.URITemplateParser;
-import com.github.fge.uritemplate.vars.VariableValue;
+import com.github.fge.uritemplate.vars.values.VariableValue;
 
 import java.util.List;
 import java.util.Map;

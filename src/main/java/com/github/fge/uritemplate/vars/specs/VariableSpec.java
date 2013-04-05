@@ -1,7 +1,8 @@
-package com.github.fge.uritemplate.vars;
+package com.github.fge.uritemplate.vars.specs;
 
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.ExpressionType;
+import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.base.CharMatcher;
 
 import java.util.EnumSet;

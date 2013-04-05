@@ -18,8 +18,8 @@
 package com.github.fge.uritemplate.expression;
 
 import com.github.fge.uritemplate.URITemplateException;
-import com.github.fge.uritemplate.vars.VariableSpec;
-import com.github.fge.uritemplate.vars.VariableValue;
+import com.github.fge.uritemplate.vars.specs.VariableSpec;
+import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;

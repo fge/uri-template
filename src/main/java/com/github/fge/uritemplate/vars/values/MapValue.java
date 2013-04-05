@@ -15,11 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.fge.uritemplate.vars;
+package com.github.fge.uritemplate.vars.values;
 
-public enum VariableSpecType
+import com.google.common.collect.ImmutableMap;
+
+import java.util.Map;
+
+public final class MapValue
+    extends VariableValue
 {
-    SIMPLE,
-    PREFIX,
-    EXPLODED
+    private final Map<String, String> value;
+
+    public MapValue(final Map<String, String> value)
+    {
+        super(ValueType.MAP);
+        this.value = ImmutableMap.copyOf(value);
+    }
+
+    @Override
+    public Map<String, String> getMapValue()
+    {
+        return value;
+    }
 }

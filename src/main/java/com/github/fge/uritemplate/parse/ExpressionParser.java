@@ -21,7 +21,7 @@ import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.expression.TemplateExpression;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
-import com.github.fge.uritemplate.vars.VariableSpec;
+import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.google.common.base.CharMatcher;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;

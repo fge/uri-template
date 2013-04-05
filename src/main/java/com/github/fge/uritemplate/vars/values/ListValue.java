@@ -15,25 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.fge.uritemplate.vars;
+package com.github.fge.uritemplate.vars.values;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 
-import java.util.Map;
+import java.util.List;
 
-public final class MapValue
+public final class ListValue
     extends VariableValue
 {
-    private final Map<String, String> value;
+    private final List<String> value;
 
-    public MapValue(final Map<String, String> value)
+    public ListValue(final List<String> value)
     {
-        super(ValueType.MAP);
-        this.value = ImmutableMap.copyOf(value);
+        super(ValueType.ARRAY);
+        this.value = ImmutableList.copyOf(value);
     }
 
     @Override
-    public Map<String, String> getMapValue()
+    public List<String> getListValue()
     {
         return value;
     }

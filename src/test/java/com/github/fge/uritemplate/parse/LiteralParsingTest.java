@@ -3,7 +3,7 @@ package com.github.fge.uritemplate.parse;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
-import com.github.fge.uritemplate.vars.VariableValue;
+import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;

@@ -1,4 +1,4 @@
-package com.github.fge.uritemplate.vars;
+package com.github.fge.uritemplate.vars.values;
 
 import java.util.List;
 import java.util.Map;

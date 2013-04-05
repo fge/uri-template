@@ -17,10 +17,10 @@
 
 package com.github.fge.uritemplate;
 
-import com.github.fge.uritemplate.vars.ListValue;
-import com.github.fge.uritemplate.vars.MapValue;
-import com.github.fge.uritemplate.vars.ScalarValue;
-import com.github.fge.uritemplate.vars.VariableValue;
+import com.github.fge.uritemplate.vars.values.ListValue;
+import com.github.fge.uritemplate.vars.values.MapValue;
+import com.github.fge.uritemplate.vars.values.ScalarValue;
+import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 

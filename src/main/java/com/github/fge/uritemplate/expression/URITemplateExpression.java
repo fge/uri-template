@@ -1,7 +1,7 @@
 package com.github.fge.uritemplate.expression;
 
 import com.github.fge.uritemplate.URITemplateException;
-import com.github.fge.uritemplate.vars.VariableValue;
+import com.github.fge.uritemplate.vars.values.VariableValue;
 
 import java.util.Map;
 
