@@ -61,7 +61,7 @@ public abstract class VariableSpec
         this.name = name;
     }
 
-    public VariableSpecType getType()
+    public final VariableSpecType getType()
     {
         return type;
     }
