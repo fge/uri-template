@@ -62,6 +62,8 @@ public final class ExtendedTestsTest
         Map.Entry<String, JsonNode> entry;
 
         for (final JsonNode node: data) { // Cycle through values
+            if (node.path("disabled").asBoolean(false))
+                continue;
             vars = Maps.newHashMap();
             iterator = node.get("variables").fields();
             while (iterator.hasNext()) {
