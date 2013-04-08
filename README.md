@@ -10,7 +10,7 @@ text.</p>
 
 <h2>Versions</h2>
 
-<p>The project is still under development. The current version is <b>0.2</b>.
+<p>The project is still under development. The current version is <b>0.3</b>.
 
 <h2>Status</h2>
 
