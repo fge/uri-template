@@ -14,8 +14,23 @@ text.</p>
 
 <h2>Status</h2>
 
-<p>Tests are all extracted from the text of the RFC. All tests pass. This means even at this early
-stage, you can use this library for your URI template needs.</p>
+<p>Existing tests for this implementation are based on two sources:</p>
+
+<ul>
+    <li>the RFC itself;</li>
+    <li>the <a href="https://github.com/dret/uritemplate-test">uritemplate-test</a> testuite.</li>
+</ul>
+
+<p>All tests from the RFC itself pass. However, with regards to the second source, tests involving
+empty lists and/or empty associative arrays do not pass -- that is, not all of them.</p>
+
+<p>The reason is that some of these tests cover a gray area of the RFC; in some situations, empty
+lists/associative array expansions are not clearly defined. Currently, the implementation acts in
+such a way that it does not agree with the aforementioned source.</p>
+
+<p>As a consequence, further clarification is needed (in the shape of an errata) with regards to
+empty lists/associative arrays. When such an errata is available, this implementation will comply to
+it.</p>
 
 <p>See below for a sample code usage.</p>
 
