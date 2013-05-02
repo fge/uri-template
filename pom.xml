@@ -21,7 +21,7 @@
     <artifactId>uri-template</artifactId>
     <name>uri-template</name>
     <version>0.4-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <description>A Java implementation of the URI Template RFC (RFC 6570)</description>
     <url>https://github.com/fge/uri-template</url>
     <build>
@@ -68,7 +68,13 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+					<plugin>
+						<groupId>org.apache.felix</groupId>
+						<artifactId>maven-bundle-plugin</artifactId>
+						<extensions>true</extensions>
+						<version>2.3.7</version>
+					</plugin>
+				</plugins>
     </build>
     <dependencies>
         <dependency>
