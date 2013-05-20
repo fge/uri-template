@@ -7,9 +7,20 @@
     "tests": {
         "{var}": "value",
         "{+var}": "value",
+        "{.var}": ".value",
+        "{/var}": "/value",
+        "{;var}": ";var=value",
+        "{?var}": "?var=value",
+        "{&var}": "&var=value",
+        "{#var}": "#value",
         "{hello}": "Hello%20World%21",
         "{+hello}": "Hello%20World!",
-        "X{undef}": "X",
+        "{.hello}": ".Hello%20World%21",
+        "{/hello}": "/Hello%20World%21",
+        "{;hello}": ";hello=Hello%20World%21",
+        "{?hello}": "?hello=Hello%20World%21",
+        "{&hello}": "&hello=Hello%20World%21",
+        "{#hello}": "#Hello%20World!",
         "{empty}": "",
         "{+empty}": "",
         "{.empty}": ".",
@@ -17,6 +28,14 @@
         "{;empty}": ";empty",
         "{?empty}": "?empty=",
         "{&empty}": "&empty=",
-        "{#empty}": "#"
+        "{#empty}": "#",
+        "{undef}": "",
+        "{+undef}": "",
+        "{.undef}": ".",
+        "{/undef}": "/",
+        "{;undef}": ";",
+        "{?undef}": "?",
+        "{&undef}": "&",
+        "{#undef}": "#"
     }
 }
