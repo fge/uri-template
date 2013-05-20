@@ -2,6 +2,7 @@
     "vars": {
         "list1": [ "one", "two", "three" ],
         "list2": [ "Hello", "World!" ],
+        "list3": [ "one", "", "three" ],
         "empty": []
     },
     "tests": {
@@ -21,6 +22,14 @@
         "{?list2}": "?list2=Hello,World%21",
         "{&list2}": "&list2=Hello,World%21",
         "{#list2}": "#Hello,World!",
+        "{list3}": "one,,three",
+        "{+list3}": "one,,three",
+        "{.list3}": ".one,,three",
+        "{/list3}": "/one,,three",
+        "{;list3}": ";list3=one,,three",
+        "{?list3}": "?list3=one,,three",
+        "{&list3}": "&list3=one,,three",
+        "{#list3}": "#one,,three",
         "{empty}": "",
         "{+empty}": "",
         "{.empty}": ".",
