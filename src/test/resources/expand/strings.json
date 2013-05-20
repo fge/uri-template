@@ -1,12 +1,22 @@
 {
     "vars": {
         "var": "value",
-        "hello": "Hello World!"
+        "hello": "Hello World!",
+        "empty": ""
     },
     "tests": {
         "{var}": "value",
-        "{hello}": "Hello%20World%21",
         "{+var}": "value",
-        "{+hello}": "Hello%20World!"
+        "{hello}": "Hello%20World%21",
+        "{+hello}": "Hello%20World!",
+        "X{undef}": "X",
+        "{empty}": "",
+        "{+empty}": "",
+        "{.empty}": ".",
+        "{/empty}": "/",
+        "{;empty}": ";empty",
+        "{?empty}": "?empty=",
+        "{&empty}": "&empty=",
+        "{#empty}": "#"
     }
 }
