@@ -35,6 +35,8 @@ import java.util.Map;
 public final class TemplateExpression
     implements URITemplateExpression
 {
+    private static final Joiner COMMA = Joiner.on(',');
+
     private final ExpressionType expressionType;
     private final List<VariableSpec> variableSpecs;
 
@@ -112,8 +114,13 @@ public final class TemplateExpression
             // No such variable: continue
             if (value == null)
                 continue;
-            if (value.getType() == ValueType.SCALAR)
+            if (value.getType() == ValueType.SCALAR) {
                 expansions.add(expandString(varspec, value.getScalarValue()));
+                continue;
+            }
+            expansions.add(varspec.isExploded()
+                ? expandExplode(varspec.getName(), value)
+                : expandNormal(varspec.getName(), value));
         }
 
         final Joiner joiner = Joiner.on(expressionType.separator);
@@ -161,6 +168,102 @@ public final class TemplateExpression
             : value.substring(0, Math.min(len, prefixLen));
         ret += pctEncode(val);
         return ret;
+    }
+
+    /*
+     * Expand a list or map if no explode modifier
+     */
+    private String expandNormal(final String name,  final VariableValue value)
+    {
+        final StringBuilder sb = new StringBuilder();
+
+        if (expressionType.named) {
+            sb.append(name);
+            if (value.isEmpty())
+                return sb.append(expressionType.ifEmpty).toString();
+            sb.append('=');
+        }
+
+        final List<String> list = Lists.newArrayList();
+
+        if (value.getType() == ValueType.ARRAY)
+            for (final String s: value.getListValue())
+                list.add(pctEncode(s));
+        else // map
+            for (final Map.Entry<String, String> entry:
+                value.getMapValue().entrySet()) {
+                list.add(pctEncode(entry.getKey()));
+                list.add(pctEncode(entry.getValue()));
+            }
+
+        COMMA.appendTo(sb, list);
+        return sb.toString();
+    }
+
+    /*
+     * Expand a list or map if an explode modifier is given
+     */
+    private String expandExplode(final String name, final VariableValue value)
+    {
+        return expressionType.named ? expandNamed(name, value)
+            : expandUnnamed(name, value);
+    }
+
+    /*
+     * On explode: expand if the template type is named
+     */
+    private String expandNamed(final String name, final VariableValue value)
+    {
+        final Joiner joiner = Joiner.on(expressionType.separator);
+        final List<String> elements = Lists.newArrayList();
+
+        StringBuilder element;
+
+        if (value.getType() == ValueType.ARRAY) {
+            for (final String s: value.getListValue()) {
+                element = new StringBuilder(name);
+                if (s.isEmpty())
+                    element.append(expressionType.ifEmpty);
+                else
+                    element.append('=').append(pctEncode(s));
+                elements.add(element.toString());
+            }
+        } else { // map
+            String s;
+            for (final Map.Entry<String, String> entry:
+                value.getMapValue().entrySet()) {
+                element = new StringBuilder(pctEncode(entry.getKey()));
+                s = entry.getValue();
+                if (s.isEmpty())
+                    element.append(expressionType.ifEmpty);
+                else
+                    element.append('=').append(pctEncode(s));
+                elements.add(element.toString());
+            }
+        }
+
+        return joiner.join(elements);
+    }
+
+    /*
+     * On explode: expand if the template type is unnamed
+     */
+    private String expandUnnamed(final String name, final VariableValue value)
+    {
+        final Joiner joiner = Joiner.on(expressionType.separator);
+        final List<String> elements = Lists.newArrayList();
+
+        if (value.getType() == ValueType.ARRAY)
+            for (final String s: value.getListValue())
+                elements.add(pctEncode(s));
+        else // map
+            for (final Map.Entry<String, String> entry:
+                value.getMapValue().entrySet()) {
+                elements.add(pctEncode(entry.getKey()));
+                elements.add(pctEncode(entry.getKey()));
+            }
+
+        return joiner.join(elements);
     }
 
     /*
