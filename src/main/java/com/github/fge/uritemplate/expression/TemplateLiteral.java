@@ -25,6 +25,6 @@ public final class TemplateLiteral
     public String expand2(final Map<String, VariableValue> vars)
         throws URITemplateException
     {
-        return null;
+        return literal;
     }
 }
