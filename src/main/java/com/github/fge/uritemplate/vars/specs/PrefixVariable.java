@@ -53,6 +53,18 @@ public final class PrefixVariable
     }
 
     @Override
+    public boolean isExploded()
+    {
+        return false;
+    }
+
+    @Override
+    public int getPrefixLength()
+    {
+        return length;
+    }
+
+    @Override
     public int hashCode()
     {
         return 31 * name.hashCode() + length;

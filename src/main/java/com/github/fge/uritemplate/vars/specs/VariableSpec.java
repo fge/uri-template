@@ -99,6 +99,10 @@ public abstract class VariableSpec
         final Map<String, String> map)
         throws URITemplateException;
 
+    public abstract boolean isExploded();
+
+    public abstract int getPrefixLength();
+
     @Override
     public abstract int hashCode();
 

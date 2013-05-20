@@ -73,6 +73,18 @@ public final class SimpleVariable
     }
 
     @Override
+    public boolean isExploded()
+    {
+        return false;
+    }
+
+    @Override
+    public int getPrefixLength()
+    {
+        return -1;
+    }
+
+    @Override
     public int hashCode()
     {
         return name.hashCode();

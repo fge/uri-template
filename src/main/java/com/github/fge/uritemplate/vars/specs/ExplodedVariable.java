@@ -71,6 +71,18 @@ public final class ExplodedVariable
     }
 
     @Override
+    public boolean isExploded()
+    {
+        return true;
+    }
+
+    @Override
+    public int getPrefixLength()
+    {
+        return -1;
+    }
+
+    @Override
     public int hashCode()
     {
         return name.hashCode();
