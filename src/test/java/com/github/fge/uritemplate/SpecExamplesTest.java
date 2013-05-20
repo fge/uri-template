@@ -21,9 +21,6 @@ import com.beust.jcommander.internal.Lists;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.fge.uritemplate.vars.values.ListValue;
-import com.github.fge.uritemplate.vars.values.MapValue;
-import com.github.fge.uritemplate.vars.values.ScalarValue;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.collect.Maps;
 import org.testng.annotations.BeforeClass;
@@ -65,7 +62,7 @@ public final class SpecExamplesTest
             iterator = node.get("variables").fields();
             while (iterator.hasNext()) {
                 entry = iterator.next();
-                vars.put(entry.getKey(), valueOf(entry.getValue()));
+                vars.put(entry.getKey(), Util.fromJson(entry.getValue()));
             }
             for (final JsonNode n: node.get("testcases"))
                 list.add(new Object[]{ n.get(0).textValue(), vars, n.get(1) });
@@ -96,30 +93,6 @@ public final class SpecExamplesTest
                 found = true;
 
         assertTrue(found, "no value matched expansion");
-    }
-
-    private static VariableValue valueOf(final JsonNode node)
-    {
-        if (node.isTextual())
-            return new ScalarValue(node.textValue());
-        if (node.isArray()) {
-            final List<String> list = Lists.newArrayList();
-            for (final JsonNode element: node)
-                list.add(element.textValue());
-            return new ListValue(list);
-        }
-        if (node.isObject()) {
-            final Map<String, String> map = Maps.newHashMap();
-            final Iterator<Map.Entry<String, JsonNode>> iterator
-                = node.fields();
-            Map.Entry<String, JsonNode> entry;
-            while (iterator.hasNext()) {
-                entry = iterator.next();
-                map.put(entry.getKey(), entry.getValue().textValue());
-            }
-            return new MapValue(map);
-        }
-        throw new RuntimeException("cannot bind JSON to variable value");
     }
 }
 
