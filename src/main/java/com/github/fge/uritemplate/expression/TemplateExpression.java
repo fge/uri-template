@@ -74,9 +74,9 @@ public final class TemplateExpression
         if (list.isEmpty())
             return "";
 
-        final Joiner joiner = Joiner.on(expressionType.getSeparator());
+        final Joiner joiner = Joiner.on(expressionType.separator);
         final String joined = joiner.join(list);
-        return expressionType.getPrefix() + joined;
+        return expressionType.prefix + joined;
     }
 
     @Override
