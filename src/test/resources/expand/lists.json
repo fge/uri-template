@@ -1,0 +1,24 @@
+{
+    "vars": {
+        "list1": [ "one", "two", "three" ],
+        "list2": [ "Hello", "World!" ]
+    },
+    "tests": {
+        "{list1}": "one,two,three",
+        "{+list1}": "one,two,three",
+        "{.list1}": ".one,two,three",
+        "{/list1}": "/one,two,three",
+        "{;list1}": ";list1=one,two,three",
+        "{?list1}": "?list1=one,two,three",
+        "{&list1}": "&list1=one,two,three",
+        "{#list1}": "#one,two,three",
+        "{list2}": "Hello,World%21",
+        "{+list2}": "Hello,World!",
+        "{.list2}": ".Hello,World%21",
+        "{/list2}": "/Hello,World%21",
+        "{;list2}": ";list2=Hello,World%21",
+        "{?list2}": "?list2=Hello,World%21",
+        "{&list2}": "&list2=Hello,World%21",
+        "{#list2}": "#Hello,World!"
+    }
+}
