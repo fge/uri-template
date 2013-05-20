@@ -20,33 +20,53 @@ package com.github.fge.uritemplate.expression;
 public enum ExpressionType
 {
     // No prefix
-    SIMPLE(false, "", ','),
+    SIMPLE("", ',', false, "", false),
     // +
-    RESERVED(true, "", ','),
-    // #
-    FRAGMENT(true, "#", ','),
+    RESERVED("", ',', false, "", true),
     // .
-    NAME_LABELS(false, ".", '.'),
+    NAME_LABELS(".", '.', false, "", false),
     // /
-    PATH_SEGMENTS(false, "/", '/'),
+    PATH_SEGMENTS("/", '/', false, "", false),
     // ;
-    PATH_PARAMETERS(false, ";", ';'),
+    PATH_PARAMETERS(";", ';', true, "", false),
     // ?
-    QUERY_STRING(false, "?", '&'),
+    QUERY_STRING("?", '&', true, "=", false),
     // &
-    QUERY_CONT(false, "&", '&'),
+    QUERY_CONT("&", '&', true, "=", false),
+    // #
+    FRAGMENT("#", ',', false, "", true),
     ;
 
-    private final boolean rawExpand;
+    /**
+     * Prefix string of expansion (requires at least one defined variable)
+     */
     private final String prefix;
+    /**
+     * Separator if several varspecs are present
+     */
     private final char separator;
+    /**
+     * Whether the variable (string, list) or key (map) name should be included
+     * if no explode modifier is found
+     */
+    private final boolean named;
+    /**
+     * String to append to a name if the value is empty
+     */
+    private final String ifEmpty;
+    /**
+     * Whether unreserved characters appear as raw on expansion
+     */
+    private final boolean rawExpand;
 
-    ExpressionType(final boolean rawExpand, final String prefix,
-        final char separator)
+    ExpressionType(final String prefix, final char separator,
+        final boolean named, final String ifEmpty, final boolean rawExpand)
     {
-        this.rawExpand = rawExpand;
         this.prefix = prefix;
         this.separator = separator;
+        this.named = named;
+        this.ifEmpty = ifEmpty;
+        this.rawExpand = rawExpand;
     }
 
     public String getPrefix()
