@@ -1,0 +1,100 @@
+/*
+ * Copyright (c) 2013, Francis Galiegue <fgaliegue@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the Lesser GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * Lesser GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package com.github.fge.uritemplate.expand2;
+
+import com.beust.jcommander.internal.Lists;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
+import com.github.fge.uritemplate.URITemplate;
+import com.github.fge.uritemplate.URITemplateException;
+import com.github.fge.uritemplate.Util;
+import com.github.fge.uritemplate.vars.values.VariableValue;
+import com.google.common.collect.Maps;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.testng.Assert.*;
+
+public abstract class AbstractExpansionTest
+{
+    private static final ObjectReader READER = new ObjectMapper()
+        .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+        .reader();
+
+    private final JsonNode testNode;
+    private final Map<String, VariableValue> vars;
+
+    protected AbstractExpansionTest(final String resourceName)
+        throws IOException
+    {
+        vars = Maps.newHashMap();
+
+        final String resourcePath = "/expand/" + resourceName + ".json";
+
+        final InputStream in
+            = AbstractExpansionTest.class.getResourceAsStream(resourcePath);
+        testNode = READER.readTree(in);
+        final Iterator<Map.Entry<String, JsonNode>> iterator
+            = testNode.get("vars").fields();
+
+        Map.Entry<String, JsonNode> entry;
+        String varName;
+        VariableValue value;
+        while (iterator.hasNext()) {
+            entry = iterator.next();
+            varName = entry.getKey();
+            value = Util.fromJson(entry.getValue());
+            vars.put(varName, value);
+        }
+    }
+
+    @DataProvider
+    public final Iterator<Object[]> getData()
+    {
+        final JsonNode node = testNode.get("tests");
+        final List<Object[]> list = Lists.newArrayList();
+
+        for (final JsonNode test: node)
+            list.add(new Object[] {
+                test.get("template").textValue(),
+                test.get("result").textValue()
+            });
+
+        return list.iterator();
+    }
+
+    @Test(dataProvider = "getData")
+    public final void expansionsAreCorrect(final String input,
+        final String expected)
+        throws URITemplateException
+    {
+        final URITemplate template = new URITemplate(input);
+        final String actual = template.expand2(vars);
+
+        assertEquals(expected, actual, "expansion differs from expectations");
+    }
+}
+

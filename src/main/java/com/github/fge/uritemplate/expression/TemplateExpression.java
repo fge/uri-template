@@ -17,13 +17,18 @@
 
 package com.github.fge.uritemplate.expression;
 
+import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
+import com.github.fge.uritemplate.vars.values.ValueType;
 import com.github.fge.uritemplate.vars.values.VariableValue;
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.primitives.UnsignedBytes;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +88,37 @@ public final class TemplateExpression
     public String expand2(final Map<String, VariableValue> vars)
         throws URITemplateException
     {
-        return null;
+        /*
+         * Near exact reproduction of the suggested algorithm, with two
+         * differences:
+         *
+         * - parsing errors are treated elsewhere;
+         * - the possibility of varspecs both exploded and prefixed is left
+         *   open; not here: it is one or the other, not both.
+         */
+
+        // Where the final result is stored
+        final StringBuilder sb = new StringBuilder(expressionType.prefix);
+        // Expanded values
+        final List<String> expansions = Lists.newArrayList();
+
+        VariableValue value;
+
+        /*
+         * Walk over the defined varspecs for this template
+         */
+        for (final VariableSpec varspec: variableSpecs) {
+            value = vars.get(varspec.getName());
+            // No such variable: continue
+            if (value == null)
+                continue;
+            if (value.getType() == ValueType.SCALAR)
+                expansions.add(expandString(varspec, value.getScalarValue()));
+        }
+
+        final Joiner joiner = Joiner.on(expressionType.separator);
+        joiner.appendTo(sb, expansions);
+        return sb.toString();
     }
 
     @Override
@@ -104,5 +139,54 @@ public final class TemplateExpression
         final TemplateExpression other = (TemplateExpression) obj;
         return expressionType == other.expressionType
             && variableSpecs.equals(other.variableSpecs);
+    }
+
+    /*
+     * Expand the value if the variable is a simple string
+     */
+    private String expandString(final VariableSpec varspec, final String value)
+    {
+        String ret = "";
+        if (expressionType.named) {
+            // Note: variable names do not contain any character susceptible to
+            // be percent encoded, so we leave them intact
+            ret += varspec.getName();
+            if (value.isEmpty())
+                return ret + expressionType.ifEmpty;
+            ret += '=';
+        }
+        final int len = value.length();
+        final int prefixLen = varspec.getPrefixLength();
+        final String val = prefixLen == -1 ? value
+            : value.substring(0, Math.min(len, prefixLen));
+        ret += pctEncode(val);
+        return ret;
+    }
+
+    /*
+     * Do a percent encoding of a string value
+     */
+    private String pctEncode(final String s)
+    {
+        final CharMatcher matcher = expressionType.rawExpand
+            ? CharMatchers.RESERVED_PLUS_UNRESERVED : CharMatchers.UNRESERVED;
+
+        final StringBuilder sb = new StringBuilder(s.length());
+        for (final char c: s.toCharArray())
+            sb.append(matcher.matches(c) ? c : encodeChar(c));
+        return sb.toString();
+    }
+
+    /*
+     * Do a percent encoding of a single character
+     */
+    private static String encodeChar(final char c)
+    {
+        final String tmp = new String(new char[] { c });
+        final byte[] bytes = tmp.getBytes(Charset.forName("UTF-8"));
+        final StringBuilder sb = new StringBuilder();
+        for (final byte b: bytes)
+            sb.append('%').append(UnsignedBytes.toString(b, 16));
+        return sb.toString();
     }
 }

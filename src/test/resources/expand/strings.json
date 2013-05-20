@@ -1,0 +1,16 @@
+{
+    "vars": {
+        "var": "value",
+        "hello": "Hello World!"
+    },
+    "tests": [
+        {
+            "template": "{var}",
+            "result": "value"
+        },
+        {
+            "template": "{hello}",
+            "result": "Hello%20World%21"
+        }
+    ]
+}
