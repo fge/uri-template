@@ -80,6 +80,13 @@ public final class TemplateExpression
     }
 
     @Override
+    public String expand2(final Map<String, VariableValue> vars)
+        throws URITemplateException
+    {
+        return null;
+    }
+
+    @Override
     public int hashCode()
     {
         return 31 * expressionType.hashCode() + variableSpecs.hashCode();

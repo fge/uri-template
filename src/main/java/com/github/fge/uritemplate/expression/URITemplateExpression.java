@@ -9,4 +9,7 @@ public interface URITemplateExpression
 {
     String expand(final Map<String, VariableValue> vars)
         throws URITemplateException;
+
+    String expand2(final Map<String, VariableValue> vars)
+        throws URITemplateException;
 }
