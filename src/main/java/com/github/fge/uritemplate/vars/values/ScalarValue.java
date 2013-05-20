@@ -33,4 +33,10 @@ public final class ScalarValue
     {
         return value;
     }
+
+    @Override
+    public boolean isEmpty()
+    {
+        return value.isEmpty();
+    }
 }

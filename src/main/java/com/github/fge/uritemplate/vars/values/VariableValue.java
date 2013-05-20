@@ -31,4 +31,6 @@ public abstract class VariableValue
     {
         throw new IllegalStateException();
     }
+
+    public abstract boolean isEmpty();
 }

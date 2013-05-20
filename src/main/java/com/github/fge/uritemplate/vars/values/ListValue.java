@@ -37,4 +37,10 @@ public final class ListValue
     {
         return value;
     }
+
+    @Override
+    public boolean isEmpty()
+    {
+        return value.isEmpty();
+    }
 }
