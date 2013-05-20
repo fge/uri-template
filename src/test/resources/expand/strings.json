@@ -3,14 +3,8 @@
         "var": "value",
         "hello": "Hello World!"
     },
-    "tests": [
-        {
-            "template": "{var}",
-            "result": "value"
-        },
-        {
-            "template": "{hello}",
-            "result": "Hello%20World%21"
-        }
-    ]
+    "tests": {
+        "{var}": "value",
+        "{hello}": "Hello%20World%21"
+    }
 }

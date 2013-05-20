@@ -74,14 +74,17 @@ public abstract class AbstractExpansionTest
     @DataProvider
     public final Iterator<Object[]> getData()
     {
-        final JsonNode node = testNode.get("tests");
         final List<Object[]> list = Lists.newArrayList();
+        final Iterator<Map.Entry<String, JsonNode>> iterator
+            = testNode.get("tests").fields();
 
-        for (final JsonNode test: node)
-            list.add(new Object[] {
-                test.get("template").textValue(),
-                test.get("result").textValue()
-            });
+        Map.Entry<String, JsonNode> entry;
+
+        while (iterator.hasNext()) {
+            entry = iterator.next();
+            list.add(new Object[] { entry.getKey(),
+                entry.getValue().textValue() });
+        }
 
         return list.iterator();
     }
