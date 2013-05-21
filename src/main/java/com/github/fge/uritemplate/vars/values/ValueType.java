@@ -19,7 +19,6 @@ package com.github.fge.uritemplate.vars.values;
 
 public enum ValueType
 {
-    UNDEFINED,
     SCALAR,
     ARRAY,
     MAP
