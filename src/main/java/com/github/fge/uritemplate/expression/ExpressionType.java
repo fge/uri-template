@@ -40,24 +40,24 @@ public enum ExpressionType
     /**
      * Prefix string of expansion (requires at least one defined variable)
      */
-    final String prefix;
+    private final String prefix;
     /**
      * Separator if several varspecs are present
      */
-    final char separator;
+    private final char separator;
     /**
      * Whether the variable (string, list) or key (map) name should be included
      * if no explode modifier is found
      */
-    final boolean named;
+    private final boolean named;
     /**
      * String to append to a name if the value is empty
      */
-    final String ifEmpty;
+    private final String ifEmpty;
     /**
      * Whether unreserved characters appear as raw on expansion
      */
-    final boolean rawExpand;
+    private final boolean rawExpand;
 
     ExpressionType(final String prefix, final char separator,
         final boolean named, final String ifEmpty, final boolean rawExpand)

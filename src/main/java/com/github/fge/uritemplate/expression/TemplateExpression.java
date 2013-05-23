@@ -74,9 +74,9 @@ public final class TemplateExpression
 
         if (expansions.isEmpty())
             return "";
-        final Joiner joiner = Joiner.on(expressionType.separator);
+        final Joiner joiner = Joiner.on(expressionType.getSeparator());
         // Where the final result is stored
-        final StringBuilder sb = new StringBuilder(expressionType.prefix);
+        final StringBuilder sb = new StringBuilder(expressionType.getPrefix());
         joiner.appendTo(sb, expansions);
         return sb.toString();
     }
