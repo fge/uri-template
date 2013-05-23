@@ -1,0 +1,41 @@
+{
+    "vars": {
+        "list1": [ "one", "two", "three" ],
+        "list2": [ "Hello", "World!" ],
+        "empty": []
+    },
+    "tests": {
+        "{list1,list2}": "one,two,three,Hello,World%21",
+        "{+list1,list2}": "one,two,three,Hello,World!",
+        "{.list1,list2}": ".one,two,three.Hello,World%21",
+        "{/list1,list2}": "/one,two,three/Hello,World%21",
+        "{;list1,list2}": ";list1=one,two,three;list2=Hello,World%21",
+        "{?list1,list2}": "?list1=one,two,three&list2=Hello,World%21",
+        "{&list1,list2}": "&list1=one,two,three&list2=Hello,World%21",
+        "{#list1,list2}": "#one,two,three,Hello,World!",
+        "{list1*,list2}": "one,two,three,Hello,World%21",
+        "{+list1*,list2}": "one,two,three,Hello,World!",
+        "{.list1*,list2}": ".one.two.three.Hello,World%21",
+        "{/list1*,list2}": "/one/two/three/Hello,World%21",
+        "{;list1*,list2}": ";list1=one;list1=two;list1=three;list2=Hello,World%21",
+        "{?list1*,list2}": "?list1=one&list1=two&list1=three&list2=Hello,World%21",
+        "{&list1*,list2}": "&list1=one&list1=two&list1=three&list2=Hello,World%21",
+        "{#list1*,list2}": "#one,two,three,Hello,World!",
+        "{list1,empty}": "one,two,three",
+        "{+list1,empty}": "one,two,three",
+        "{.list1,empty}": ".one,two,three",
+        "{/list1,empty}": "/one,two,three",
+        "{;list1,empty}": ";list1=one,two,three;empty",
+        "{?list1,empty}": "?list1=one,two,three&empty=",
+        "{&list1,empty}": "&list1=one,two,three&empty=",
+        "{#list1,empty}": "#one,two,three",
+        "{list1,empty*}": "one,two,three",
+        "{+list1,empty*}": "one,two,three",
+        "{.list1,empty*}": ".one,two,three",
+        "{/list1,empty*}": "/one,two,three",
+        "{;list1,empty*}": ";list1=one,two,three",
+        "{?list1,empty*}": "?list1=one,two,three",
+        "{&list1,empty*}": "&list1=one,two,three",
+        "{#list1,empty*}": "#one,two,three"
+    }
+}
