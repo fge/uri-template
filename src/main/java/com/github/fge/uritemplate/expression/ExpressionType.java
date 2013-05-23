@@ -69,11 +69,6 @@ public enum ExpressionType
         this.rawExpand = rawExpand;
     }
 
-    public String getPrefix()
-    {
-        return prefix;
-    }
-
     public boolean isNamed()
     {
         return named;
@@ -87,10 +82,5 @@ public enum ExpressionType
     public boolean isRawExpand()
     {
         return rawExpand;
-    }
-
-    public char getSeparator()
-    {
-        return separator;
     }
 }
