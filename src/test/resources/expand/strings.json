@@ -31,11 +31,11 @@
         "{#empty}": "#",
         "{undef}": "",
         "{+undef}": "",
-        "{.undef}": ".",
-        "{/undef}": "/",
-        "{;undef}": ";",
-        "{?undef}": "?",
-        "{&undef}": "&",
-        "{#undef}": "#"
+        "{.undef}": "",
+        "{/undef}": "",
+        "{;undef}": "",
+        "{?undef}": "",
+        "{&undef}": "",
+        "{#undef}": ""
     }
 }

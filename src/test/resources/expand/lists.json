@@ -32,12 +32,12 @@
         "{#list3}": "#one,,three",
         "{empty}": "",
         "{+empty}": "",
-        "{.empty}": ".",
-        "{/empty}": "/",
+        "{.empty}": "",
+        "{/empty}": "",
         "{;empty}": ";empty",
         "{?empty}": "?empty=",
         "{&empty}": "&empty=",
-        "{#empty}": "#",
+        "{#empty}": "",
         "{list1*}": "one,two,three",
         "{+list1*}": "one,two,three",
         "{.list1*}": ".one.two.three",
@@ -64,11 +64,11 @@
         "{#list3*}": "#one,,three",
         "{empty*}": "",
         "{+empty*}": "",
-        "{.empty*}": ".",
-        "{/empty*}": "/",
-        "{;empty*}": ";",
-        "{?empty*}": "?",
-        "{&empty*}": "&",
-        "{#empty*}": "#"
+        "{.empty*}": "",
+        "{/empty*}": "",
+        "{;empty*}": "",
+        "{?empty*}": "",
+        "{&empty*}": "",
+        "{#empty*}": ""
     }
 }

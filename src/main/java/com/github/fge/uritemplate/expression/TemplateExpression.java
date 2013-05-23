@@ -99,8 +99,6 @@ public final class TemplateExpression
          *   open; not here: it is one or the other, not both.
          */
 
-        // Where the final result is stored
-        final StringBuilder sb = new StringBuilder(expressionType.prefix);
         // Expanded values
         final List<String> expansions = Lists.newArrayList();
 
@@ -118,12 +116,19 @@ public final class TemplateExpression
                 expansions.add(expandString(varspec, value.getScalarValue()));
                 continue;
             }
+            if (value.isEmpty())
+                if (varspec.isExploded() || !expressionType.named)
+                    continue;
             expansions.add(varspec.isExploded()
                 ? expandExplode(varspec.getName(), value)
                 : expandNormal(varspec.getName(), value));
         }
 
+        if (expansions.isEmpty())
+            return "";
         final Joiner joiner = Joiner.on(expressionType.separator);
+        // Where the final result is stored
+        final StringBuilder sb = new StringBuilder(expressionType.prefix);
         joiner.appendTo(sb, expansions);
         return sb.toString();
     }
