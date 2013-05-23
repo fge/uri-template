@@ -23,11 +23,12 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import java.util.List;
+import java.util.Map;
 
-public final class ListRenderer
+public final class MapRenderer
     extends MultiValueRenderer
 {
-    public ListRenderer(final ExpressionType type)
+    public MapRenderer(final ExpressionType type)
     {
         super(type);
     }
@@ -37,10 +38,20 @@ public final class ListRenderer
         final VariableValue value)
     {
         final List<String> ret = Lists.newArrayList();
+        final Map<String, String> map = value.getMapValue();
 
-        for (final String element: value.getListValue())
-            ret.add(element.isEmpty() ? varname + ifEmpty
-                : varname + '=' + pctEncode(element));
+        StringBuilder element;
+        String val;
+
+        for (final Map.Entry<String, String> entry: map.entrySet()) {
+            element = new StringBuilder(pctEncode(entry.getKey()));
+            val = entry.getValue();
+            if (val.isEmpty())
+                element.append(ifEmpty);
+            else
+                element.append('=').append(pctEncode(val));
+            ret.add(element.toString());
+        }
 
         return ret;
     }
@@ -50,9 +61,11 @@ public final class ListRenderer
         final VariableValue value)
     {
         final List<String> ret = Lists.newArrayList();
+        final Map<String, String> map = value.getMapValue();
 
-        for (final String element: value.getListValue())
-            ret.add(pctEncode(element));
+        for (final Map.Entry<String, String> entry: map.entrySet())
+            ret.add(pctEncode(entry.getKey()) + '='
+                + pctEncode(entry.getValue()));
 
         return ret;
     }
@@ -70,7 +83,7 @@ public final class ListRenderer
 
         final List<String> elements = Lists.newArrayList();
 
-        for (final String element: value.getListValue())
+        for (final String element: mapAsList(value))
             elements.add(pctEncode(element));
 
         COMMA.appendTo(sb, elements);
@@ -87,9 +100,22 @@ public final class ListRenderer
 
         final List<String> ret = Lists.newArrayList();
 
-        for (final String element: value.getListValue())
+        for (final String element: mapAsList(value))
             ret.add(pctEncode(element));
 
         return ImmutableList.of(COMMA.join(ret));
+    }
+
+    private static List<String> mapAsList(final VariableValue value)
+    {
+        final List<String> ret = Lists.newArrayList();
+        final Map<String, String> map = value.getMapValue();
+
+        for (final Map.Entry<String, String> entry: map.entrySet()) {
+            ret.add(entry.getKey());
+            ret.add(entry.getValue());
+        }
+
+        return ret;
     }
 }

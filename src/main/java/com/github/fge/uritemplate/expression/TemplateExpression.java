@@ -19,6 +19,7 @@ package com.github.fge.uritemplate.expression;
 
 import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.URITemplateException;
+import com.github.fge.uritemplate.render.ValueRenderer;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.values.ValueType;
 import com.github.fge.uritemplate.vars.values.VariableValue;
@@ -103,6 +104,7 @@ public final class TemplateExpression
         final List<String> expansions = Lists.newArrayList();
 
         VariableValue value;
+        ValueRenderer renderer;
 
         /*
          * Walk over the defined varspecs for this template
@@ -112,16 +114,8 @@ public final class TemplateExpression
             // No such variable: continue
             if (value == null)
                 continue;
-            if (value.getType() == ValueType.SCALAR) {
-                expansions.add(expandString(varspec, value.getScalarValue()));
-                continue;
-            }
-            if (value.isEmpty())
-                if (varspec.isExploded() || !expressionType.named)
-                    continue;
-            expansions.add(varspec.isExploded()
-                ? expandExplode(varspec.getName(), value)
-                : expandNormal(varspec.getName(), value));
+            renderer = value.getType().selectRenderer(expressionType);
+            expansions.addAll(renderer.render(varspec, value));
         }
 
         if (expansions.isEmpty())
