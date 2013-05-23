@@ -69,7 +69,7 @@ public final class LiteralParsingTest
         final List<URITemplateExpression> list
             = URITemplateParser.parse(buffer);
 
-        assertEquals(list.get(0).expand(VARS), input);
+        assertEquals(list.get(0).expand2(VARS), input);
         assertFalse(buffer.hasRemaining());
     }
 

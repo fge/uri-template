@@ -40,7 +40,7 @@ public final class URITemplate
         final StringBuilder sb = new StringBuilder();
 
         for (final URITemplateExpression expression: expressions)
-            sb.append(expression.expand(vars));
+            sb.append(expression.expand2(vars));
 
         return sb.toString();
     }

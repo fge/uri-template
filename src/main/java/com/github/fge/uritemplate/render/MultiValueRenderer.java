@@ -17,6 +17,7 @@
 
 package com.github.fge.uritemplate.render;
 
+import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
@@ -40,6 +41,9 @@ public abstract class MultiValueRenderer
         final VariableValue value)
         throws URITemplateException
     {
+        if (varspec.getPrefixLength() != -1)
+            throw new URITemplateException(ExceptionMessages.EXPAND_INCOMPAT);
+
         final String varname = varspec.getName();
 
         if (named)
