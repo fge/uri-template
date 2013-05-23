@@ -17,9 +17,36 @@
 
 package com.github.fge.uritemplate.vars.values;
 
+import com.github.fge.uritemplate.expression.ExpressionType;
+import com.github.fge.uritemplate.render.StringRenderer;
+import com.github.fge.uritemplate.render.ValueRenderer;
+
 public enum ValueType
 {
-    SCALAR,
-    ARRAY,
+    SCALAR
+    {
+        @Override
+        public ValueRenderer selectRenderer(final ExpressionType type)
+        {
+            return new StringRenderer(type);
+        }
+    },
+    ARRAY
+    {
+        @Override
+        public ValueRenderer selectRenderer(final ExpressionType type)
+        {
+            return null;
+        }
+    },
     MAP
+    {
+        @Override
+        public ValueRenderer selectRenderer(final ExpressionType type)
+        {
+            return null;
+        }
+    };
+
+    public abstract ValueRenderer selectRenderer(final ExpressionType type);
 }

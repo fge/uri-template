@@ -69,6 +69,21 @@ public enum ExpressionType
         this.rawExpand = rawExpand;
     }
 
+    public String getPrefix()
+    {
+        return prefix;
+    }
+
+    public boolean isNamed()
+    {
+        return named;
+    }
+
+    public String getIfEmpty()
+    {
+        return ifEmpty;
+    }
+
     public boolean isRawExpand()
     {
         return rawExpand;
