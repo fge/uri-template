@@ -44,15 +44,4 @@ public final class URITemplate
 
         return sb.toString();
     }
-
-    public String expand2(final Map<String, VariableValue> vars)
-        throws URITemplateException
-    {
-        final StringBuilder sb = new StringBuilder();
-
-        for (final URITemplateExpression expression: expressions)
-            sb.append(expression.expand(vars));
-
-        return sb.toString();
-    }
 }
