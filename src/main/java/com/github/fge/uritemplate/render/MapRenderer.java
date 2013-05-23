@@ -57,8 +57,7 @@ public final class MapRenderer
     }
 
     @Override
-    protected List<String> renderUnnamedExploded(final String varname,
-        final VariableValue value)
+    protected List<String> renderUnnamedExploded(final VariableValue value)
     {
         final List<String> ret = Lists.newArrayList();
         final Map<String, String> map = value.getMapValue();
@@ -92,8 +91,7 @@ public final class MapRenderer
     }
 
     @Override
-    protected List<String> renderUnnamedNormal(final String varname,
-        final VariableValue value)
+    protected List<String> renderUnnamedNormal(final VariableValue value)
     {
         if (value.isEmpty())
             return ImmutableList.of();

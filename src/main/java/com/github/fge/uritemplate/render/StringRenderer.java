@@ -42,7 +42,6 @@ public final class StringRenderer
     }
 
     private String doRender(final VariableSpec varspec, final String value)
-        throws URITemplateException
     {
         String ret = "";
         if (named) {

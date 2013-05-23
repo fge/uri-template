@@ -50,19 +50,19 @@ public abstract class MultiValueRenderer
             return varspec.isExploded() ? renderNamedExploded(varname, value)
                 : renderNamedNormal(varname, value);
         else
-            return varspec.isExploded() ? renderUnnamedExploded(varname, value)
-                : renderUnnamedNormal(varname, value);
+            return varspec.isExploded() ? renderUnnamedExploded(value)
+                : renderUnnamedNormal(value);
     }
 
     protected abstract List<String> renderNamedExploded(final String varname,
         final VariableValue value);
 
-    protected abstract List<String> renderUnnamedExploded(final String varname,
+    protected abstract List<String> renderUnnamedExploded(
         final VariableValue value);
 
     protected abstract List<String> renderNamedNormal(final String varname,
         final VariableValue value);
 
-    protected abstract List<String> renderUnnamedNormal(final String varname,
+    protected abstract List<String> renderUnnamedNormal(
         final VariableValue value);
 }
