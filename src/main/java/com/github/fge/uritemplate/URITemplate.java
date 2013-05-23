@@ -40,7 +40,7 @@ public final class URITemplate
         final StringBuilder sb = new StringBuilder();
 
         for (final URITemplateExpression expression: expressions)
-            sb.append(expression.expand2(vars));
+            sb.append(expression.expand(vars));
 
         return sb.toString();
     }
@@ -51,7 +51,7 @@ public final class URITemplate
         final StringBuilder sb = new StringBuilder();
 
         for (final URITemplateExpression expression: expressions)
-            sb.append(expression.expand2(vars));
+            sb.append(expression.expand(vars));
 
         return sb.toString();
     }

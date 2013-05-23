@@ -46,45 +46,6 @@ public final class TemplateExpression
         throws URITemplateException
     {
         /*
-         * List which will be joined with the expression type's joining
-         * character, yielding the final result
-         */
-        final List<String> list = Lists.newArrayList();
-
-        /*
-         * Walk the varspecs list: if the name of the variable exists in the
-         * variable map, add the rendered string to the list
-         */
-        String varname;
-        VariableValue value;
-        String rendered;
-        for (final VariableSpec varspec: variableSpecs) {
-            varname = varspec.getName();
-            value = vars.get(varname);
-            if (value == null)
-                continue;
-            rendered = varspec.render(expressionType, value);
-            if (rendered != null)
-                list.add(rendered);
-        }
-
-        /*
-         * If the list is empty, return the empty string. Otherwise, return the
-         * prefix followed by all joined rendered strings.
-         */
-        if (list.isEmpty())
-            return "";
-
-        final Joiner joiner = Joiner.on(expressionType.separator);
-        final String joined = joiner.join(list);
-        return expressionType.prefix + joined;
-    }
-
-    @Override
-    public String expand2(final Map<String, VariableValue> vars)
-        throws URITemplateException
-    {
-        /*
          * Near exact reproduction of the suggested algorithm, with two
          * differences:
          *

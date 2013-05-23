@@ -17,12 +17,6 @@ public final class TemplateLiteral
 
     @Override
     public String expand(final Map<String, VariableValue> vars)
-    {
-        return literal;
-    }
-
-    @Override
-    public String expand2(final Map<String, VariableValue> vars)
         throws URITemplateException
     {
         return literal;
