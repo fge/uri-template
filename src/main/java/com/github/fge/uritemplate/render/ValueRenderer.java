@@ -23,7 +23,6 @@ import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.base.CharMatcher;
-import com.google.common.base.Joiner;
 import com.google.common.primitives.UnsignedBytes;
 
 import java.nio.charset.Charset;
@@ -31,8 +30,6 @@ import java.util.List;
 
 public abstract class ValueRenderer
 {
-    protected static final Joiner COMMA = Joiner.on(',');
-
     protected final boolean named;
     protected final String ifEmpty;
     protected final CharMatcher matcher;

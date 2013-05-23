@@ -18,6 +18,7 @@
 package com.github.fge.uritemplate.vars.values;
 
 import com.github.fge.uritemplate.expression.ExpressionType;
+import com.github.fge.uritemplate.render.ListRenderer;
 import com.github.fge.uritemplate.render.StringRenderer;
 import com.github.fge.uritemplate.render.ValueRenderer;
 
@@ -36,7 +37,7 @@ public enum ValueType
         @Override
         public ValueRenderer selectRenderer(final ExpressionType type)
         {
-            return null;
+            return new ListRenderer(type);
         }
     },
     MAP
