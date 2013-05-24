@@ -1,4 +1,4 @@
-package com.github.fge.uritemplate.expand2;
+package com.github.fge.uritemplate.expand;
 
 import java.io.IOException;
 

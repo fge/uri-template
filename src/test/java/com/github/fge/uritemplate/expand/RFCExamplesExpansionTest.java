@@ -17,14 +17,14 @@
 
 package com.github.fge.uritemplate.expand;
 
-import com.github.fge.uritemplate.SampleVars;
+import java.io.IOException;
 
-public abstract class Section3ExpansionTests
+public final class RFCExamplesExpansionTest
     extends AbstractExpansionTest
 {
-    protected Section3ExpansionTests()
+    public RFCExamplesExpansionTest()
+        throws IOException
     {
-        vars.putAll(SampleVars.get());
+        super("rfcExamples");
     }
 }
-

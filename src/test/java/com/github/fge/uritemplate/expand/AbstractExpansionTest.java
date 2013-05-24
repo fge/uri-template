@@ -17,25 +17,77 @@
 
 package com.github.fge.uritemplate.expand;
 
+import com.beust.jcommander.internal.Lists;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.github.fge.uritemplate.URITemplate;
 import com.github.fge.uritemplate.URITemplateException;
+import com.github.fge.uritemplate.Util;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.collect.Maps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import static org.testng.Assert.*;
 
 public abstract class AbstractExpansionTest
 {
-    protected final Map<String, VariableValue> vars
-        = Maps.newHashMap();
+    private static final ObjectReader READER = new ObjectMapper()
+        .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+        .reader();
+
+    private final JsonNode testNode;
+    private final Map<String, VariableValue> vars;
+
+    protected AbstractExpansionTest(final String resourceName)
+        throws IOException
+    {
+        vars = Maps.newHashMap();
+
+        final String resourcePath = "/expand/" + resourceName + ".json";
+
+        final InputStream in
+            = AbstractExpansionTest.class.getResourceAsStream(resourcePath);
+        testNode = READER.readTree(in);
+        final Iterator<Map.Entry<String, JsonNode>> iterator
+            = testNode.get("vars").fields();
+
+        Map.Entry<String, JsonNode> entry;
+        String varName;
+        VariableValue value;
+        while (iterator.hasNext()) {
+            entry = iterator.next();
+            varName = entry.getKey();
+            value = Util.fromJson(entry.getValue());
+            vars.put(varName, value);
+        }
+    }
 
     @DataProvider
-    public abstract Iterator<Object[]> getData();
+    public final Iterator<Object[]> getData()
+    {
+        final List<Object[]> list = Lists.newArrayList();
+        final Iterator<Map.Entry<String, JsonNode>> iterator
+            = testNode.get("tests").fields();
+
+        Map.Entry<String, JsonNode> entry;
+
+        while (iterator.hasNext()) {
+            entry = iterator.next();
+            list.add(new Object[] { entry.getKey(),
+                entry.getValue().textValue() });
+        }
+
+        return list.iterator();
+    }
 
     @Test(dataProvider = "getData")
     public final void expansionsAreCorrect(final String input,

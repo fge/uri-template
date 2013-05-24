@@ -30,7 +30,7 @@ public final class Util
             return new ListValue(list);
         }
         if (node.isObject()) {
-            final Map<String, String> map = Maps.newHashMap();
+            final Map<String, String> map = Maps.newLinkedHashMap();
             final Iterator<Map.Entry<String, JsonNode>> iterator
                 = node.fields();
             Map.Entry<String, JsonNode> entry;

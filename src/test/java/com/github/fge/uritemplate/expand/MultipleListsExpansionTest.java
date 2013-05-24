@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.fge.uritemplate.expand2;
+package com.github.fge.uritemplate.expand;
 
 import java.io.IOException;
 
