@@ -1,5 +1,8 @@
 package com.github.fge.uritemplate.vars.specs;
 
+/**
+ * A varspec with a prefix modifier
+ */
 public final class PrefixVariable
     extends VariableSpec
 {

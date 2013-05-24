@@ -1,5 +1,8 @@
 package com.github.fge.uritemplate.vars.specs;
 
+/**
+ * A varspec with no modifier
+ */
 public final class SimpleVariable
     extends VariableSpec
 {

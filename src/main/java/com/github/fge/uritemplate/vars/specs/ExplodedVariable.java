@@ -1,5 +1,8 @@
 package com.github.fge.uritemplate.vars.specs;
 
+/**
+ * A varspec with an explode modifier
+ */
 public final class ExplodedVariable
     extends VariableSpec
 {

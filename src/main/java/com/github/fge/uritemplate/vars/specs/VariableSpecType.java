@@ -17,9 +17,26 @@
 
 package com.github.fge.uritemplate.vars.specs;
 
+/**
+ * Enumeration of a variable modifier type
+ */
+// TODO: remove?
 public enum VariableSpecType
 {
+    /**
+     * No modifier
+     */
     SIMPLE,
+    /**
+     * Prefix modifier ({@code :xxx} where {@code xxx} is an integer)
+     *
+     * <p>Only makes sense for string values.</p>
+     */
     PREFIX,
+    /**
+     * Explode modifier ({@code *})
+     *
+     * <p>Only makes sense for list and map values.</p>
+     */
     EXPLODED
 }
