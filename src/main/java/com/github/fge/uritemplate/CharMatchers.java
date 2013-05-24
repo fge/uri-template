@@ -2,15 +2,24 @@ package com.github.fge.uritemplate;
 
 import com.google.common.base.CharMatcher;
 
+/**
+ * Character sets needed by the expansion process
+ *
+ * <p>Those are defined by the RFC, section 1.5. They are used by the expansion
+ * process.</p>
+ */
 public final class CharMatchers
 {
+    /**
+     * The {@code unreserved} character set
+     */
     public static final CharMatcher UNRESERVED;
+    /**
+     * The {@code reserved} character set
+     */
     public static final CharMatcher RESERVED_PLUS_UNRESERVED;
 
     static {
-        /*
-         * Charsets defined by RFC 6570, section 1.5
-         */
         // reserved
         final CharMatcher reserved = CharMatcher.inRange('a', 'z')
             .or(CharMatcher.inRange('A', 'Z'))

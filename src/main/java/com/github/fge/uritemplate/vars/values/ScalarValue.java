@@ -17,6 +17,9 @@
 
 package com.github.fge.uritemplate.vars.values;
 
+/**
+ * Simple string variable value
+ */
 public final class ScalarValue
     extends VariableValue
 {

@@ -21,6 +21,11 @@ import com.google.common.collect.ImmutableMap;
 
 import java.util.Map;
 
+/**
+ * Map variable value
+ *
+ * <p>Note: the RFC calls these "associative arrays".</p>
+ */
 public final class MapValue
     extends VariableValue
 {

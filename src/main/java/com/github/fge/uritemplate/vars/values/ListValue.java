@@ -21,6 +21,9 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
+/**
+ * Variable list value
+ */
 public final class ListValue
     extends VariableValue
 {

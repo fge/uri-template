@@ -23,6 +23,14 @@ import com.github.fge.uritemplate.render.MapRenderer;
 import com.github.fge.uritemplate.render.StringRenderer;
 import com.github.fge.uritemplate.render.ValueRenderer;
 
+/**
+ * Enumeration of the different types of variable values
+ *
+ * <p>The type of the value also determines how it is expanded. Therefore, this
+ * enumeration also instantiates renderers.</p>
+ *
+ * @see ValueRenderer
+ */
 public enum ValueType
 {
     SCALAR
@@ -50,5 +58,11 @@ public enum ValueType
         }
     };
 
+    /**
+     * Get the renderer for this value type and expression type
+     *
+     * @param type the expression type
+     * @return the appropriate renderer
+     */
     public abstract ValueRenderer selectRenderer(final ExpressionType type);
 }
