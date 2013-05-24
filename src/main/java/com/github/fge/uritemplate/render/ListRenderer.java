@@ -24,6 +24,9 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
+/**
+ * Renderer for list variable values
+ */
 public final class ListRenderer
     extends MultiValueRenderer
 {

@@ -26,6 +26,16 @@ import com.google.common.base.Joiner;
 
 import java.util.List;
 
+/**
+ * Base abstract class for list and map rendering
+ *
+ * <p>The rendering algorithm for both is very similar. Common logic is
+ * delegated to this class.</p>
+ *
+ * <p>The main rendering method essentially delegates to other rendering methods
+ * since the actual result is highly dependent on both the varspec modifier and
+ * expression type.</p>
+ */
 public abstract class MultiValueRenderer
     extends ValueRenderer
 {
@@ -41,6 +51,7 @@ public abstract class MultiValueRenderer
         final VariableValue value)
         throws URITemplateException
     {
+        // It is illegal to have a prefix modifier on list/map values
         if (varspec.getPrefixLength() != -1)
             throw new URITemplateException(ExceptionMessages.EXPAND_INCOMPAT);
 
@@ -54,15 +65,41 @@ public abstract class MultiValueRenderer
                 : renderUnnamedNormal(value);
     }
 
+    /**
+     * Rendering method for named expressions and exploded varspecs
+     *
+     * @param varname name of the variable (used in lists)
+     * @param value value of the variable
+     * @return list of rendered elements
+     */
     protected abstract List<String> renderNamedExploded(final String varname,
         final VariableValue value);
 
+    /**
+     * Rendering method for non named expressions and exploded varspecs
+     *
+     * @param value value of the variable
+     * @return list of rendered elements
+     */
     protected abstract List<String> renderUnnamedExploded(
         final VariableValue value);
 
+    /**
+     * Rendering method for named expressions and non exploded varspecs
+     *
+     * @param varname name of the variable (used in lists)
+     * @param value value of the variable
+     * @return list of rendered elements
+     */
     protected abstract List<String> renderNamedNormal(final String varname,
         final VariableValue value);
 
+    /**
+     * Rendering method for non named expressions and non exploded varspecs
+     *
+     * @param value value of the variable
+     * @return list of rendered elements
+     */
     protected abstract List<String> renderUnnamedNormal(
         final VariableValue value);
 }

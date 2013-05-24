@@ -25,6 +25,12 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
+/**
+ * String value renderer
+ *
+ * <p>Rendering of a string value is the only event where the returned list
+ * cannot be empty. Concurrently, it will always have a single element.</p>
+ */
 public final class StringRenderer
     extends ValueRenderer
 {
@@ -52,6 +58,7 @@ public final class StringRenderer
                 return ret + ifEmpty;
             ret += '=';
         }
+        // Account for a prefix, if any. Note: explode modifier is ignored.
         final int len = value.length();
         final int prefixLen = varspec.getPrefixLength();
         final String val = prefixLen == -1 ? value

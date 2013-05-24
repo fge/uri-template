@@ -28,12 +28,48 @@ import com.google.common.primitives.UnsignedBytes;
 import java.nio.charset.Charset;
 import java.util.List;
 
+/**
+ * Main rendering class
+ *
+ * <p>The algorithm used for rendering is centered around this class,and is
+ * adapted from the algorithm suggested in the RFC's appendix.</p>
+ *
+ * <p>Eventually, rendering can be viewed as joining a list of rendered strings
+ * with the expression type separator; if the resulting list is empty, the end
+ * result is the empty string; otherwise, it is the expression's prefix string
+ * (if any) followed by the joined list of rendered strings.</p>
+ *
+ * <p>This class renders one variable value according to the expression type and
+ * value type. The rendering method returns a list, which can be empty.</p>
+ *
+ * @see ExpressionType
+ */
 public abstract class ValueRenderer
 {
+    /**
+     * Whether variable values are named during expansion
+     *
+     * @see ExpressionType#isNamed()
+     */
     protected final boolean named;
+    /**
+     * Substitution string for an empty value/list member/map value
+     *
+     * @see ExpressionType#getIfEmpty()
+     */
     protected final String ifEmpty;
+    /**
+     * Set of characters not subject to percent-encoding
+     *
+     * @see ExpressionType#isRawExpand()
+     */
     protected final CharMatcher matcher;
 
+    /**
+     * Constructor
+     *
+     * @param type the expression type
+     */
     protected ValueRenderer(final ExpressionType type)
     {
         named = type.isNamed();
@@ -42,12 +78,28 @@ public abstract class ValueRenderer
             : CharMatchers.UNRESERVED;
     }
 
+    /**
+     * Render a value given a varspec and value
+     *
+     * @param varspec the varspec
+     * @param value the matching variable value
+     * @return a list of rendered strings
+     * @throws URITemplateException illegal expansion
+     */
     public abstract List<String> render(final VariableSpec varspec,
         VariableValue value)
         throws URITemplateException;
 
-    /*
-     * Do a percent encoding of a string value
+    /**
+     * Render a string value, doing character percent-encoding where needed
+     *
+     * <p>The character set on which to perform percent encoding is dependent
+     * on the expression type.</p>
+     *
+     * @param s the string to encode
+     * @return an encoded string
+     * @see CharMatchers
+     * @see ExpressionType#isRawExpand()
      */
     protected final String pctEncode(final String s)
     {
@@ -57,8 +109,14 @@ public abstract class ValueRenderer
         return sb.toString();
     }
 
-    /*
-     * Do a percent encoding of a single character
+    /**
+     * Perform a percent encoding of one character when necessary
+     *
+     * <p>As the RFC says, this method extracts the UTF-8 encoding of the
+     * character and percent-encodes each character.</p>
+     *
+     * @param c the character to encode
+     * @return the matching percent-encoded string
      */
     private static String encodeChar(final char c)
     {

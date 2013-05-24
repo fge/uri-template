@@ -25,6 +25,9 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Renderer for map variable values
+ */
 public final class MapRenderer
     extends MultiValueRenderer
 {
