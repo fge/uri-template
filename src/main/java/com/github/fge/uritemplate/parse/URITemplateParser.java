@@ -2,6 +2,7 @@ package com.github.fge.uritemplate.parse;
 
 import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.ExceptionMessages;
+import com.github.fge.uritemplate.URITemplate;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
 import com.google.common.annotations.VisibleForTesting;
@@ -11,6 +12,11 @@ import com.google.common.collect.Lists;
 import java.nio.CharBuffer;
 import java.util.List;
 
+/**
+ * Main parser class
+ *
+ * @see URITemplate#URITemplate(String)
+ */
 public final class URITemplateParser
 {
     private static final CharMatcher BEGIN_EXPRESSION = CharMatcher.is('{');

@@ -8,7 +8,7 @@ import java.nio.CharBuffer;
 /*
  * Note: in spite of its name, this also parses literals
  */
-public interface TemplateParser
+interface TemplateParser
 {
     /*
      * Rules:

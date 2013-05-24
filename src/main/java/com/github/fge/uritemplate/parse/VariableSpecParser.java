@@ -15,7 +15,7 @@ import java.util.List;
 
 import static com.github.fge.uritemplate.ExceptionMessages.*;
 
-public final class VariableSpecParser
+final class VariableSpecParser
 {
     private static final Joiner JOINER = Joiner.on('.');
 

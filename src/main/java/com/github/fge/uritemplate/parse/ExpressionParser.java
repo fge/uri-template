@@ -32,7 +32,7 @@ import java.util.Map;
 
 import static com.github.fge.uritemplate.ExceptionMessages.*;
 
-public final class ExpressionParser
+final class ExpressionParser
     implements TemplateParser
 {
     private static final Map<Character, ExpressionType> EXPRESSION_TYPE_MAP;
