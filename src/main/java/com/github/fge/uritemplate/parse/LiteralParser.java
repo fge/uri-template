@@ -1,5 +1,6 @@
 package com.github.fge.uritemplate.parse;
 
+import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.TemplateLiteral;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
@@ -23,10 +24,10 @@ public final class LiteralParser
          */
         while (buffer.hasRemaining()) {
             c = buffer.charAt(0);
-            if (!Matchers.LITERALS.matches(c))
+            if (!CharMatchers.LITERALS.matches(c))
                 break;
             sb.append(buffer.get());
-            if (Matchers.PERCENT.matches(c))
+            if (CharMatchers.PERCENT.matches(c))
                 parsePercentEncoded(buffer, sb);
         }
 
@@ -42,12 +43,12 @@ public final class LiteralParser
                 true);
 
         final char first = buffer.get();
-        if (!Matchers.HEXDIGIT.matches(first))
+        if (!CharMatchers.HEXDIGIT.matches(first))
             throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
                 true);
 
         final char second = buffer.get();
-        if (!Matchers.HEXDIGIT.matches(second))
+        if (!CharMatchers.HEXDIGIT.matches(second))
             throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
                 true);
 

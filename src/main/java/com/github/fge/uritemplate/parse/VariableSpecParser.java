@@ -1,5 +1,6 @@
 package com.github.fge.uritemplate.parse;
 
+import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.vars.specs.ExplodedVariable;
 import com.github.fge.uritemplate.vars.specs.PrefixVariable;
@@ -20,7 +21,7 @@ public final class VariableSpecParser
 
     private static final CharMatcher VARCHAR = CharMatcher.inRange('0', '9')
         .or(CharMatcher.inRange('a', 'z')).or(CharMatcher.inRange('A', 'Z'))
-        .or(CharMatcher.is('_')).or(Matchers.PERCENT).precomputed();
+        .or(CharMatcher.is('_')).or(CharMatchers.PERCENT).precomputed();
     private static final CharMatcher DOT = CharMatcher.is('.');
     private static final CharMatcher COLON = CharMatcher.is(':');
     private static final CharMatcher STAR = CharMatcher.is('*');
@@ -81,7 +82,7 @@ public final class VariableSpecParser
             if (!VARCHAR.matches(c))
                 break;
             sb.append(buffer.get());
-            if (Matchers.PERCENT.matches(c))
+            if (CharMatchers.PERCENT.matches(c))
                 parsePercentEncoded(buffer, sb);
         }
 
@@ -100,12 +101,12 @@ public final class VariableSpecParser
                 true);
 
         final char first = buffer.get();
-        if (!Matchers.HEXDIGIT.matches(first))
+        if (!CharMatchers.HEXDIGIT.matches(first))
             throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
                 true);
 
         final char second = buffer.get();
-        if (!Matchers.HEXDIGIT.matches(second))
+        if (!CharMatchers.HEXDIGIT.matches(second))
             throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
                 true);
 
