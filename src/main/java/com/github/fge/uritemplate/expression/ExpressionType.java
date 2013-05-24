@@ -17,6 +17,12 @@
 
 package com.github.fge.uritemplate.expression;
 
+/**
+ * Enumeration of all expression types
+ *
+ * <p>The members of each value are basically what the suggested algorithm
+ * defines.</p>
+ */
 public enum ExpressionType
 {
     // No prefix

@@ -28,6 +28,11 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * URI template expander
+ *
+ * @see ValueRenderer
+ */
 public final class TemplateExpression
     implements URITemplateExpression
 {

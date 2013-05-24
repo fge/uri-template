@@ -5,6 +5,11 @@ import com.github.fge.uritemplate.vars.values.VariableValue;
 
 import java.util.Map;
 
+/**
+ * Literal expander
+ *
+ * <p>This covers all strings inbetween actual URI template expressions.</p>
+ */
 public final class TemplateLiteral
     implements URITemplateExpression
 {
