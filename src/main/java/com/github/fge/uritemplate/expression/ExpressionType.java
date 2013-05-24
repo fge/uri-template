@@ -44,11 +44,11 @@ public enum ExpressionType
     ;
 
     /**
-     * Prefix string of expansion (requires at least one defined variable)
+     * Prefix string of expansion (requires at least one expanded token)
      */
     private final String prefix;
     /**
-     * Separator if several varspecs are present
+     * Separator if several tokens are present
      */
     private final char separator;
     /**
@@ -57,7 +57,8 @@ public enum ExpressionType
      */
     private final boolean named;
     /**
-     * String to append to a name if the value is empty
+     * String to append to a name if the matching value is empty (empty string,
+     * empty list element, empty map value)
      */
     private final String ifEmpty;
     /**
