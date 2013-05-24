@@ -24,16 +24,41 @@ import com.github.fge.uritemplate.vars.values.VariableValue;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Main URI template class
+ *
+ * @see URITemplateParser
+ */
 public final class URITemplate
 {
+    /**
+     * Ordered list of parsed URI template expressions
+     */
     private final List<URITemplateExpression> expressions;
 
+    /**
+     * Constructor
+     *
+     * @param input the input string
+     * @throws URITemplateParseException parse error
+     */
     public URITemplate(final String input)
         throws URITemplateParseException
     {
         expressions = URITemplateParser.parse(input);
     }
 
+    /**
+     * Expand this template given a list of variables
+     *
+     * <p>Note that this only returns a string. It is up to the caller to verify
+     * afterwards that the resulting string is actually a valid URI. The RFC
+     * makes no guarantee about that!</p>
+     *
+     * @param vars the variable map (names as keys, contents as values)
+     * @return expanded string
+     * @throws URITemplateException expansion error (f.e. modifier mismatch)
+     */
     public String expand(final Map<String, VariableValue> vars)
         throws URITemplateException
     {
