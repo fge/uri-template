@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.fge.uritemplate.parse.variable;
+package com.github.fge.uritemplate.parse;
 
+import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.parse.VariableSpecParser;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
@@ -31,7 +32,7 @@ import java.util.List;
 
 import static org.testng.Assert.*;
 
-public final class ExplodedVariableParsingTest
+public final class SimpleVariableParsingTest
 {
     @DataProvider
     public Iterator<Object[]> validInputs()
@@ -40,25 +41,25 @@ public final class ExplodedVariableParsingTest
 
         String input;
 
-        input = "foo*";
+        input = "foo";
         list.add(new Object[]{ input });
 
-        input = "%33foo*";
+        input = "%33foo";
         list.add(new Object[]{ input });
 
-        input = "foo%20*";
+        input = "foo%20";
         list.add(new Object[]{ input });
 
-        input = "foo_%20bar*";
+        input = "foo_%20bar";
         list.add(new Object[]{ input });
 
-        input = "FoOb%02ZAZE287*";
+        input = "FoOb%02ZAZE287";
         list.add(new Object[]{ input });
 
-        input = "foo.bar*";
+        input = "foo.bar";
         list.add(new Object[]{ input });
 
-        input = "foo_%20bar.baz%af.r*";
+        input = "foo_%20bar.baz%af.r";
         list.add(new Object[]{ input });
 
         return list.iterator();
@@ -71,9 +72,64 @@ public final class ExplodedVariableParsingTest
         final CharBuffer buffer = CharBuffer.wrap(input).asReadOnlyBuffer();
         final VariableSpec varspec = VariableSpecParser.parse(buffer);
 
-        assertEquals(varspec.getName(), input.substring(0, input.length() - 1));
-        assertSame(varspec.getType(), VariableSpecType.EXPLODED,
+        assertEquals(varspec.getName(), input);
+        assertSame(varspec.getType(), VariableSpecType.SIMPLE,
             "unexpected class for parsed variable");
         assertFalse(buffer.hasRemaining());
+    }
+
+    @DataProvider
+    public Iterator<Object[]> invalidInputs()
+    {
+        final List<Object[]> list = Lists.newArrayList();
+
+        String input;
+        String message;
+        int offset;
+
+        input = "";
+        message = ExceptionMessages.EMPTY_NAME;
+        offset = 0;
+        list.add(new Object[]{input, message, offset});
+
+        input = "%";
+        message = ExceptionMessages.PERCENT_SHORT_READ;
+        offset = 0;
+        list.add(new Object[]{input, message, offset});
+
+        input = "foo..bar";
+        message = ExceptionMessages.EMPTY_NAME;
+        offset = 4;
+        list.add(new Object[]{input, message, offset});
+
+        input = ".";
+        message = ExceptionMessages.EMPTY_NAME;
+        offset = 0;
+        list.add(new Object[]{input, message, offset});
+
+        input = "foo%ra";
+        message = ExceptionMessages.ILLEGAL_PERCENT;
+        offset = 4;
+        list.add(new Object[]{input, message, offset});
+
+        input = "foo%ar";
+        message = ExceptionMessages.ILLEGAL_PERCENT;
+        offset = 5;
+        list.add(new Object[]{input, message, offset});
+
+        return list.iterator();
+    }
+
+    @Test(dataProvider = "invalidInputs")
+    public void invalidInputsThrowAppropriateExceptions(final String input,
+        final String message, final int offset)
+    {
+        try {
+            VariableSpecParser.parse(CharBuffer.wrap(input).asReadOnlyBuffer());
+            fail("No exception thrown!!");
+        } catch (URITemplateParseException e) {
+            assertEquals(e.getOriginalMessage(), message);
+            assertEquals(e.getOffset(), offset);
+        }
     }
 }

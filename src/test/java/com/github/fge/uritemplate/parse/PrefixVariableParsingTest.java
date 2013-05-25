@@ -15,11 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.fge.uritemplate.parse.variable;
+package com.github.fge.uritemplate.parse;
 
 import com.github.fge.uritemplate.ExceptionMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
-import com.github.fge.uritemplate.parse.VariableSpecParser;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.specs.VariableSpecType;
 import com.google.common.collect.Lists;
