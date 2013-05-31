@@ -17,7 +17,8 @@
 
 package com.github.fge.uritemplate.parse;
 
-import com.github.fge.uritemplate.ExceptionMessages;
+import com.github.fge.msgsimple.bundle.MessageBundle;
+import com.github.fge.uritemplate.URITemplateMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.specs.VariableSpecType;
@@ -33,6 +34,8 @@ import static org.testng.Assert.*;
 
 public final class PrefixVariableParsingTest
 {
+    private static final MessageBundle BUNDLE = URITemplateMessages.get();
+    
     @DataProvider
     public Iterator<Object[]> validInputs()
     {
@@ -88,27 +91,27 @@ public final class PrefixVariableParsingTest
         int offset;
 
         input = "foo:";
-        message = ExceptionMessages.EMPTY_PREFIX;
+        message = BUNDLE.getKey("EMPTY_PREFIX");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo:-1";
-        message = ExceptionMessages.EMPTY_PREFIX;
+        message = BUNDLE.getKey("EMPTY_PREFIX");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo:a";
-        message = ExceptionMessages.EMPTY_PREFIX;
+        message = BUNDLE.getKey("EMPTY_PREFIX");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo:10001";
-        message = ExceptionMessages.PREFIX_TOO_LARGE;
+        message = BUNDLE.getKey("PREFIX_TOO_LARGE");
         offset = 8;
         list.add(new Object[]{input, message, offset});
 
         input = "foo:2147483648";
-        message = ExceptionMessages.PREFIX_TOO_LARGE;
+        message = BUNDLE.getKey("PREFIX_TOO_LARGE");
         offset = 13;
         list.add(new Object[]{input, message, offset});
 

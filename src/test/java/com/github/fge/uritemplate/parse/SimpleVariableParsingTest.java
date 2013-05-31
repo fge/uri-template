@@ -17,7 +17,8 @@
 
 package com.github.fge.uritemplate.parse;
 
-import com.github.fge.uritemplate.ExceptionMessages;
+import com.github.fge.msgsimple.bundle.MessageBundle;
+import com.github.fge.uritemplate.URITemplateMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.specs.VariableSpecType;
@@ -33,6 +34,8 @@ import static org.testng.Assert.*;
 
 public final class SimpleVariableParsingTest
 {
+    private static final MessageBundle BUNDLE = URITemplateMessages.get();
+    
     @DataProvider
     public Iterator<Object[]> validInputs()
     {
@@ -87,32 +90,32 @@ public final class SimpleVariableParsingTest
         int offset;
 
         input = "";
-        message = ExceptionMessages.EMPTY_NAME;
+        message = BUNDLE.getKey("EMPTY_NAME");
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
         input = "%";
-        message = ExceptionMessages.PERCENT_SHORT_READ;
+        message = BUNDLE.getKey("PERCENT_SHORT_READ");
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
         input = "foo..bar";
-        message = ExceptionMessages.EMPTY_NAME;
+        message = BUNDLE.getKey("EMPTY_NAME");
         offset = 4;
         list.add(new Object[]{input, message, offset});
 
         input = ".";
-        message = ExceptionMessages.EMPTY_NAME;
+        message = BUNDLE.getKey("EMPTY_NAME");
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ra";
-        message = ExceptionMessages.ILLEGAL_PERCENT;
+        message = BUNDLE.getKey("ILLEGAL_PERCENT");
         offset = 4;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ar";
-        message = ExceptionMessages.ILLEGAL_PERCENT;
+        message = BUNDLE.getKey("ILLEGAL_PERCENT");
         offset = 5;
         list.add(new Object[]{input, message, offset});
 

@@ -17,6 +17,8 @@
 
 package com.github.fge.uritemplate.parse;
 
+import com.github.fge.msgsimple.bundle.MessageBundle;
+import com.github.fge.uritemplate.URITemplateMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.expression.TemplateExpression;
@@ -30,11 +32,11 @@ import java.nio.CharBuffer;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.fge.uritemplate.ExceptionMessages.*;
-
 final class ExpressionParser
     implements TemplateParser
 {
+    private static final MessageBundle BUNDLE = URITemplateMessages.get();
+
     private static final Map<Character, ExpressionType> EXPRESSION_TYPE_MAP;
     private static final CharMatcher COMMA = CharMatcher.is(',');
     private static final CharMatcher END_EXPRESSION = CharMatcher.is('}');
@@ -88,7 +90,8 @@ final class ExpressionParser
          * Error if the buffer is empty after that
          */
         if (!buffer.hasRemaining())
-            throw new URITemplateParseException(UNEXPECTED_EOF, buffer, true);
+            throw new URITemplateParseException(BUNDLE.getKey("UNEXPECTED_EOF"),
+                buffer, true);
 
         /*
          * If the next char is a known expression type, swallow it; otherwise,
@@ -113,8 +116,8 @@ final class ExpressionParser
              * Error if the buffer is empty after that
              */
             if (!buffer.hasRemaining())
-                throw new URITemplateParseException(UNEXPECTED_EOF, buffer,
-                    true);
+                throw new URITemplateParseException(
+                    BUNDLE.getKey("UNEXPECTED_EOF"), buffer, true);
             /*
              * Grab next character
              */
@@ -132,7 +135,8 @@ final class ExpressionParser
             /*
              * If we reach this point, this is an error
              */
-            throw new URITemplateParseException(UNEXPECTED_TOKEN, buffer, true);
+            throw new URITemplateParseException(
+                BUNDLE.getKey("UNEXPECTED_TOKEN"), buffer, true);
         }
 
         return new TemplateExpression(type, varspecs);

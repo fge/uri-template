@@ -1,6 +1,8 @@
 package com.github.fge.uritemplate.parse;
 
+import com.github.fge.msgsimple.bundle.MessageBundle;
 import com.github.fge.uritemplate.CharMatchers;
+import com.github.fge.uritemplate.URITemplateMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.vars.specs.ExplodedVariable;
 import com.github.fge.uritemplate.vars.specs.PrefixVariable;
@@ -13,10 +15,9 @@ import com.google.common.collect.Lists;
 import java.nio.CharBuffer;
 import java.util.List;
 
-import static com.github.fge.uritemplate.ExceptionMessages.*;
-
 final class VariableSpecParser
 {
+    private static final MessageBundle BUNDLE = URITemplateMessages.get();
     private static final Joiner JOINER = Joiner.on('.');
 
     private static final CharMatcher VARCHAR = CharMatcher.inRange('0', '9')
@@ -88,7 +89,8 @@ final class VariableSpecParser
 
         final String ret = sb.toString();
         if (ret.isEmpty())
-            throw new URITemplateParseException(EMPTY_NAME, buffer);
+            throw new URITemplateParseException(BUNDLE.getKey("EMPTY_NAME"),
+                buffer);
         return ret;
     }
 
@@ -97,18 +99,18 @@ final class VariableSpecParser
         throws URITemplateParseException
     {
         if (buffer.remaining() < 2)
-            throw new URITemplateParseException(PERCENT_SHORT_READ, buffer,
-                true);
+            throw new URITemplateParseException(
+                BUNDLE.getKey("PERCENT_SHORT_READ"), buffer, true);
 
         final char first = buffer.get();
         if (!CharMatchers.HEXDIGIT.matches(first))
-            throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
-                true);
+            throw new URITemplateParseException(
+                BUNDLE.getKey("ILLEGAL_PERCENT"), buffer, true);
 
         final char second = buffer.get();
         if (!CharMatchers.HEXDIGIT.matches(second))
-            throw new URITemplateParseException(ILLEGAL_PERCENT, buffer,
-                true);
+            throw new URITemplateParseException(
+                BUNDLE.getKey("ILLEGAL_PERCENT"), buffer, true);
 
         sb.append(first).append(second);
     }
@@ -128,7 +130,8 @@ final class VariableSpecParser
 
         final String s = sb.toString();
         if (s.isEmpty())
-            throw new URITemplateParseException(EMPTY_PREFIX, buffer, true);
+            throw new URITemplateParseException(BUNDLE.getKey("EMPTY_PREFIX"),
+                buffer, true);
         final int ret;
         try {
             ret = Integer.parseInt(s);
@@ -136,7 +139,8 @@ final class VariableSpecParser
                 throw new NumberFormatException();
             return ret;
         } catch (NumberFormatException ignored) {
-            throw new URITemplateParseException(PREFIX_TOO_LARGE, buffer, true);
+            throw new URITemplateParseException(
+                BUNDLE.getKey("PREFIX_TOO_LARGE"), buffer, true);
         }
     }
 }

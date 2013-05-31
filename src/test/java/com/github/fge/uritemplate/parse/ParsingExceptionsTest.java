@@ -1,6 +1,7 @@
 package com.github.fge.uritemplate.parse;
 
-import com.github.fge.uritemplate.ExceptionMessages;
+import com.github.fge.msgsimple.bundle.MessageBundle;
+import com.github.fge.uritemplate.URITemplateMessages;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
@@ -13,6 +14,7 @@ import static org.testng.Assert.*;
 
 public final class ParsingExceptionsTest
 {
+    private static final MessageBundle BUNDLE = URITemplateMessages.get();
 
     @DataProvider
     public Iterator<Object[]> invalidInputs()
@@ -24,32 +26,32 @@ public final class ParsingExceptionsTest
         int offset;
 
         input = "foo%";
-        message = ExceptionMessages.PERCENT_SHORT_READ;
+        message = BUNDLE.getKey("PERCENT_SHORT_READ");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%r";
-        message = ExceptionMessages.PERCENT_SHORT_READ;
+        message = BUNDLE.getKey("PERCENT_SHORT_READ");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ra";
-        message = ExceptionMessages.ILLEGAL_PERCENT;
+        message = BUNDLE.getKey("ILLEGAL_PERCENT");
         offset = 4;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ar";
-        message = ExceptionMessages.ILLEGAL_PERCENT;
+        message = BUNDLE.getKey("ILLEGAL_PERCENT");
         offset = 5;
         list.add(new Object[]{input, message, offset});
 
         input = "foo<";
-        message = ExceptionMessages.NO_PARSER;
+        message = BUNDLE.getKey("NO_PARSER");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo{";
-        message = ExceptionMessages.UNEXPECTED_EOF;
+        message = BUNDLE.getKey("UNEXPECTED_EOF");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
