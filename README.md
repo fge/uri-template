@@ -8,6 +8,10 @@ text.</p>
 <p>This is a 100% Java implementation of IETF's <a href="http://tools.ietf.org/html/rfc6570">RFC
 6570</a> (URI templates). This RFC is used, among others, in JSON Schema hyperschema.</p>
 
+<p>More generally, if you have to generate a lot of URIs (or URLs, since URLs are URIs) all having
+the sample "place holders" for values and don't want to be bothered with encoding problems etc, this
+is the library for you.</p>
+
 <h2>Versions</h2>
 
 <p>The current version is <b>0.4</b>.</p>
@@ -24,7 +28,8 @@ text.</p>
 
 <h2>Features</h2>
 
-<p>This library has only one dependency: Guava.</p>
+<p>This library has only one dependency: Guava. It has no dependency on any logging framework or Web
+framework of any kind.</p>
 
 <p>Template expansion is feature complete and without errors. All samples from the RFC and the
 existing <a href="https://github.com/dret/uritemplate-test">test suite from github</a> pass without
