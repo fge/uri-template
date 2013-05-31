@@ -22,21 +22,19 @@ text.</p>
 </dependency>
 ```
 
-<h2>Status</h2>
+<h2>Features</h2>
+
+<p>This library has only one dependency: Guava.</p>
 
 <p>Template expansion is feature complete and without errors. All samples from the RFC and the
 existing <a href="https://github.com/dret/uritemplate-test">test suite from github</a> pass without
-a problem (note however that percent encodings are lower case in this implementation). Note that
-this library depends on Guava.</p>
+a problem.</p>
 
-<p>Right now however, you need to instantiate the variable values for expansion by yourself. The
-tests use JSON inputs using Jackson, but this is only a test dependency. Whether that variable value
-parsing code should make its way into the source is debatable, since it adds quite a huge
-dependency.</p>
+<p>Please note that percent encodings are lower case in this implementation.</p>
 
-<p>Finally, you should note that the return value for a template expansion is a `String` and not a
-`URI`. Determining whether the actual expanded string is a valid URI is left to your own code (since
-the RFC makes no guarantee in this regard).</p>
+<p>One of the goals of this library is to be as light as possible. As such, it does _not_ provide
+facilities to read variable values from, say, JSON (even though the test files are written in JSON,
+Jackson is included as a test dependency only).</p>
 
 <h2>Sample code usage</h2>
 
