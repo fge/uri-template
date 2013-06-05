@@ -91,27 +91,27 @@ public final class PrefixVariableParsingTest
         int offset;
 
         input = "foo:";
-        message = BUNDLE.getKey("EMPTY_PREFIX");
+        message = BUNDLE.getMessage("EMPTY_PREFIX");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo:-1";
-        message = BUNDLE.getKey("EMPTY_PREFIX");
+        message = BUNDLE.getMessage("EMPTY_PREFIX");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo:a";
-        message = BUNDLE.getKey("EMPTY_PREFIX");
+        message = BUNDLE.getMessage("EMPTY_PREFIX");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo:10001";
-        message = BUNDLE.getKey("PREFIX_TOO_LARGE");
+        message = BUNDLE.getMessage("PREFIX_TOO_LARGE");
         offset = 8;
         list.add(new Object[]{input, message, offset});
 
         input = "foo:2147483648";
-        message = BUNDLE.getKey("PREFIX_TOO_LARGE");
+        message = BUNDLE.getMessage("PREFIX_TOO_LARGE");
         offset = 13;
         list.add(new Object[]{input, message, offset});
 

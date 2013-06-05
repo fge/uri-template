@@ -90,32 +90,32 @@ public final class SimpleVariableParsingTest
         int offset;
 
         input = "";
-        message = BUNDLE.getKey("EMPTY_NAME");
+        message = BUNDLE.getMessage("EMPTY_NAME");
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
         input = "%";
-        message = BUNDLE.getKey("PERCENT_SHORT_READ");
+        message = BUNDLE.getMessage("PERCENT_SHORT_READ");
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
         input = "foo..bar";
-        message = BUNDLE.getKey("EMPTY_NAME");
+        message = BUNDLE.getMessage("EMPTY_NAME");
         offset = 4;
         list.add(new Object[]{input, message, offset});
 
         input = ".";
-        message = BUNDLE.getKey("EMPTY_NAME");
+        message = BUNDLE.getMessage("EMPTY_NAME");
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ra";
-        message = BUNDLE.getKey("ILLEGAL_PERCENT");
+        message = BUNDLE.getMessage("ILLEGAL_PERCENT");
         offset = 4;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ar";
-        message = BUNDLE.getKey("ILLEGAL_PERCENT");
+        message = BUNDLE.getMessage("ILLEGAL_PERCENT");
         offset = 5;
         list.add(new Object[]{input, message, offset});
 

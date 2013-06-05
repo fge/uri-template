@@ -89,7 +89,7 @@ final class VariableSpecParser
 
         final String ret = sb.toString();
         if (ret.isEmpty())
-            throw new URITemplateParseException(BUNDLE.getKey("EMPTY_NAME"),
+            throw new URITemplateParseException(BUNDLE.getMessage("EMPTY_NAME"),
                 buffer);
         return ret;
     }
@@ -100,17 +100,17 @@ final class VariableSpecParser
     {
         if (buffer.remaining() < 2)
             throw new URITemplateParseException(
-                BUNDLE.getKey("PERCENT_SHORT_READ"), buffer, true);
+                BUNDLE.getMessage("PERCENT_SHORT_READ"), buffer, true);
 
         final char first = buffer.get();
         if (!CharMatchers.HEXDIGIT.matches(first))
             throw new URITemplateParseException(
-                BUNDLE.getKey("ILLEGAL_PERCENT"), buffer, true);
+                BUNDLE.getMessage("ILLEGAL_PERCENT"), buffer, true);
 
         final char second = buffer.get();
         if (!CharMatchers.HEXDIGIT.matches(second))
             throw new URITemplateParseException(
-                BUNDLE.getKey("ILLEGAL_PERCENT"), buffer, true);
+                BUNDLE.getMessage("ILLEGAL_PERCENT"), buffer, true);
 
         sb.append(first).append(second);
     }
@@ -130,8 +130,8 @@ final class VariableSpecParser
 
         final String s = sb.toString();
         if (s.isEmpty())
-            throw new URITemplateParseException(BUNDLE.getKey("EMPTY_PREFIX"),
-                buffer, true);
+            throw new URITemplateParseException(
+                BUNDLE.getMessage("EMPTY_PREFIX"), buffer, true);
         final int ret;
         try {
             ret = Integer.parseInt(s);
@@ -140,7 +140,7 @@ final class VariableSpecParser
             return ret;
         } catch (NumberFormatException ignored) {
             throw new URITemplateParseException(
-                BUNDLE.getKey("PREFIX_TOO_LARGE"), buffer, true);
+                BUNDLE.getMessage("PREFIX_TOO_LARGE"), buffer, true);
         }
     }
 }

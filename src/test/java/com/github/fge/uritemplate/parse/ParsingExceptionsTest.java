@@ -26,32 +26,32 @@ public final class ParsingExceptionsTest
         int offset;
 
         input = "foo%";
-        message = BUNDLE.getKey("PERCENT_SHORT_READ");
+        message = BUNDLE.getMessage("PERCENT_SHORT_READ");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%r";
-        message = BUNDLE.getKey("PERCENT_SHORT_READ");
+        message = BUNDLE.getMessage("PERCENT_SHORT_READ");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ra";
-        message = BUNDLE.getKey("ILLEGAL_PERCENT");
+        message = BUNDLE.getMessage("ILLEGAL_PERCENT");
         offset = 4;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ar";
-        message = BUNDLE.getKey("ILLEGAL_PERCENT");
+        message = BUNDLE.getMessage("ILLEGAL_PERCENT");
         offset = 5;
         list.add(new Object[]{input, message, offset});
 
         input = "foo<";
-        message = BUNDLE.getKey("NO_PARSER");
+        message = BUNDLE.getMessage("NO_PARSER");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "foo{";
-        message = BUNDLE.getKey("UNEXPECTED_EOF");
+        message = BUNDLE.getMessage("UNEXPECTED_EOF");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 

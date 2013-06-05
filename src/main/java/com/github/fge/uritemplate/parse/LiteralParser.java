@@ -42,17 +42,17 @@ final class LiteralParser
     {
         if (buffer.remaining() < 2)
             throw new URITemplateParseException(
-                BUNDLE.getKey("PERCENT_SHORT_READ"), buffer, true);
+                BUNDLE.getMessage("PERCENT_SHORT_READ"), buffer, true);
 
         final char first = buffer.get();
         if (!CharMatchers.HEXDIGIT.matches(first))
             throw new URITemplateParseException(
-                BUNDLE.getKey("ILLEGAL_PERCENT"), buffer, true);
+                BUNDLE.getMessage("ILLEGAL_PERCENT"), buffer, true);
 
         final char second = buffer.get();
         if (!CharMatchers.HEXDIGIT.matches(second))
             throw new URITemplateParseException(
-                BUNDLE.getKey("ILLEGAL_PERCENT"), buffer, true);
+                BUNDLE.getMessage("ILLEGAL_PERCENT"), buffer, true);
 
         sb.append(first).append(second);
     }

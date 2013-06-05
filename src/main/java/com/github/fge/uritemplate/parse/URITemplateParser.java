@@ -61,8 +61,8 @@ public final class URITemplateParser
         else if (BEGIN_EXPRESSION.matches(c))
             parser = new ExpressionParser();
         else
-            throw new URITemplateParseException(BUNDLE.getKey("NO_PARSER"),
-                buffer);
+            throw new URITemplateParseException(
+                BUNDLE.getMessage("NO_PARSER"), buffer);
         return parser;
     }
 }
