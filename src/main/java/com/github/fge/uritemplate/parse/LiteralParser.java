@@ -18,8 +18,9 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
+import com.github.fge.msgsimple.serviceloader.MessageBundles;
 import com.github.fge.uritemplate.CharMatchers;
-import com.github.fge.uritemplate.URITemplateMessages;
+import com.github.fge.uritemplate.URITemplateMessageBundle;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.TemplateLiteral;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
@@ -29,7 +30,8 @@ import java.nio.CharBuffer;
 final class LiteralParser
     implements TemplateParser
 {
-    private static final MessageBundle BUNDLE = URITemplateMessages.get();
+    private static final MessageBundle BUNDLE
+        = MessageBundles.forClass(URITemplateMessageBundle.class);
 
     @Override
     public URITemplateExpression parse(final CharBuffer buffer)

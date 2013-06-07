@@ -18,7 +18,8 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.github.fge.uritemplate.URITemplateMessages;
+import com.github.fge.msgsimple.serviceloader.MessageBundles;
+import com.github.fge.uritemplate.URITemplateMessageBundle;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
@@ -31,7 +32,8 @@ import static org.testng.Assert.*;
 
 public final class ParsingExceptionsTest
 {
-    private static final MessageBundle BUNDLE = URITemplateMessages.get();
+    private static final MessageBundle BUNDLE
+        = MessageBundles.forClass(URITemplateMessageBundle.class);
 
     @DataProvider
     public Iterator<Object[]> invalidInputs()

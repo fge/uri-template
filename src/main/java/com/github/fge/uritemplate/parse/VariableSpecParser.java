@@ -18,8 +18,9 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
+import com.github.fge.msgsimple.serviceloader.MessageBundles;
 import com.github.fge.uritemplate.CharMatchers;
-import com.github.fge.uritemplate.URITemplateMessages;
+import com.github.fge.uritemplate.URITemplateMessageBundle;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.vars.specs.ExplodedVariable;
 import com.github.fge.uritemplate.vars.specs.PrefixVariable;
@@ -34,7 +35,9 @@ import java.util.List;
 
 final class VariableSpecParser
 {
-    private static final MessageBundle BUNDLE = URITemplateMessages.get();
+    private static final MessageBundle BUNDLE
+        = MessageBundles.forClass(URITemplateMessageBundle.class);
+
     private static final Joiner JOINER = Joiner.on('.');
 
     private static final CharMatcher VARCHAR = CharMatcher.inRange('0', '9')

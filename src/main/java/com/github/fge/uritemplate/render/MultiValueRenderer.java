@@ -18,8 +18,9 @@
 package com.github.fge.uritemplate.render;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
+import com.github.fge.msgsimple.serviceloader.MessageBundles;
 import com.github.fge.uritemplate.URITemplateException;
-import com.github.fge.uritemplate.URITemplateMessages;
+import com.github.fge.uritemplate.URITemplateMessageBundle;
 import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.values.VariableValue;
@@ -40,7 +41,9 @@ import java.util.List;
 public abstract class MultiValueRenderer
     extends ValueRenderer
 {
-    private static final MessageBundle BUNDLE = URITemplateMessages.get();
+    private static final MessageBundle BUNDLE
+        = MessageBundles.forClass(URITemplateMessageBundle.class);
+
     protected static final Joiner COMMA = Joiner.on(',');
 
     protected MultiValueRenderer(final ExpressionType type)

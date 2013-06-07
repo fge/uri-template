@@ -18,35 +18,16 @@
 package com.github.fge.uritemplate;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.github.fge.msgsimple.source.MessageSource;
-import com.github.fge.msgsimple.source.PropertiesMessageSource;
+import com.github.fge.msgsimple.bundle.PropertiesBundle;
+import com.github.fge.msgsimple.serviceloader.MessageBundleProvider;
 
-import java.io.IOException;
-
-public final class URITemplateMessages
+public final class URITemplateMessageBundle
+    implements MessageBundleProvider
 {
-    private static final MessageBundle BUNDLE;
-
-    static {
-        final String resourcePath
-            = "/com/github/fge/uritemplate/messages.properties";
-        final MessageSource source;
-
-        try {
-            source = PropertiesMessageSource.fromResource(resourcePath);
-        } catch (IOException e) {
-            throw new ExceptionInInitializerError(e);
-        }
-
-        BUNDLE = MessageBundle.newBuilder().appendSource(source).freeze();
-    }
-
-    private URITemplateMessages()
+    @Override
+    public MessageBundle getBundle()
     {
-    }
-
-    public static MessageBundle get()
-    {
-        return BUNDLE;
+        return PropertiesBundle
+            .forPath("/com/github/fge/uritemplate/messages");
     }
 }
