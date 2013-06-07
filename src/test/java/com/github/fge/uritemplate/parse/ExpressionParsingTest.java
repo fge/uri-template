@@ -105,12 +105,12 @@ public final class ExpressionParsingTest
         int offset;
 
         input = "{foo";
-        message = BUNDLE.getMessage("UNEXPECTED_EOF");
+        message = BUNDLE.getMessage("parse.unexpectedEOF");
         offset = 3;
         list.add(new Object[]{input, message, offset});
 
         input = "{foo#bar}";
-        message = BUNDLE.getMessage("UNEXPECTED_TOKEN");
+        message = BUNDLE.getMessage("parse.unexpectedToken");
         offset = 4;
         list.add(new Object[]{input, message, offset});
 

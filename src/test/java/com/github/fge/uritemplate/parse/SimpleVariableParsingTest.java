@@ -92,32 +92,32 @@ public final class SimpleVariableParsingTest
         int offset;
 
         input = "";
-        message = BUNDLE.getMessage("EMPTY_NAME");
+        message = BUNDLE.getMessage("parse.emptyVarname");
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
         input = "%";
-        message = BUNDLE.getMessage("PERCENT_SHORT_READ");
+        message = BUNDLE.getMessage("paser.percentShortRead");
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
         input = "foo..bar";
-        message = BUNDLE.getMessage("EMPTY_NAME");
+        message = BUNDLE.getMessage("parse.emptyVarname");
         offset = 4;
         list.add(new Object[]{input, message, offset});
 
         input = ".";
-        message = BUNDLE.getMessage("EMPTY_NAME");
+        message = BUNDLE.getMessage("parse.emptyVarname");
         offset = 0;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ra";
-        message = BUNDLE.getMessage("ILLEGAL_PERCENT");
+        message = BUNDLE.getMessage("parse.percentIllegal");
         offset = 4;
         list.add(new Object[]{input, message, offset});
 
         input = "foo%ar";
-        message = BUNDLE.getMessage("ILLEGAL_PERCENT");
+        message = BUNDLE.getMessage("parse.percentIllegal");
         offset = 5;
         list.add(new Object[]{input, message, offset});
 

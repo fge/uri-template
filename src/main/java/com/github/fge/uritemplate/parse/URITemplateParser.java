@@ -82,7 +82,7 @@ public final class URITemplateParser
             parser = new ExpressionParser();
         else
             throw new URITemplateParseException(
-                BUNDLE.getMessage("NO_PARSER"), buffer);
+                BUNDLE.getMessage("parse.noParser"), buffer);
         return parser;
     }
 }

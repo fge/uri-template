@@ -93,7 +93,7 @@ final class ExpressionParser
          */
         if (!buffer.hasRemaining())
             throw new URITemplateParseException(
-                BUNDLE.getMessage("UNEXPECTED_EOF"), buffer, true);
+                BUNDLE.getMessage("parse.unexpectedEOF"), buffer, true);
 
         /*
          * If the next char is a known expression type, swallow it; otherwise,
@@ -119,7 +119,7 @@ final class ExpressionParser
              */
             if (!buffer.hasRemaining())
                 throw new URITemplateParseException(
-                    BUNDLE.getMessage("UNEXPECTED_EOF"), buffer, true);
+                    BUNDLE.getMessage("parse.unexpectedEOF"), buffer, true);
             /*
              * Grab next character
              */
@@ -138,7 +138,7 @@ final class ExpressionParser
              * If we reach this point, this is an error
              */
             throw new URITemplateParseException(
-                BUNDLE.getMessage("UNEXPECTED_TOKEN"), buffer, true);
+                BUNDLE.getMessage("parse.unexpectedToken"), buffer, true);
         }
 
         return new TemplateExpression(type, varspecs);

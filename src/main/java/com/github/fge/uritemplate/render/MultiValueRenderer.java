@@ -59,7 +59,7 @@ public abstract class MultiValueRenderer
         // It is illegal to have a prefix modifier on list/map values
         if (varspec.getPrefixLength() != -1)
             throw new URITemplateException(
-                BUNDLE.getMessage("EXPAND_INCOMPAT"));
+                BUNDLE.getMessage("expand.incompatVarspecValue"));
 
         final String varname = varspec.getName();
 
