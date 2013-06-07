@@ -74,6 +74,23 @@
                 <extensions>true</extensions>
                 <version>2.3.7</version>
             </plugin>
+            <plugin>
+                <groupId>eu.somatik.serviceloader-maven-plugin</groupId>
+                <artifactId>serviceloader-maven-plugin</artifactId>
+                <version>1.0.2</version>
+                <configuration>
+                    <services>
+                        <param>com.github.fge.msgsimple.serviceloader.MessageBundleProvider</param>
+                    </services>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
