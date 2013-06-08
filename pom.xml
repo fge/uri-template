@@ -43,6 +43,9 @@
                     <links>
                         <link>http://docs.oracle.com/javase/6/docs/api</link>
                         <link>http://docs.guava-libraries.googlecode.com/git/javadoc</link>
+                        <link>http://fge.github.io/msg-simple</link>
+                        <link>http://jsr-305.googlecode.com/svn/trunk/javadoc</link>
+                        <link>http://fge.github.com/btf</link>
                     </links>
                 </configuration>
                 <executions>
@@ -104,6 +107,13 @@
             <groupId>com.github.fge</groupId>
             <artifactId>msg-simple</artifactId>
             <version>0.3</version>
+        </dependency>
+        <!-- Provided -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>2.0.1</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Test dependencies -->
         <dependency>
