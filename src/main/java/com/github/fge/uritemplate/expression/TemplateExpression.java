@@ -19,6 +19,7 @@ package com.github.fge.uritemplate.expression;
 
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.render.ValueRenderer;
+import com.github.fge.uritemplate.vars.VariableMap;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.base.Joiner;
@@ -26,7 +27,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * URI template expander
@@ -47,7 +47,7 @@ public final class TemplateExpression
     }
 
     @Override
-    public String expand(final Map<String, VariableValue> vars)
+    public String expand(final VariableMap vars)
         throws URITemplateException
     {
         /*

@@ -19,6 +19,8 @@ package com.github.fge.uritemplate;
 
 import com.github.fge.uritemplate.expression.URITemplateExpression;
 import com.github.fge.uritemplate.parse.URITemplateParser;
+import com.github.fge.uritemplate.vars.VariableMap;
+import com.github.fge.uritemplate.vars.VariableMapBuilder;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 
 import java.util.List;
@@ -58,8 +60,32 @@ public final class URITemplate
      * @param vars the variable map (names as keys, contents as values)
      * @return expanded string
      * @throws URITemplateException expansion error (f.e. modifier mismatch)
+     *
+     * @deprecated use {@link #expand(VariableMap)} instead. Will be removed in
+     * version 0.6.
      */
+    @Deprecated
     public String expand(final Map<String, VariableValue> vars)
+        throws URITemplateException
+    {
+        final VariableMapBuilder builder = VariableMap.newBuilder();
+        for (final Map.Entry<String, VariableValue> entry: vars.entrySet())
+            builder.addValue(entry.getKey(), entry.getValue());
+        return expand(builder.freeze());
+    }
+
+    /**
+     * Expand this template given a list of variables
+     *
+     * <p>Note that this only returns a string. It is up to the caller to verify
+     * afterwards that the resulting string is actually a valid URI. The RFC
+     * makes no guarantee about that!</p>
+     *
+     * @param vars the variable map (names as keys, contents as values)
+     * @return expanded string
+     * @throws URITemplateException expansion error (f.e. modifier mismatch)
+     */
+    public String expand(final VariableMap vars)
         throws URITemplateException
     {
         final StringBuilder sb = new StringBuilder();

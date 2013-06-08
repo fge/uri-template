@@ -23,6 +23,11 @@ public final class VariableMap
         return new VariableMapBuilder();
     }
 
+    public VariableValue get(final String varname)
+    {
+        return vars.get(varname);
+    }
+
     @Override
     public VariableMapBuilder thaw()
     {

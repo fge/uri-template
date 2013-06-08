@@ -18,9 +18,7 @@
 package com.github.fge.uritemplate.expression;
 
 import com.github.fge.uritemplate.URITemplateException;
-import com.github.fge.uritemplate.vars.values.VariableValue;
-
-import java.util.Map;
+import com.github.fge.uritemplate.vars.VariableMap;
 
 /**
  * Generic URI template expression
@@ -37,6 +35,6 @@ public interface URITemplateExpression
      * @return the expanded string
      * @throws URITemplateException illegal parsing
      */
-    String expand(final Map<String, VariableValue> vars)
+    String expand(final VariableMap vars)
         throws URITemplateException;
 }

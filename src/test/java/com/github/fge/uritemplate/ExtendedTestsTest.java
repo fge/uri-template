@@ -21,8 +21,8 @@ import com.beust.jcommander.internal.Lists;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.fge.uritemplate.vars.values.VariableValue;
-import com.google.common.collect.Maps;
+import com.github.fge.uritemplate.vars.VariableMap;
+import com.github.fge.uritemplate.vars.VariableMapBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -54,23 +54,25 @@ public final class ExtendedTestsTest
     {
         final List<Object[]> list = Lists.newArrayList();
 
-        Map<String, VariableValue> vars;
+        VariableMapBuilder builder;
         Iterator<Map.Entry<String, JsonNode>> iterator;
         Map.Entry<String, JsonNode> entry;
 
         for (final JsonNode node: data) { // Cycle through values
             if (node.path("disabled").asBoolean(false))
                 continue;
-            vars = Maps.newHashMap();
+            builder = VariableMap.newBuilder();
             iterator = node.get("variables").fields();
             while (iterator.hasNext()) {
                 entry = iterator.next();
                 if (entry.getValue().isNull())
                     continue;
-                vars.put(entry.getKey(), Util.fromJson(entry.getValue()));
+                builder.addValue(entry.getKey(),
+                    Util.fromJson(entry.getValue()));
             }
             for (final JsonNode n: node.get("testcases"))
-                list.add(new Object[]{ n.get(0).textValue(), vars, n.get(1) });
+                list.add(new Object[]{ n.get(0).textValue(),
+                    builder.freeze(), n.get(1) });
         }
 
         Collections.shuffle(list);
@@ -80,7 +82,7 @@ public final class ExtendedTestsTest
 
     @Test(dataProvider = "getData")
     public void illegalTemplatesAreMarkedAsSuch(final String tmpl,
-        final Map<String, VariableValue> vars, final JsonNode resultNode)
+        final VariableMap vars, final JsonNode resultNode)
         throws URITemplateException
     {
         final URITemplate template = new URITemplate(tmpl);

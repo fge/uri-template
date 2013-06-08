@@ -18,9 +18,7 @@
 package com.github.fge.uritemplate.expression;
 
 import com.github.fge.uritemplate.URITemplateException;
-import com.github.fge.uritemplate.vars.values.VariableValue;
-
-import java.util.Map;
+import com.github.fge.uritemplate.vars.VariableMap;
 
 /**
  * Literal expander
@@ -38,7 +36,7 @@ public final class TemplateLiteral
     }
 
     @Override
-    public String expand(final Map<String, VariableValue> vars)
+    public String expand(final VariableMap vars)
         throws URITemplateException
     {
         return literal;

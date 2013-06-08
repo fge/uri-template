@@ -20,8 +20,7 @@ package com.github.fge.uritemplate.parse;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.URITemplateExpression;
-import com.github.fge.uritemplate.vars.values.VariableValue;
-import com.google.common.collect.ImmutableMap;
+import com.github.fge.uritemplate.vars.VariableMap;
 import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -29,14 +28,13 @@ import org.testng.annotations.Test;
 import java.nio.CharBuffer;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import static org.testng.Assert.*;
 
 public final class LiteralParsingTest
 {
-    private static final Map<String, VariableValue> VARS
-        = ImmutableMap.of();
+    private static final VariableMap VARS
+        = VariableMap.newBuilder().freeze();
 
     @DataProvider
     public Iterator<Object[]> validInputs()

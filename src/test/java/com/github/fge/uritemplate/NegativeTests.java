@@ -21,8 +21,8 @@ import com.beust.jcommander.internal.Lists;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.fge.uritemplate.vars.values.VariableValue;
-import com.google.common.collect.Maps;
+import com.github.fge.uritemplate.vars.VariableMap;
+import com.github.fge.uritemplate.vars.VariableMapBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -37,23 +37,29 @@ import static org.testng.Assert.*;
 public final class NegativeTests
 {
     private JsonNode data;
-    private final Map<String, VariableValue> vars = Maps.newHashMap();
+    private VariableMap vars;
 
     @BeforeClass
     public void initData()
         throws IOException
     {
         final String resourceName = "/negative-tests.json";
+
         data = new ObjectMapper()
             .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
             .readTree(NegativeTests.class.getResourceAsStream(resourceName));
         final JsonNode node = data.get("Failure Tests").get("variables");
+
+        final VariableMapBuilder builder = VariableMap.newBuilder();
         final Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();
         Map.Entry<String, JsonNode> entry;
+
         while (iterator.hasNext()) {
             entry = iterator.next();
-            vars.put(entry.getKey(), Util.fromJson(entry.getValue()));
+            builder.addValue(entry.getKey(), Util.fromJson(entry.getValue()));
         }
+
+        vars = builder.freeze();
     }
 
     @DataProvider

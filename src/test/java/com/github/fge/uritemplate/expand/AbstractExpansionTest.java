@@ -25,8 +25,9 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.github.fge.uritemplate.URITemplate;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.Util;
+import com.github.fge.uritemplate.vars.VariableMap;
+import com.github.fge.uritemplate.vars.VariableMapBuilder;
 import com.github.fge.uritemplate.vars.values.VariableValue;
-import com.google.common.collect.Maps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -45,20 +46,19 @@ public abstract class AbstractExpansionTest
         .reader();
 
     private final JsonNode testNode;
-    private final Map<String, VariableValue> vars;
+    private final VariableMap vars;
 
     protected AbstractExpansionTest(final String resourceName)
         throws IOException
     {
-        vars = Maps.newHashMap();
 
         final String resourcePath = "/expand/" + resourceName + ".json";
-
         final InputStream in
             = AbstractExpansionTest.class.getResourceAsStream(resourcePath);
         testNode = READER.readTree(in);
         final Iterator<Map.Entry<String, JsonNode>> iterator
             = testNode.get("vars").fields();
+        final VariableMapBuilder builder = VariableMap.newBuilder();
 
         Map.Entry<String, JsonNode> entry;
         String varName;
@@ -67,8 +67,10 @@ public abstract class AbstractExpansionTest
             entry = iterator.next();
             varName = entry.getKey();
             value = Util.fromJson(entry.getValue());
-            vars.put(varName, value);
+            builder.addValue(varName, value);
         }
+
+        vars = builder.freeze();
     }
 
     @DataProvider
