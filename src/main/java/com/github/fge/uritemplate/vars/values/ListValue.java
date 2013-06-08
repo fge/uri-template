@@ -27,23 +27,23 @@ import java.util.List;
 public final class ListValue
     extends VariableValue
 {
-    private final List<String> value;
+    private final List<String> list;
 
-    public ListValue(final List<String> value)
+    public ListValue(final List<String> list)
     {
         super(ValueType.ARRAY);
-        this.value = ImmutableList.copyOf(value);
+        this.list = ImmutableList.copyOf(list);
     }
 
     @Override
     public List<String> getListValue()
     {
-        return value;
+        return list;
     }
 
     @Override
     public boolean isEmpty()
     {
-        return value.isEmpty();
+        return list.isEmpty();
     }
 }

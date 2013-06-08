@@ -29,23 +29,23 @@ import java.util.Map;
 public final class MapValue
     extends VariableValue
 {
-    private final Map<String, String> value;
+    private final Map<String, String> map;
 
-    public MapValue(final Map<String, String> value)
+    public MapValue(final Map<String, String> map)
     {
         super(ValueType.MAP);
-        this.value = ImmutableMap.copyOf(value);
+        this.map = ImmutableMap.copyOf(map);
     }
 
     @Override
     public Map<String, String> getMapValue()
     {
-        return value;
+        return map;
     }
 
     @Override
     public boolean isEmpty()
     {
-        return value.isEmpty();
+        return map.isEmpty();
     }
 }
