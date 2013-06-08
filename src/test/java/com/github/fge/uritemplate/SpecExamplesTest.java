@@ -79,7 +79,7 @@ public final class SpecExamplesTest
         throws URITemplateException
     {
         final URITemplate template = new URITemplate(tmpl);
-        final String actual = template.expand(vars);
+        final String actual = template.toString(vars);
 
         if (resultNode.isTextual()) {
             assertEquals(actual, resultNode.textValue());

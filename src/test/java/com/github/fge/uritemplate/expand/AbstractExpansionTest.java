@@ -97,7 +97,7 @@ public abstract class AbstractExpansionTest
         throws URITemplateException
     {
         final URITemplate template = new URITemplate(input);
-        final String actual = template.expand(vars);
+        final String actual = template.toString(vars);
 
         assertEquals(expected, actual, "expansion differs from expectations");
     }

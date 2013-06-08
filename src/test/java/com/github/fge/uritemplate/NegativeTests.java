@@ -78,7 +78,7 @@ public final class NegativeTests
     public void illegalTemplatesAreMarkedAsSuch(final String input)
     {
         try {
-            new URITemplate(input).expand(vars);
+            new URITemplate(input).toString(vars);
             fail("No exception thrown!!");
         } catch (URITemplateParseException ignored) {
         } catch (URITemplateException ignored) {
