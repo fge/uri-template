@@ -18,7 +18,9 @@
 package com.github.fge.uritemplate.vars.values;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -29,10 +31,22 @@ public final class ListValue
 {
     private final List<String> list;
 
+    @Deprecated
     public ListValue(final List<String> list)
     {
         super(ValueType.ARRAY);
         this.list = ImmutableList.copyOf(list);
+    }
+
+    private ListValue(final Builder builder)
+    {
+        super(ValueType.ARRAY);
+        list = ImmutableList.copyOf(builder.list);
+    }
+
+    public static Builder newBuilder()
+    {
+        return new Builder();
     }
 
     @Override
@@ -45,5 +59,40 @@ public final class ListValue
     public boolean isEmpty()
     {
         return list.isEmpty();
+    }
+
+    public static final class Builder
+    {
+        private final List<String> list = Lists.newArrayList();
+
+        private Builder()
+        {
+        }
+
+        public Builder add(final Object first, final Object... other)
+        {
+            BUNDLE.checkNotNull(first, "listValue.nullElement");
+            list.add(first.toString());
+            for (final Object o: other) {
+                BUNDLE.checkNotNull(o, "listValue.nullElement");
+                list.add(o.toString());
+            }
+            return addAll(Lists.asList(first, other));
+        }
+
+        public <T> Builder addAll(final Collection<T> collection)
+        {
+            BUNDLE.checkNotNull(collection, "listValue.nullCollection");
+            for (final T element: collection) {
+                BUNDLE.checkNotNull(element, "listValue.nullElement");
+                list.add(element.toString());
+            }
+            return this;
+        }
+
+        public VariableValue build()
+        {
+            return new ListValue(this);
+        }
     }
 }
