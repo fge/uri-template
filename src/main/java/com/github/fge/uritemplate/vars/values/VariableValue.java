@@ -17,6 +17,10 @@
 
 package com.github.fge.uritemplate.vars.values;
 
+import com.github.fge.msgsimple.bundle.MessageBundle;
+import com.github.fge.msgsimple.serviceloader.MessageBundles;
+import com.github.fge.uritemplate.URITemplateMessageBundle;
+
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +29,9 @@ import java.util.Map;
  */
 public abstract class VariableValue
 {
+    protected static final MessageBundle BUNDLE
+        = MessageBundles.forClass(URITemplateMessageBundle.class);
+
     protected final ValueType type;
 
     protected VariableValue(final ValueType type)
@@ -48,11 +55,12 @@ public abstract class VariableValue
      * <p>Only valid for string values</p>
      *
      * @return the string
-     * @throws IllegalStateException value is not a string value
+     * @throws IllegalArgumentException value is not a string value
      */
     public String getScalarValue()
     {
-        throw new IllegalStateException();
+        throw new IllegalArgumentException(BUNDLE.printf("value.notScalar",
+            type));
     }
 
     /**
@@ -61,11 +69,12 @@ public abstract class VariableValue
      * <p>Only valid for list values</p>
      *
      * @return the list
-     * @throws IllegalStateException value is not a list value
+     * @throws IllegalArgumentException value is not a list value
      */
     public List<String> getListValue()
     {
-        throw new IllegalStateException();
+        throw new IllegalArgumentException(BUNDLE.printf("value.notList",
+            type));
     }
 
     /**
@@ -74,11 +83,12 @@ public abstract class VariableValue
      * <p>Only valid for map values</p>
      *
      * @return the map
-     * @throws IllegalStateException value is not a map value
+     * @throws IllegalArgumentException value is not a map value
      */
     public Map<String, String> getMapValue()
     {
-        throw new IllegalStateException();
+        throw new IllegalArgumentException(BUNDLE.printf("value.notMap",
+            type));
     }
 
     /**

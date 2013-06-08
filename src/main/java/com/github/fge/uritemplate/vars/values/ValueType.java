@@ -33,7 +33,7 @@ import com.github.fge.uritemplate.render.ValueRenderer;
  */
 public enum ValueType
 {
-    SCALAR
+    SCALAR("scalar")
     {
         @Override
         public ValueRenderer selectRenderer(final ExpressionType type)
@@ -41,7 +41,7 @@ public enum ValueType
             return new StringRenderer(type);
         }
     },
-    ARRAY
+    ARRAY("list")
     {
         @Override
         public ValueRenderer selectRenderer(final ExpressionType type)
@@ -49,7 +49,7 @@ public enum ValueType
             return new ListRenderer(type);
         }
     },
-    MAP
+    MAP("map")
     {
         @Override
         public ValueRenderer selectRenderer(final ExpressionType type)
@@ -58,6 +58,13 @@ public enum ValueType
         }
     };
 
+    private final String name;
+
+    ValueType(final String name)
+    {
+        this.name = name;
+    }
+
     /**
      * Get the renderer for this value type and expression type
      *
@@ -65,4 +72,10 @@ public enum ValueType
      * @return the appropriate renderer
      */
     public abstract ValueRenderer selectRenderer(final ExpressionType type);
+
+    @Override
+    public String toString()
+    {
+        return name;
+    }
 }
