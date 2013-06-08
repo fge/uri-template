@@ -23,6 +23,10 @@ import com.github.fge.uritemplate.vars.VariableMap;
 import com.github.fge.uritemplate.vars.VariableMapBuilder;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -90,5 +94,33 @@ public final class URITemplate
             sb.append(expression.expand(vars));
 
         return sb.toString();
+    }
+
+    /**
+     * Expand this template to a URI given a set of variables
+     *
+     * @param vars the variables
+     * @return a URI
+     * @throws URITemplateException see {@link #toString(VariableMap)}
+     * @throws URISyntaxException expanded string is not a valid URI
+     */
+    public URI toURI(final VariableMap vars)
+        throws URITemplateException, URISyntaxException
+    {
+        return new URI(toString(vars));
+    }
+
+    /**
+     * Expand this template to a URL given a set of variables
+     *
+     * @param vars the variables
+     * @return a URL
+     * @throws URITemplateException see {@link #toString(VariableMap)}
+     * @throws MalformedURLException expanded string is not a valid URL
+     */
+    public URL toURL(final VariableMap vars)
+        throws URITemplateException, MalformedURLException
+    {
+        return new URL(toString(vars));
     }
 }
