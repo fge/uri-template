@@ -20,7 +20,6 @@ package com.github.fge.uritemplate.vars.values;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -47,6 +46,16 @@ public final class ListValue
     public static Builder newBuilder()
     {
         return new Builder();
+    }
+
+    public static <T> VariableValue copyOf(final Iterable<T> iterable)
+    {
+        return new Builder().addAll(iterable).build();
+    }
+
+    public static VariableValue of(final Object first, final Object... other)
+    {
+        return new Builder().add(first, other).build();
     }
 
     @Override
@@ -80,10 +89,10 @@ public final class ListValue
             return addAll(Lists.asList(first, other));
         }
 
-        public <T> Builder addAll(final Collection<T> collection)
+        public <T> Builder addAll(final Iterable<T> iterable)
         {
-            BUNDLE.checkNotNull(collection, "listValue.nullCollection");
-            for (final T element: collection) {
+            BUNDLE.checkNotNull(iterable, "listValue.nullIterable");
+            for (final T element: iterable) {
                 BUNDLE.checkNotNull(element, "listValue.nullElement");
                 list.add(element.toString());
             }

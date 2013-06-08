@@ -55,7 +55,7 @@ public final class ListValueTest
             fail("No exception thrown!");
         } catch (NullPointerException e) {
             assertEquals(e.getMessage(),
-                BUNDLE.getMessage("listValue.nullCollection"));
+                BUNDLE.getMessage("listValue.nullIterable"));
         }
     }
 
