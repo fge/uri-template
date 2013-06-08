@@ -20,6 +20,8 @@ package com.github.fge.uritemplate.vars.values;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
+import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 import java.util.Map;
 
 /**
@@ -27,6 +29,7 @@ import java.util.Map;
  *
  * <p>Note: the RFC calls these "associative arrays".</p>
  */
+@Immutable
 public final class MapValue
     extends VariableValue
 {
@@ -62,6 +65,7 @@ public final class MapValue
         return map.isEmpty();
     }
 
+    @NotThreadSafe
     public static final class Builder
     {
         /*

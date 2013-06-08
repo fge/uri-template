@@ -20,11 +20,14 @@ package com.github.fge.uritemplate.vars.values;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 import java.util.List;
 
 /**
  * Variable list value
  */
+@Immutable
 public final class ListValue
     extends VariableValue
 {
@@ -70,6 +73,7 @@ public final class ListValue
         return list.isEmpty();
     }
 
+    @NotThreadSafe
     public static final class Builder
     {
         private final List<String> list = Lists.newArrayList();

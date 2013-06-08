@@ -17,9 +17,12 @@
 
 package com.github.fge.uritemplate.vars.values;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
  * Simple string variable value
  */
+@Immutable
 public final class ScalarValue
     extends VariableValue
 {
