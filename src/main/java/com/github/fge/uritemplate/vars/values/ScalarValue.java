@@ -25,10 +25,10 @@ public final class ScalarValue
 {
     private final String value;
 
-    public ScalarValue(final String value)
+    public ScalarValue(final Object value)
     {
         super(ValueType.SCALAR);
-        this.value = value;
+        this.value = value.toString();
     }
 
     @Override
