@@ -43,4 +43,15 @@ public final class MapValueTest
                 BUNDLE.getMessage("mapValue.nullValue"));
         }
     }
+
+    @Test
+    public void builderForbidsNullMaps()
+    {
+        try {
+            builder.putAll(null);
+            fail("No exception thrown!");
+        } catch (NullPointerException e) {
+            assertEquals(e.getMessage(), BUNDLE.getMessage("mapValue.nullMap"));
+        }
+    }
 }

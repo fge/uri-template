@@ -39,6 +39,7 @@ public final class MapValue
     public MapValue(final Map<String, String> map)
     {
         super(ValueType.MAP);
+        BUNDLE.checkNotNull(map, "mapValue.nullMap");
         this.map = ImmutableMap.copyOf(map);
     }
 
@@ -85,6 +86,14 @@ public final class MapValue
                 BUNDLE.checkNotNull(key, "mapValue.nullKey"),
                 BUNDLE.checkNotNull(value, "mapValue.nullValue").toString()
             );
+            return this;
+        }
+
+        public <T> Builder putAll(final Map<String, T> map)
+        {
+            BUNDLE.checkNotNull(map, "mapValue.nullMap");
+            for (final Map.Entry<String, T> entry: map.entrySet())
+                put(entry.getKey(), entry.getValue());
             return this;
         }
 
