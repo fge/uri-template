@@ -18,6 +18,7 @@
 package com.github.fge.uritemplate.vars.values;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 
 import java.util.Map;
 
@@ -31,10 +32,22 @@ public final class MapValue
 {
     private final Map<String, String> map;
 
+    @Deprecated
     public MapValue(final Map<String, String> map)
     {
         super(ValueType.MAP);
         this.map = ImmutableMap.copyOf(map);
+    }
+
+    private MapValue(final Builder builder)
+    {
+        super(ValueType.MAP);
+        map = ImmutableMap.copyOf(builder.map);
+    }
+
+    public static Builder newBuilder()
+    {
+        return new Builder();
     }
 
     @Override
@@ -47,5 +60,33 @@ public final class MapValue
     public boolean isEmpty()
     {
         return map.isEmpty();
+    }
+
+    public static final class Builder
+    {
+        /*
+         * We use a LinkedHashMap to respect insertion order. While not required
+         * by URI, it is nicer to the user. And Guava's ImmutableMap respects
+         * insertion order as well.
+         */
+        private final Map<String, String> map = Maps.newLinkedHashMap();
+
+        private Builder()
+        {
+        }
+
+        public Builder put(final String key, final Object value)
+        {
+            map.put(
+                BUNDLE.checkNotNull(key, "mapValue.nullKey"),
+                BUNDLE.checkNotNull(value, "mapValue.nullValue").toString()
+            );
+            return this;
+        }
+
+        public VariableValue build()
+        {
+            return new MapValue(this);
+        }
     }
 }
