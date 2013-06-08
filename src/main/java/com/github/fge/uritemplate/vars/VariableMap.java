@@ -4,8 +4,10 @@ import com.github.fge.Frozen;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.collect.ImmutableMap;
 
+import javax.annotation.concurrent.Immutable;
 import java.util.Map;
 
+@Immutable
 public final class VariableMap
     implements Frozen<VariableMapBuilder>
 {
