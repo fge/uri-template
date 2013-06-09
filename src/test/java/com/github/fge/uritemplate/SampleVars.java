@@ -21,7 +21,6 @@ import com.github.fge.uritemplate.vars.values.ListValue;
 import com.github.fge.uritemplate.vars.values.MapValue;
 import com.github.fge.uritemplate.vars.values.ScalarValue;
 import com.github.fge.uritemplate.vars.values.VariableValue;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 import java.util.Map;
@@ -45,11 +44,11 @@ public final class SampleVars
          * Extracted from section 3 of the RFC
          */
         name = "count";
-        value = new ListValue(ImmutableList.of("one", "two", "three"));
+        value = ListValue.of("one", "two", "three");
         builder.put(name, value);
 
         name = "dom";
-        value = new ListValue(ImmutableList.of("example", "com"));
+        value = ListValue.of("example", "com");
         builder.put(name, value);
 
         name = "dub";
@@ -81,12 +80,12 @@ public final class SampleVars
         builder.put(name, value);
 
         name = "list";
-        value = new ListValue(ImmutableList.of("red", "green", "blue"));
+        value = ListValue.of("red", "green", "blue");
         builder.put(name, value);
 
         name = "keys";
-        value = new MapValue(ImmutableMap.of("semi", ";", "dot", ".",
-            "comma", ","));
+        value = MapValue.newBuilder().put("semi", ";").put("dot", ".")
+            .put("comma", ",").build();
         builder.put(name, value);
 
         name = "v";
@@ -106,7 +105,7 @@ public final class SampleVars
         builder.put(name, value);
 
         name = "empty_keys";
-        value = new MapValue(ImmutableMap.<String, String>of());
+        value = MapValue.newBuilder().build();
         builder.put(name, value);
 
         // undef not defined
