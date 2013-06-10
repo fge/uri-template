@@ -18,7 +18,7 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.github.fge.msgsimple.serviceloader.MessageBundles;
+import com.github.fge.msgsimple.serviceloader.MessageBundleFactory;
 import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.URITemplate;
 import com.github.fge.uritemplate.URITemplateMessageBundle;
@@ -39,7 +39,7 @@ import java.util.List;
 public final class URITemplateParser
 {
     private static final MessageBundle BUNDLE
-        = MessageBundles.forClass(URITemplateMessageBundle.class);
+        = MessageBundleFactory.getBundle(URITemplateMessageBundle.class);
 
     private static final CharMatcher BEGIN_EXPRESSION = CharMatcher.is('{');
 

@@ -18,7 +18,7 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.github.fge.msgsimple.serviceloader.MessageBundles;
+import com.github.fge.msgsimple.serviceloader.MessageBundleFactory;
 import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.URITemplateMessageBundle;
 import com.github.fge.uritemplate.URITemplateParseException;
@@ -36,7 +36,7 @@ import java.util.List;
 final class VariableSpecParser
 {
     private static final MessageBundle BUNDLE
-        = MessageBundles.forClass(URITemplateMessageBundle.class);
+        = MessageBundleFactory.getBundle(URITemplateMessageBundle.class);
 
     private static final Joiner JOINER = Joiner.on('.');
 

@@ -2,7 +2,7 @@ package com.github.fge.uritemplate.vars;
 
 import com.github.fge.Thawed;
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.github.fge.msgsimple.serviceloader.MessageBundles;
+import com.github.fge.msgsimple.serviceloader.MessageBundleFactory;
 import com.github.fge.uritemplate.URITemplateMessageBundle;
 import com.github.fge.uritemplate.vars.values.ListValue;
 import com.github.fge.uritemplate.vars.values.MapValue;
@@ -18,7 +18,7 @@ public final class VariableMapBuilder
     implements Thawed<VariableMap>
 {
     private static final MessageBundle BUNDLE
-        = MessageBundles.forClass(URITemplateMessageBundle.class);
+        = MessageBundleFactory.getBundle(URITemplateMessageBundle.class);
 
     final Map<String, VariableValue> vars = Maps.newHashMap();
 

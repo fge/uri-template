@@ -18,7 +18,7 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.github.fge.msgsimple.serviceloader.MessageBundles;
+import com.github.fge.msgsimple.serviceloader.MessageBundleFactory;
 import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.URITemplateMessageBundle;
 import com.github.fge.uritemplate.URITemplateParseException;
@@ -31,7 +31,7 @@ final class LiteralParser
     implements TemplateParser
 {
     private static final MessageBundle BUNDLE
-        = MessageBundles.forClass(URITemplateMessageBundle.class);
+        = MessageBundleFactory.getBundle(URITemplateMessageBundle.class);
 
     @Override
     public URITemplateExpression parse(final CharBuffer buffer)

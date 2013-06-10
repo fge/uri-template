@@ -18,7 +18,7 @@
 package com.github.fge.uritemplate.vars.values;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.github.fge.msgsimple.serviceloader.MessageBundles;
+import com.github.fge.msgsimple.serviceloader.MessageBundleFactory;
 import com.github.fge.uritemplate.URITemplateMessageBundle;
 
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.Map;
 public abstract class VariableValue
 {
     protected static final MessageBundle BUNDLE
-        = MessageBundles.forClass(URITemplateMessageBundle.class);
+        = MessageBundleFactory.getBundle(URITemplateMessageBundle.class);
 
     protected final ValueType type;
 

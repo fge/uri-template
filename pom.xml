@@ -106,7 +106,7 @@
         <dependency>
             <groupId>com.github.fge</groupId>
             <artifactId>msg-simple</artifactId>
-            <version>0.3</version>
+            <version>0.4</version>
         </dependency>
         <!-- Provided -->
         <dependency>
