@@ -90,7 +90,7 @@ public final class ListValue
                 BUNDLE.checkNotNull(o, "listValue.nullElement");
                 list.add(o.toString());
             }
-            return addAll(Lists.asList(first, other));
+            return this;
         }
 
         public <T> Builder addAll(final Iterable<T> iterable)
