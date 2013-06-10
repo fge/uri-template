@@ -33,6 +33,9 @@ import com.github.fge.uritemplate.render.ValueRenderer;
  */
 public enum ValueType
 {
+    /**
+     * Scalar values (simple string values)
+     */
     SCALAR("scalar")
     {
         @Override
@@ -41,6 +44,9 @@ public enum ValueType
             return new StringRenderer(type);
         }
     },
+    /**
+     * Array/list values
+     */
     ARRAY("list")
     {
         @Override
@@ -49,6 +55,11 @@ public enum ValueType
             return new ListRenderer(type);
         }
     },
+    /**
+     * Map values
+     *
+     * <p>Note: the RFC calls these "associative arrays".</p>
+     */
     MAP("map")
     {
         @Override

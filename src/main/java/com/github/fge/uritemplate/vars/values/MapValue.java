@@ -27,7 +27,12 @@ import java.util.Map;
 /**
  * Map variable value
  *
- * <p>Note: the RFC calls these "associative arrays".</p>
+ * <p>Note that some methods allow to pass values of arbitrary type. It is the
+ * caller's responsibility to ensure that these values have a correct {@link
+ * Object#toString() .toString()} implementation.</p>
+ *
+ * <p>While there is one public constructor, it is <b>deprecated</b>. Use a
+ * {@link Builder} instead (see {@link #newBuilder()}).</p>
  */
 @Immutable
 public final class MapValue
@@ -35,6 +40,13 @@ public final class MapValue
 {
     private final Map<String, String> map;
 
+    /**
+     * Public constructor -- DO NOT USE
+     *
+     * @param map the underlying map values
+     * @throws NullPointerException map is null, or one of its keys or values
+     * are null
+     */
     @Deprecated
     public MapValue(final Map<String, String> map)
     {
@@ -49,6 +61,11 @@ public final class MapValue
         map = ImmutableMap.copyOf(builder.map);
     }
 
+    /**
+     * Create a new builder for this class
+     *
+     * @return a {@link Builder}
+     */
     public static Builder newBuilder()
     {
         return new Builder();
@@ -66,6 +83,9 @@ public final class MapValue
         return map.isEmpty();
     }
 
+    /**
+     * Builder class for a {@link MapValue}
+     */
     @NotThreadSafe
     public static final class Builder
     {
@@ -80,6 +100,14 @@ public final class MapValue
         {
         }
 
+        /**
+         * Add one key/value pair to the map
+         *
+         * @param key the key
+         * @param value the value
+         * @return this
+         * @throws NullPointerException the key or value is null
+         */
         public Builder put(final String key, final Object value)
         {
             map.put(
@@ -89,6 +117,15 @@ public final class MapValue
             return this;
         }
 
+        /**
+         * Inject a map of key/value pairs
+         *
+         * @param map the map
+         * @param <T> the type of this map's values
+         * @return this
+         * @throws NullPointerException map is null, or one of its keys or
+         * values is null
+         */
         public <T> Builder putAll(final Map<String, T> map)
         {
             BUNDLE.checkNotNull(map, "mapValue.nullMap");
@@ -97,6 +134,11 @@ public final class MapValue
             return this;
         }
 
+        /**
+         * Build the value
+         *
+         * @return the map value as a {@link VariableValue}
+         */
         public VariableValue build()
         {
             return new MapValue(this);

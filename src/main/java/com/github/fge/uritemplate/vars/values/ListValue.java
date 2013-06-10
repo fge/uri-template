@@ -26,6 +26,15 @@ import java.util.List;
 
 /**
  * List variable value
+ *
+ * <p>Note that several methods (in this class or the enclosed {@link Builder}
+ * class) can take any object as an argument. It is the caller's responsibility
+ * to ensure that these objects have a suitable {@link Object#toString()}
+ * .toString()} implementation.</p>
+ *
+ * <p>While a public constructor exists, it is <b>deprecated</b>. Use one of
+ * the factory methods instead, or a {@link Builder} (see {@link
+ * #newBuilder()}).</p>
  */
 @Immutable
 public final class ListValue
@@ -33,10 +42,18 @@ public final class ListValue
 {
     private final List<String> list;
 
+    /**
+     * public constructor -- DO NOT USE
+     *
+     * @param list the list to use
+     * @deprecated use {@link #copyOf(Iterable)} instead. Will be removed in
+     * 0.6.
+     */
     @Deprecated
     public ListValue(final List<String> list)
     {
         super(ValueType.ARRAY);
+        BUNDLE.checkNotNull(list, "listValue.nullList");
         this.list = ImmutableList.copyOf(list);
     }
 
@@ -46,16 +63,39 @@ public final class ListValue
         list = ImmutableList.copyOf(builder.list);
     }
 
+    /**
+     * Create a new list value builder
+     *
+     * @return a builder
+     */
     public static Builder newBuilder()
     {
         return new Builder();
     }
 
+    /**
+     * Build a list value out of an existing iterable (list, set, other)
+     *
+     * <p>This calls {@link Builder#addAll(Iterable)} internally.</p>
+     *
+     * @param iterable the iterable
+     * @param <T> the type of iterable elements
+     * @return a new list value
+     */
     public static <T> VariableValue copyOf(final Iterable<T> iterable)
     {
         return new Builder().addAll(iterable).build();
     }
 
+    /**
+     * Build a list value out of a series of elements
+     *
+     * <p>This calls {@link Builder#add(Object, Object...)} internally.</p>
+     *
+     * @param first first element
+     * @param other other elements, if any
+     * @return a new list value
+     */
     public static VariableValue of(final Object first, final Object... other)
     {
         return new Builder().add(first, other).build();
@@ -73,6 +113,9 @@ public final class ListValue
         return list.isEmpty();
     }
 
+    /**
+     * Builder class for a {@link ListValue}
+     */
     @NotThreadSafe
     public static final class Builder
     {
@@ -82,6 +125,14 @@ public final class ListValue
         {
         }
 
+        /**
+         * Add a series of elements to this list
+         *
+         * @param first first element
+         * @param other other elements, if any
+         * @return this
+         * @throws NullPointerException one argument at least is null
+         */
         public Builder add(final Object first, final Object... other)
         {
             BUNDLE.checkNotNull(first, "listValue.nullElement");
@@ -93,6 +144,15 @@ public final class ListValue
             return this;
         }
 
+        /**
+         * Add elements from an iterable (list, set, other)
+         *
+         * @param iterable the iterable
+         * @param <T> type of elements in the iterable
+         * @return this
+         * @throws NullPointerException the iterable is null, or one of its
+         * elements is null
+         */
         public <T> Builder addAll(final Iterable<T> iterable)
         {
             BUNDLE.checkNotNull(iterable, "listValue.nullIterable");
@@ -103,6 +163,11 @@ public final class ListValue
             return this;
         }
 
+        /**
+         * Build the value
+         *
+         * @return the list value as a {@link VariableValue}
+         */
         public VariableValue build()
         {
             return new ListValue(this);

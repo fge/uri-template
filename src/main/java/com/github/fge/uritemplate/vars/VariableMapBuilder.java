@@ -13,6 +13,8 @@ import com.google.common.collect.Maps;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.Map;
 
+import static com.github.fge.uritemplate.vars.values.MapValue.Builder;
+
 /**
  * Builder class for a {@link VariableMap}
  *
@@ -121,7 +123,7 @@ public final class VariableMapBuilder
      * @param map the map
      * @param <T> type of map values
      * @return this
-     * @see MapValue.Builder#putAll(Map)
+     * @see Builder#putAll(Map)
      */
     public <T> VariableMapBuilder addMapValue(final String varname,
         final Map<String, T> map)

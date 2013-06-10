@@ -21,6 +21,10 @@ import javax.annotation.concurrent.Immutable;
 
 /**
  * Simple string variable value
+ *
+ * <p>Note that the constructor takes an arbitrary type as an argument. It is
+ * the caller's responsibility to ensure that this value has a correct {@link
+ * Object#toString() .toString()} implementation.</p>
  */
 @Immutable
 public final class ScalarValue
@@ -28,9 +32,16 @@ public final class ScalarValue
 {
     private final String value;
 
+    /**
+     * Constructor
+     *
+     * @param value the value
+     * @throws NullPointerException value is null
+     */
     public ScalarValue(final Object value)
     {
         super(ValueType.SCALAR);
+        BUNDLE.checkNotNull(value, "scalar.nullValue");
         this.value = value.toString();
     }
 
