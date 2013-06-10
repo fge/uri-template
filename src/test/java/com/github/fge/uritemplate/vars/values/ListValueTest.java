@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.testng.Assert.*;
 
@@ -69,5 +70,21 @@ public final class ListValueTest
             assertEquals(e.getMessage(),
                 BUNDLE.getMessage("listValue.nullElement"));
         }
+    }
+
+    @Test
+    public void addedValuesViaAddShowUpInResult()
+    {
+        final String s1 = "hello", s2 = "world";
+        builder.add(s1, s2);
+        assertEquals(builder.build().getListValue(), Arrays.asList(s1, s2));
+    }
+
+    @Test
+    public void addedValuesViaAddAllShowUpInResult()
+    {
+        final List<String> list = Arrays.asList("hello", "world");
+        builder.addAll(list);
+        assertEquals(builder.build().getListValue(), list);
     }
 }
