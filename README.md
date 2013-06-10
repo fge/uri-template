@@ -1,22 +1,22 @@
-<h2>Read me first</h2>
+## Read me first
 
-<p>The license of this project is LGPLv3 or later. See file src/main/resources/LICENSE for the full
-text.</p>
+The license of this project is LGPLv3 or later. See file src/main/resources/LICENSE for the full
+text.
 
-<h2>What this is</h2>
+## What this is
 
-<p>This is a 100% Java implementation of IETF's <a href="http://tools.ietf.org/html/rfc6570">RFC
-6570</a> (URI templates). This RFC is used, among others, in JSON Schema hyperschema.</p>
+This is a 100% Java implementation of IETF's [RFC 6570](http://tools.ietf.org/html/rfc6570) (URI
+templates). This RFC is used, among others, in JSON Schema hyperschema.
 
-<p>More generally, if you have to generate a lot of URIs (or URLs, since URLs are URIs) all having
-the sample "place holders" for values and don't want to be bothered with encoding problems etc, this
-is the library for you.</p>
+More generally, if you have to generate a lot of URIs (or URLs, since URLs are URIs) all having the
+sample "place holders" for values and don't want to be bothered with encoding problems etc, this is
+the library for you.
 
-<h2>Versions</h2>
+## Versions
 
-<p>The current version is <b>0.4</b>.</p>
+The current version is **0.4**.
 
-<h2>Maven artifact</h2>
+## Maven artifact
 
 ```xml
 <dependency>
@@ -26,26 +26,23 @@ is the library for you.</p>
 </dependency>
 ```
 
-<h2>Features</h2>
+## Features
 
-<p>This library has only one dependency: Guava. It has no dependency on any logging framework or Web
-framework of any kind.</p>
+Template expansion is feature complete and without errors. All samples from the RFC and the
+existing [test suite from github](https://github.com/dret/uritemplate-test) pass without
+a problem.
 
-<p>Template expansion is feature complete and without errors. All samples from the RFC and the
-existing <a href="https://github.com/dret/uritemplate-test">test suite from github</a> pass without
-a problem.</p>
+Please note that percent encodings are lower case in this implementation.
 
-<p>Please note that percent encodings are lower case in this implementation.</p>
-
-<p>One of the goals of this library is to be as light as possible. As such, it does _not_ provide
+One of the goals of this library is to be as light as possible. As such, it does _not_ provide
 facilities to read variable values from, say, JSON (even though the test files are written in JSON,
-Jackson is included as a test dependency only).</p>
+Jackson is included as a test dependency only).
 
-<h2>Sample code usage</h2>
+## Sample code usage
 
-<p>First you need to build your map of values. As this is totally application dependent, this
+First you need to build your map of values. As this is totally application dependent, this
 application only offers facilities to create values according to their type (which this
-implementation calls "scalar", "list" and "map").  Example:</p>
+implementation calls "scalar", "list" and "map").  Example:
 
 ```java
 final Map<String, VariableValue> vars = new HashMap<String, VariableValue>();
@@ -69,7 +66,7 @@ value = new MapValue(ImmutableMap.of("key1", "value1", "key2", "value2"));
 vars.put(name, value);
 ```
 
-<p>Then, you need to create a URI template. This is done using the `URITemplate` class.</p>
+Then, you need to create a URI template. This is done using the `URITemplate` class.
 
 ```java
 // Throws URITemplateParseException if the template is invalid
@@ -80,5 +77,5 @@ final URITemplate template = new URITemplate("http://foo.bar/myPage{?map*}");
 System.out.println(template.expand(vars));
 ```
 
-<p>See the RFC for more sample usages.</p>
+See the RFC for more sample usages.
 
