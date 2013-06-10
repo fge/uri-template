@@ -18,7 +18,8 @@
 package com.github.fge.uritemplate.vars.specs;
 
 /**
- * A varspec with a prefix modifier
+ * A varspec with a prefix modifier (for instance, {@code foo:3} in {@code
+ * {foo:3}}
  */
 public final class PrefixVariable
     extends VariableSpec

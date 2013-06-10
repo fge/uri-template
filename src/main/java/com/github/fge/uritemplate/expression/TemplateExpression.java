@@ -29,7 +29,10 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 /**
- * URI template expander
+ * Template expression (ie, not literal) rendering class
+ *
+ * <p>This class ultimately handles all {@code {...}} sequences found in a
+ * URI template.</p>
  *
  * @see ValueRenderer
  */

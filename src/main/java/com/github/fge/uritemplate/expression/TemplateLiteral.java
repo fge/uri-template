@@ -21,7 +21,7 @@ import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.vars.VariableMap;
 
 /**
- * Literal expander
+ * Literals rendering class
  *
  * <p>This covers all strings inbetween actual URI template expressions.</p>
  */

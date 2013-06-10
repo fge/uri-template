@@ -20,7 +20,6 @@ package com.github.fge.uritemplate.vars.specs;
 /**
  * Enumeration of a variable modifier type
  */
-// TODO: remove?
 public enum VariableSpecType
 {
     /**

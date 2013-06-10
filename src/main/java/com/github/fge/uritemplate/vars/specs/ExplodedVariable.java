@@ -18,7 +18,8 @@
 package com.github.fge.uritemplate.vars.specs;
 
 /**
- * A varspec with an explode modifier
+ * A varspec with an explode modifier (for instance, {@code foo*} in {@code
+ * {foo*}}
  */
 public final class ExplodedVariable
     extends VariableSpec

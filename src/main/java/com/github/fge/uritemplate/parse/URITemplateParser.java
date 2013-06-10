@@ -34,6 +34,8 @@ import java.util.List;
 /**
  * Main parser class
  *
+ * <p>You should not use this class directly.</p>
+ *
  * @see URITemplate#URITemplate(String)
  */
 public final class URITemplateParser

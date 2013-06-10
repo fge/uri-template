@@ -17,18 +17,6 @@
 
 package com.github.fge.uritemplate.vars.specs;
 
-/*
- * A varspec has all the necessary elements to render according to the needs. It
- * needs two elements to operate:
- *
- * - the type of the value;
- * - the type of the expression.
- *
- * According to its own, internal information, its rendering method (name to be
- * decided) should be able to return a String to the caller with the appropriate
- * contents.
- */
-
 /**
  * A variable specifier
  *
@@ -36,8 +24,8 @@ package com.github.fge.uritemplate.vars.specs;
  * instance, in {@code {+path:3,var}}, variable specifiers are {@code path:3}
  * and {@code var}.</p>
  *
- * <p>This class therefore records the name of this specifier and its modifier,
- * if any.</p>
+ * <p>This class records the name of this specifier and its modifier, if any.
+ * </p>
  */
 public abstract class VariableSpec
 {

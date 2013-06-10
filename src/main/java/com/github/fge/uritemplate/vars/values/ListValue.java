@@ -25,7 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import java.util.List;
 
 /**
- * Variable list value
+ * List variable value
  */
 @Immutable
 public final class ListValue

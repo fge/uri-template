@@ -18,7 +18,7 @@
 package com.github.fge.uritemplate.vars.specs;
 
 /**
- * A varspec with no modifier
+ * A varspec with no modifier (for instance, {@code foo} in {@code {foo}}
  */
 public final class SimpleVariable
     extends VariableSpec

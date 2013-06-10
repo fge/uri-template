@@ -33,7 +33,7 @@ public interface URITemplateExpression
      *
      * @param vars the variables (names and values)
      * @return the expanded string
-     * @throws URITemplateException illegal parsing
+     * @throws URITemplateException incompatible variable/expansion pair
      */
     String expand(final VariableMap vars)
         throws URITemplateException;

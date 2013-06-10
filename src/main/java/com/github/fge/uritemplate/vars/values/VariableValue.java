@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Value for one variable used for the expansion process
+ * Abstract class for one variable value
  */
 public abstract class VariableValue
 {
