@@ -22,10 +22,8 @@ import com.github.fge.uritemplate.vars.values.ListValue;
 import com.github.fge.uritemplate.vars.values.MapValue;
 import com.github.fge.uritemplate.vars.values.ScalarValue;
 import com.github.fge.uritemplate.vars.values.VariableValue;
-import com.google.common.collect.Lists;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public final class Util
@@ -40,10 +38,10 @@ public final class Util
         if (node.isTextual())
             return new ScalarValue(node.textValue());
         if (node.isArray()) {
-            final List<String> list = Lists.newArrayList();
+            final ListValue.Builder builder = ListValue.newBuilder();
             for (final JsonNode element: node)
-                list.add(element.textValue());
-            return ListValue.of(list);
+                builder.add(element.textValue());
+            return builder.build();
         }
         if (node.isObject()) {
             final MapValue.Builder builder = MapValue.newBuilder();
