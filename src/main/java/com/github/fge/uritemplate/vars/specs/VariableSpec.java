@@ -41,7 +41,7 @@ package com.github.fge.uritemplate.vars.specs;
  */
 public abstract class VariableSpec
 {
-    protected final VariableSpecType type;
+    private final VariableSpecType type;
     protected final String name;
 
     protected VariableSpec(final VariableSpecType type, final String name)

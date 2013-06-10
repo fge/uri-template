@@ -63,7 +63,7 @@ public abstract class ValueRenderer
      *
      * @see ExpressionType#isRawExpand()
      */
-    protected final CharMatcher matcher;
+    private final CharMatcher matcher;
 
     /**
      * Constructor

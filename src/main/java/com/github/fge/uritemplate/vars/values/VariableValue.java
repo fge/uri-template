@@ -32,7 +32,7 @@ public abstract class VariableValue
     protected static final MessageBundle BUNDLE
         = MessageBundleFactory.getBundle(URITemplateMessageBundle.class);
 
-    protected final ValueType type;
+    private final ValueType type;
 
     protected VariableValue(final ValueType type)
     {
