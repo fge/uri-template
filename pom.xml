@@ -78,6 +78,10 @@
                     <execution>
                         <phase>package</phase>
                         <goals>
+                            <!--
+                                It is necessary to call this target instead of "jar". See here:
+                                http://stackoverflow.com/questions/10567551/difference-between-maven-source-plugin-jar-and-jar-no-fork-goal
+                            -->
                             <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
@@ -124,6 +128,7 @@
                 </executions>
             </plugin>
 			<!--
+                This causes the build cycle to fork! Don't use...
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-repository-plugin</artifactId>
@@ -137,7 +142,6 @@
                     </execution>
                 </executions>
             </plugin>
-			
 			-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
