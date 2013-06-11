@@ -83,7 +83,7 @@ implementation calls "scalar", "list" and "map").  Example:
 
 ```java
 // Create a variable map, consisting of name/value pairs
-final VariableMap.Builder builder = VariableMap.newBuilder();
+final VariableMapBuilder builder = VariableMap.newBuilder();
 
 // Add scalar values
 builder.addScalarValue("scalar", "hello");
@@ -99,6 +99,9 @@ final MapValue mapValue = MapValue.newBuilder()
     .build();
 
 builder.add("map", mapValue);
+
+// Create the variable map
+final VariableMap vars = builder.freeze();
 ```
 
 Then, you need to create a URI template. This is done using the `URITemplate` class.
