@@ -6,4 +6,4 @@
 # The only thing missing is making this script non interactive...
 #
 
-mvn clean package gpg:sign repository:bundle-create deploy
+mvn clean package assembly:single gpg:sign deploy
