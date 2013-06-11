@@ -6,7 +6,56 @@ text.
 ## What this is
 
 This is a 100% Java implementation of IETF's [RFC 6570](http://tools.ietf.org/html/rfc6570) (URI
-templates). This RFC is used, among others, in JSON Schema hyperschema.
+templates).
+
+URI templates are very powerful and unfortunately seldomly known (for now, that is). They allow you
+to operate substitutions anywhere in a URI, without having to encode your values first. The
+classical recipe, often seen with Java, is to use the
+[`URLEncoder`](http://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html) class -- but this
+is the wrong thing to do, see below.
+
+## What are URI templates
+
+URI templates are particularly useful if you wish to generate URIs to work with REST APIs (which are
+more common as the time goes. Google, Facebook, Twitter, you name it: everybody uses such APIs these
+days). As such, this library is particularly suited for REST clients, but also on the server side.
+
+### Sample URI templates
+
+Here are some possible templates:
+
+```
+# Substitution of a map of query parameters
+http://foo.bar.com/some/request{?queryparams*}
+# Simple substitutions
+http://some.restsite.com/{user}/profile
+# Fragment substitution
+http://yet.another.site/path/to/somewhere#{+fragmentPart}
+```
+
+As an example, let us take the query parameters map expansion with the following key/value pairs:
+
+* `hello` -> `world!`,
+* `streetInGerman` -> `Straße`
+
+Substituting this map into the first template will give:
+
+```
+http://foo.bar.com/some/request?hello=world%21&streetInGerman=Stra%c3%9fe
+```
+
+As you see, this produces a valid URI!
+
+### Why `URLEncoder.encode()` doesn't work
+
+There is a very common misconception with this method. It does NOT encode strings for use in URIs,
+it encodes strings **for use in POST data**, that is for `application/x-www-form-urlencoded` data;
+and in this encoding, spaces become `+`, not `%20`!
+
+What is more, the set of characters it encodes as percent-encoded sequences are not the set of
+characters to be encoded in URIs, and even in URIs, this character set differs according to whether
+you are, for instance, in the path element or in fragment elements (you don't encode a `/` in a
+fragment element, for instance).
 
 More generally, if you have to generate a lot of URIs (or URLs, since URLs are URIs) all having the
 sample "place holders" for values and don't want to be bothered with encoding problems etc, this is
@@ -26,18 +75,6 @@ The current version is **0.4**.
 </dependency>
 ```
 
-## Features
-
-Template expansion is feature complete and without errors. All samples from the RFC and the
-existing [test suite from github](https://github.com/dret/uritemplate-test) pass without
-a problem.
-
-Please note that percent encodings are lower case in this implementation.
-
-One of the goals of this library is to be as light as possible. As such, it does _not_ provide
-facilities to read variable values from, say, JSON (even though the test files are written in JSON,
-Jackson is included as a test dependency only).
-
 ## Sample code usage
 
 First you need to build your map of values. As this is totally application dependent, this
@@ -45,25 +82,23 @@ application only offers facilities to create values according to their type (whi
 implementation calls "scalar", "list" and "map").  Example:
 
 ```java
-final Map<String, VariableValue> vars = new HashMap<String, VariableValue>();
+// Create a variable map, consisting of name/value pairs
+final VariableMap.Builder builder = VariableMap.newBuilder();
 
-String name;
-VariableValue value;
-
-// Create a scalar value
-name = "scalar";
-value = new ScalarValue("hello");
-vars.put(name, value);
+// Add scalar values
+builder.addScalarValue("scalar", "hello");
+builder.addScalar("id", 38928932);
 
 // Create a list value
-name = "list";
-value = new ListValue(Arrays.asList("one", "two", "three"));
-vars.put(name, value);
+builder.addListValue("list", "one", 2, "three");
 
 // Create a map value
-name = "map";
-value = new MapValue(ImmutableMap.of("key1", "value1", "key2", "value2"));
-vars.put(name, value);
+final MapValue mapValue = MapValue.newBuilder()
+    .put("key1", "value1")
+    .put("number", 3)
+    .build();
+
+builder.add("map", mapValue);
 ```
 
 Then, you need to create a URI template. This is done using the `URITemplate` class.
@@ -72,10 +107,11 @@ Then, you need to create a URI template. This is done using the `URITemplate` cl
 // Throws URITemplateParseException if the template is invalid
 final URITemplate template = new URITemplate("http://foo.bar/myPage{?map*}");
 
-// Will print out "http://foo.bar/myPage?key1=value1&key2=value2"
-// Throws URITemplateException if the expansion is invalid
-System.out.println(template.expand(vars));
+// Expansion result as a string
+template.expand(vars);
+// Expansion result as a URI
+template.toURI(vars);
+// Expansion result as a URL
+template.toURL(vars);
 ```
-
-See the RFC for more sample usages.
 
