@@ -20,7 +20,7 @@
     <groupId>com.github.fge</groupId>
     <artifactId>uri-template</artifactId>
     <name>uri-template</name>
-    <version>0.5</version>
+    <version>0.6-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <description>A fully functional Java implementation of RFC 6570 (URI templates)</description>
     <url>https://github.com/fge/uri-template</url>

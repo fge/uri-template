@@ -63,7 +63,7 @@ the library for you.
 
 ## Versions
 
-The current version is **0.4**.
+The current version is **0.5**.
 
 ## Maven artifact
 
