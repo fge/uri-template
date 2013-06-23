@@ -65,6 +65,19 @@ the library for you.
 
 The current version is **0.5**.
 
+## Building
+
+This project has a pom.xml, but the preferred method is to use Gradle instead:
+
+```
+# Build a full jar
+gradle clean fatjar
+# Run tests
+gradle tests
+# Show the list of tasks
+gradle tasks
+```
+
 ## Maven artifact
 
 ```xml
