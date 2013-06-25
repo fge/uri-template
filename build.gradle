@@ -48,9 +48,10 @@ repositories {
  * into runtime dependencies
  */
 dependencies {
-    compile(group: "com.github.fge", name: "msg-simple", version: "0.6");
     compile(group: "com.google.guava", name: "guava", version: "14.0.1");
-    compile(group: "com.google.code.findbugs", name: "jsr305", version: "2.0.1") {
+    compile(group: "com.github.fge", name: "msg-simple", version: "0.7");
+    compile(group: "com.google.code.findbugs", name: "jsr305",
+        version: "2.0.1") {
         transitive = true
     };
     testCompile(group: "org.testng", name: "testng", version: "6.8") {
@@ -60,14 +61,25 @@ dependencies {
     };
     testCompile(group: "org.mockito", name: "mockito-core", version: "1.9.5");
     testCompile(group: "com.fasterxml.jackson.core", name: "jackson-databind",
-        version: "2.2.1");
+        version: "2.2.2");
 }
+
+javadoc.options.links("http://docs.oracle.com/javase/6/docs/api");
+javadoc.options.links("http://jsr-305.googlecode.com/svn/trunk/javadoc");
+javadoc.options.links("http://fasterxml.github.com/jackson-databind/javadoc/2.2.0");
+javadoc.options.links("http://docs.guava-libraries.googlecode.com/git/javadoc");
 
 /*
  * Necessary! Otherwise TestNG will not be used...
+ *
+ * Also, we don't want gradle's default HTML report: it does not support
+ * parameterized tests which I use a _lot_.
  */
 test {
-    useTestNG();
+    useTestNG() {
+        useDefaultListeners = true;
+    };
+    testReport = false;
 }
 
 /*
@@ -87,13 +99,6 @@ fatJar {
     classifier = "full";
 }
 
-jar {
-    manifest {
-        version = "${version}";
-        symbolicName = "${name}";
-    }
-}
-
 processResources {
     dependsOn(generateServiceFiles);
 }
@@ -102,7 +107,7 @@ artifacts {
     archives jar;
     archives sourcesJar;
     archives javadocJar;
-    archives fatJar;
+// bad idea:    archives fatJar;
 }
 
 signing {
