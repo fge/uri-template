@@ -52,27 +52,6 @@ project.ext {
     ideaTest = new File("out/test/${name}").canonicalFile;
 };
 
-/*
- * Project-specific settings. Unfortunately we cannot put the name in there!
- */
-version = "0.6-SNAPSHOT";
-sourceCompatibility = "1.6";
-targetCompatibility = "1.6"; // defaults to sourceCompatibility
-
-project.ext {
-    description = "A fully functional Java implementation of RFC 6570 (URI templates)";
-}
-
-/*
- * ServiceLoader support
- */
-
-project.ext {
-    serviceClasses = [
-        "com.github.fge.msgsimple.serviceloader.MessageBundleProvider"
-    ];
-};
-
 project.ext {
     dotClass = ".class";
     classpathURI = sourceSets.main.output.classesDir.canonicalFile.toURI();
