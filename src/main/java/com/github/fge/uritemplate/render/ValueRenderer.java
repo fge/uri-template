@@ -103,9 +103,15 @@ public abstract class ValueRenderer
      */
     protected final String pctEncode(final String s)
     {
-        final StringBuilder sb = new StringBuilder(s.length());
-        for (final char c: s.toCharArray())
+        final int size = s.length();
+        final StringBuilder sb = new StringBuilder(size);
+
+        char c;
+
+        for (int i = 0; i < size; i++) {
+            c = s.charAt(i);
             sb.append(matcher.matches(c) ? c : encodeChar(c));
+        }
         return sb.toString();
     }
 
@@ -120,7 +126,7 @@ public abstract class ValueRenderer
      */
     private static String encodeChar(final char c)
     {
-        final String tmp = new String(new char[] { c });
+        final String tmp = Character.toString(c);
         final byte[] bytes = tmp.getBytes(Charset.forName("UTF-8"));
         final StringBuilder sb = new StringBuilder();
         for (final byte b: bytes)
