@@ -23,9 +23,8 @@ import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.base.CharMatcher;
-import com.google.common.primitives.UnsignedBytes;
+import com.google.common.base.Charsets;
 
-import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -127,10 +126,10 @@ public abstract class ValueRenderer
     private static String encodeChar(final char c)
     {
         final String tmp = Character.toString(c);
-        final byte[] bytes = tmp.getBytes(Charset.forName("UTF-8"));
+        final byte[] bytes = tmp.getBytes(Charsets.UTF_8);
         final StringBuilder sb = new StringBuilder();
         for (final byte b: bytes)
-            sb.append('%').append(UnsignedBytes.toString(b, 16));
+            sb.append(String.format("%%%02x", b));
         return sb.toString();
     }
 }
