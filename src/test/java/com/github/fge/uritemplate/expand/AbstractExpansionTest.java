@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.github.fge.jackson.JsonLoader;
 import com.github.fge.uritemplate.URITemplate;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.Util;
@@ -32,7 +33,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -51,11 +51,9 @@ public abstract class AbstractExpansionTest
     protected AbstractExpansionTest(final String resourceName)
         throws IOException
     {
-
         final String resourcePath = "/expand/" + resourceName + ".json";
-        final InputStream in
-            = AbstractExpansionTest.class.getResourceAsStream(resourcePath);
-        testNode = READER.readTree(in);
+        testNode = JsonLoader.fromResource(resourcePath);
+
         final Iterator<Map.Entry<String, JsonNode>> iterator
             = testNode.get("vars").fields();
         final VariableMapBuilder builder = VariableMap.newBuilder();

@@ -39,6 +39,8 @@ dependencies {
     testCompile(group: "org.mockito", name: "mockito-core", version: "1.9.5");
     testCompile(group: "com.fasterxml.jackson.core", name: "jackson-databind",
         version: "2.2.2");
+    testCompile(group: "com.github.fge", name: "jackson-coreutils",
+        version: "1.3");
 }
 
 /*

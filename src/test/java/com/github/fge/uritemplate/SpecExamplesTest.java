@@ -18,9 +18,8 @@
 package com.github.fge.uritemplate;
 
 import com.beust.jcommander.internal.Lists;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jackson.JsonLoader;
 import com.github.fge.uritemplate.vars.VariableMap;
 import com.github.fge.uritemplate.vars.VariableMapBuilder;
 import org.testng.annotations.BeforeClass;
@@ -42,10 +41,7 @@ public final class SpecExamplesTest
     public void initData()
         throws IOException
     {
-        final String resourceName = "/spec-examples.json";
-        data = new ObjectMapper()
-            .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
-            .readTree(SpecExamplesTest.class.getResourceAsStream(resourceName));
+        data = JsonLoader.fromResource("/spec-examples.json");
     }
 
     @DataProvider
