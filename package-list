@@ -1,0 +1,7 @@
+com.github.fge.uritemplate
+com.github.fge.uritemplate.expression
+com.github.fge.uritemplate.parse
+com.github.fge.uritemplate.render
+com.github.fge.uritemplate.vars
+com.github.fge.uritemplate.vars.specs
+com.github.fge.uritemplate.vars.values
