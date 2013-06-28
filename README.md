@@ -11,15 +11,14 @@ for details.
 This is a 100% Java implementation of IETF's [RFC 6570](http://tools.ietf.org/html/rfc6570) (URI
 templates).
 
-URI templates are very powerful and unfortunately seldomly known (for now, that is). They allow you
-to operate substitutions anywhere in a URI, without having to encode your values first. The
-classical recipe, often seen with Java, is to use the
+URI templates allow you to operate substitutions anywhere in a URI, without having to encode your
+values first. The classical recipe, often seen with Java, is to use the
 [`URLEncoder`](http://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html) class -- but this
 is the wrong thing to do, see below.
 
 ## Versions
 
-The current version is **0.5**.
+The current version is **0.6**. Javadoc [here](http://fge.github.io/uri-template).
 
 ## Gradle/Maven artifact
 

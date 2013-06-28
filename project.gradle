@@ -2,7 +2,7 @@
  * Project-specific settings. Unfortunately we cannot put the name in there!
  */
 group = "com.github.fge";
-version = "0.6";
+version = "0.7-SNAPSHOT";
 sourceCompatibility = "1.6";
 targetCompatibility = "1.6"; // defaults to sourceCompatibility
 
@@ -22,10 +22,8 @@ project.ext {
 
 /*
  * List of dependencies
- *
- * Transitive is sort of like Maven"s provided, except it won"t find its way
- * into runtime dependencies
  */
+
 dependencies {
     compile(group: "com.google.guava", name: "guava", version: "14.0.1");
     compile(group: "com.github.fge", name: "msg-simple", version: "0.8");
