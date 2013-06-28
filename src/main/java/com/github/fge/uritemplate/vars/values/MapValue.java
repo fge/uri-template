@@ -56,9 +56,15 @@ public final class MapValue
         return new Builder();
     }
 
+    public static <T> VariableValue fromMap(final Map<String, T> map)
+    {
+        return newBuilder().putAll(map).build();
+    }
+
     @Override
     public Map<String, String> getMapValue()
     {
+        // Safe: this is an ImmutableMap
         return map;
     }
 
@@ -90,10 +96,11 @@ public final class MapValue
          *
          * @param key the key
          * @param value the value
+         * @param <T> the type of the value
          * @return this
          * @throws NullPointerException the key or value is null
          */
-        public Builder put(final String key, final Object value)
+        public <T> Builder put(final String key, final T value)
         {
             map.put(
                 BUNDLE.checkNotNull(key, "mapValue.nullKey"),
