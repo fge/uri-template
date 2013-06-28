@@ -31,8 +31,11 @@ import java.util.Map;
  * caller's responsibility to ensure that these values have a correct {@link
  * Object#toString() .toString()} implementation.</p>
  *
- * <p>While there is one public constructor, it is <b>deprecated</b>. Use a
- * {@link Builder} instead (see {@link #newBuilder()}).</p>
+ * <p>Also note that null keys or values are not accepted.</p>
+ *
+ * <p>While there is one public constructor, it is <b>deprecated</b>. Use {@link
+ * #fromMap(Map)} instead, or for more control, use a {@link Builder} (see
+ * {@link #newBuilder()}).</p>
  */
 @Immutable
 public final class MapValue
@@ -56,6 +59,15 @@ public final class MapValue
         return new Builder();
     }
 
+    /**
+     * Convenience method to build a variable value from an existing {@link Map}
+     *
+     * @param map the map
+     * @param <T> the type of values in this map
+     * @return a new map value as a {@link VariableValue}
+     * @throws NullPointerException map is null, or one of its keys or values
+     * is null
+     */
     public static <T> VariableValue fromMap(final Map<String, T> map)
     {
         return newBuilder().putAll(map).build();
@@ -82,7 +94,7 @@ public final class MapValue
     {
         /*
          * We use a LinkedHashMap to respect insertion order. While not required
-         * by URI, it is nicer to the user. And Guava's ImmutableMap respects
+         * by URIs, it is nicer to the user. And Guava's ImmutableMap respects
          * insertion order as well.
          */
         private final Map<String, String> map = Maps.newLinkedHashMap();
