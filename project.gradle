@@ -28,7 +28,7 @@ project.ext {
  */
 dependencies {
     compile(group: "com.google.guava", name: "guava", version: "14.0.1");
-    compile(group: "com.github.fge", name: "msg-simple", version: "0.7");
+    compile(group: "com.github.fge", name: "msg-simple", version: "0.8");
     compile(group: "com.google.code.findbugs", name: "jsr305",
         version: "2.0.1");
     testCompile(group: "org.testng", name: "testng", version: "6.8") {
@@ -48,4 +48,5 @@ javadoc.options.links("http://docs.oracle.com/javase/6/docs/api");
 javadoc.options.links("http://jsr-305.googlecode.com/svn/trunk/javadoc");
 javadoc.options.links("http://fasterxml.github.com/jackson-databind/javadoc/2.2.0");
 javadoc.options.links("http://docs.guava-libraries.googlecode.com/git/javadoc");
+javadoc.options.links("http://fge.github.io/msg-simple");
 
