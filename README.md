@@ -3,6 +3,9 @@
 The license of this project is LGPLv3 or later. See file src/main/resources/LICENSE for the full
 text.
 
+Note: this project uses [Gradle](http://www.gradle.org) as a build system. See the `BUILD.md` file
+for details.
+
 ## What this is
 
 This is a 100% Java implementation of IETF's [RFC 6570](http://tools.ietf.org/html/rfc6570) (URI
@@ -14,11 +17,36 @@ classical recipe, often seen with Java, is to use the
 [`URLEncoder`](http://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html) class -- but this
 is the wrong thing to do, see below.
 
+## Versions
+
+The current version is **0.5**.
+
+## Gradle/Maven artifact
+
+Gradle:
+
+```
+dependencies {
+    compile(group: "com.github.fge", name: "uri-template", version: "yourVersionHere");
+};
+
+Maven:
+
+```xml
+<dependency>
+    <groupId>com.github.fge</groupId>
+    <artifactId>uri-template</artifactId>
+    <version>yourVersionHere</version>
+</dependency>
+```
+
 ## What are URI templates
 
 URI templates are particularly useful if you wish to generate URIs to work with REST APIs (which are
 more common as the time goes. Google, Facebook, Twitter, you name it: everybody uses such APIs these
 days). As such, this library is particularly suited for REST clients, but also on the server side.
+
+And no, `URLEncoder.encode()` doesn't work for URIs. See below.
 
 ### Sample URI templates
 
@@ -45,48 +73,6 @@ http://foo.bar.com/some/request?hello=world%21&streetInGerman=Stra%c3%9fe
 ```
 
 As you see, this produces a valid URI!
-
-### Why `URLEncoder.encode()` doesn't work
-
-There is a very common misconception with this method. It does NOT encode strings for use in URIs,
-it encodes strings **for use in POST data**, that is for `application/x-www-form-urlencoded` data;
-and in this encoding, spaces become `+`, not `%20`!
-
-What is more, the set of characters it encodes as percent-encoded sequences are not the set of
-characters to be encoded in URIs, and even in URIs, this character set differs according to whether
-you are, for instance, in the path element or in fragment elements (you don't encode a `/` in a
-fragment element, for instance).
-
-More generally, if you have to generate a lot of URIs (or URLs, since URLs are URIs) all having the
-sample "place holders" for values and don't want to be bothered with encoding problems etc, this is
-the library for you.
-
-## Versions
-
-The current version is **0.5**.
-
-## Building
-
-This project has a pom.xml, but the preferred method is to use Gradle instead:
-
-```
-# Build a full jar
-gradle clean fatjar
-# Run tests
-gradle tests
-# Show the list of tasks
-gradle tasks
-```
-
-## Maven artifact
-
-```xml
-<dependency>
-    <groupId>com.github.fge</groupId>
-    <artifactId>uri-template</artifactId>
-    <version>your-version-here</version>
-</dependency>
-```
 
 ## Sample code usage
 
@@ -130,4 +116,19 @@ template.toURI(vars);
 // Expansion result as a URL
 template.toURL(vars);
 ```
+
+### Why `URLEncoder.encode()` doesn't work
+
+There is a very common misconception with this method. It does NOT encode strings for use in URIs,
+it encodes strings **for use in POST data**, that is for `application/x-www-form-urlencoded` data;
+and in this encoding, spaces become `+`, not `%20`!
+
+What is more, the set of characters it encodes as percent-encoded sequences are not the set of
+characters to be encoded in URIs, and even in URIs, this character set differs according to whether
+you are, for instance, in the path element or in fragment elements (you don't encode a `/` in a
+fragment element, for instance).
+
+More generally, if you have to generate a lot of URIs (or URLs, since URLs are URIs) all having the
+sample "place holders" for values and don't want to be bothered with encoding problems etc, this is
+the library for you.
 
