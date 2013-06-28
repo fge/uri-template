@@ -40,21 +40,6 @@ public final class MapValue
 {
     private final Map<String, String> map;
 
-    /**
-     * Public constructor -- DO NOT USE
-     *
-     * @param map the underlying map values
-     * @throws NullPointerException map is null, or one of its keys or values
-     * are null
-     */
-    @Deprecated
-    public MapValue(final Map<String, String> map)
-    {
-        super(ValueType.MAP);
-        BUNDLE.checkNotNull(map, "mapValue.nullMap");
-        this.map = ImmutableMap.copyOf(map);
-    }
-
     private MapValue(final Builder builder)
     {
         super(ValueType.MAP);

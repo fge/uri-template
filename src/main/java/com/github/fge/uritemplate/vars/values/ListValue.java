@@ -42,21 +42,6 @@ public final class ListValue
 {
     private final List<String> list;
 
-    /**
-     * public constructor -- DO NOT USE
-     *
-     * @param list the list to use
-     * @deprecated use {@link #copyOf(Iterable)} instead. Will be removed in
-     * 0.6.
-     */
-    @Deprecated
-    public ListValue(final List<String> list)
-    {
-        super(ValueType.ARRAY);
-        BUNDLE.checkNotNull(list, "listValue.nullList");
-        this.list = ImmutableList.copyOf(list);
-    }
-
     private ListValue(final Builder builder)
     {
         super(ValueType.ARRAY);
