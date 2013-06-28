@@ -34,7 +34,7 @@ import java.util.Map;
  * <p>Also note that null keys or values are not accepted.</p>
  *
  * <p>While there is one public constructor, it is <b>deprecated</b>. Use {@link
- * #fromMap(Map)} instead, or for more control, use a {@link Builder} (see
+ * #copyOf(Map)} instead, or for more control, use a {@link Builder} (see
  * {@link #newBuilder()}).</p>
  */
 @Immutable
@@ -68,7 +68,7 @@ public final class MapValue
      * @throws NullPointerException map is null, or one of its keys or values
      * is null
      */
-    public static <T> VariableValue fromMap(final Map<String, T> map)
+    public static <T> VariableValue copyOf(final Map<String, T> map)
     {
         return newBuilder().putAll(map).build();
     }

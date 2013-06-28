@@ -13,8 +13,6 @@ import com.google.common.collect.Maps;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.Map;
 
-import static com.github.fge.uritemplate.vars.values.MapValue.Builder;
-
 /**
  * Builder class for a {@link VariableMap}
  *
@@ -123,12 +121,26 @@ public final class VariableMapBuilder
      * @param map the map
      * @param <T> type of map values
      * @return this
-     * @see Builder#putAll(Map)
+     * @see MapValue#copyOf(Map)
      */
     public <T> VariableMapBuilder addMapValue(final String varname,
         final Map<String, T> map)
     {
-        return addValue(varname, MapValue.newBuilder().putAll(map).build());
+        return addValue(varname, MapValue.copyOf(map));
+    }
+
+    /**
+     * Add all variable definitions from another variable map
+     *
+     * @param other the other variable map to copy definitions from
+     * @return this
+     * @throws NullPointerException other variable map is null
+     */
+    public VariableMapBuilder addVariableMap(final VariableMap other)
+    {
+        BUNDLE.checkNotNull(other, "varmap.nullInput");
+        vars.putAll(other.vars);
+        return this;
     }
 
     @Override
