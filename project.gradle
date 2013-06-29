@@ -28,7 +28,7 @@ dependencies {
     testCompile(group: "com.fasterxml.jackson.core", name: "jackson-databind",
         version: "2.2.2");
     testCompile(group: "com.github.fge", name: "jackson-coreutils",
-        version: "1.3");
+        version: "1.4");
 }
 
 /*
