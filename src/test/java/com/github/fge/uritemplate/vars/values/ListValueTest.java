@@ -1,7 +1,7 @@
 package com.github.fge.uritemplate.vars.values;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.github.fge.msgsimple.serviceloader.MessageBundleFactory;
+import com.github.fge.msgsimple.load.MessageBundles;
 import com.github.fge.uritemplate.URITemplateMessageBundle;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,7 +14,7 @@ import static org.testng.Assert.*;
 public final class ListValueTest
 {
     private static final MessageBundle BUNDLE
-        = MessageBundleFactory.getBundle(URITemplateMessageBundle.class);
+        = MessageBundles.getBundle(URITemplateMessageBundle.class);
 
     private ListValue.Builder builder;
 

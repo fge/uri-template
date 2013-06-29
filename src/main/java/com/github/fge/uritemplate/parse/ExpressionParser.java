@@ -18,7 +18,7 @@
 package com.github.fge.uritemplate.parse;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
-import com.github.fge.msgsimple.serviceloader.MessageBundleFactory;
+import com.github.fge.msgsimple.load.MessageBundles;
 import com.github.fge.uritemplate.URITemplateMessageBundle;
 import com.github.fge.uritemplate.URITemplateParseException;
 import com.github.fge.uritemplate.expression.ExpressionType;
@@ -37,7 +37,7 @@ final class ExpressionParser
     implements TemplateParser
 {
     private static final MessageBundle BUNDLE
-        = MessageBundleFactory.getBundle(URITemplateMessageBundle.class);
+        = MessageBundles.getBundle(URITemplateMessageBundle.class);
 
     private static final Map<Character, ExpressionType> EXPRESSION_TYPE_MAP;
     private static final CharMatcher COMMA = CharMatcher.is(',');
