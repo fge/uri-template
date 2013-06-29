@@ -11,16 +11,6 @@ project.ext {
 }
 
 /*
- * ServiceLoader support
- */
-
-project.ext {
-    serviceClasses = [
-        "com.github.fge.msgsimple.serviceloader.MessageBundleProvider"
-    ];
-}
-
-/*
  * List of dependencies
  */
 
