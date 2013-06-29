@@ -15,9 +15,9 @@ below:
 # List the list of tasks
 ./gradlew tasks
 # Build, test the package
-./gradlew clean test
-# Build a full jar -- will be generated in build/libs/*-full.jar
-./gradlew clean fatjar
+./gradlew test
+# Install in your local maven repository
+./gradlew clean install
 ```
 
 If you try and play around with Gradle configuration files, in order to be
@@ -28,13 +28,8 @@ _really sure_ that your modifications are accounted for, add the
 ./gradlew --recompile-scripts test
 ```
 
-## Important note to Maven users
+## Note to Maven users
 
-While there exists a possiblity to generate a `pom.xml` (using `./gradlew pom`),
-such a pom.xml will not work reliably because of the dependency of this package
-on the correct generation of META-INF/services/ files. See legacy/pom.xml for
-details.
-
-While you can adapt this file to work for you, please be aware that it is _not_
-supported by the author anymore.
+There exists a possiblity to generate a `pom.xml` (using `./gradlew pom`), which
+is there for convenience. However, this is not supported by the author.
 
