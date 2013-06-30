@@ -27,7 +27,6 @@ public final class URITemplateMessageBundle
     @Override
     public MessageBundle getBundle()
     {
-        return PropertiesBundle
-            .forPath("/com/github/fge/uritemplate/messages");
+        return PropertiesBundle.forPath("/com/github/fge/uritemplate/messages");
     }
 }
