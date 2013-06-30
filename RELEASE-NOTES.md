@@ -1,3 +1,8 @@
+## 0.7
+
+* Update msg-simple dependency; drop ServiceLoader support.
+* Definitely remove Maven support.
+
 ## 0.6
 
 * Switch to Gradle for build.
