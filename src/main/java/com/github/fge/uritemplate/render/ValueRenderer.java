@@ -17,13 +17,10 @@
 
 package com.github.fge.uritemplate.render;
 
-import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.URITemplateException;
 import com.github.fge.uritemplate.expression.ExpressionType;
 import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.values.VariableValue;
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Charsets;
 import com.google.common.escape.Escaper;
 import com.google.common.net.PercentEscaper;
 
@@ -62,12 +59,10 @@ public abstract class ValueRenderer
     protected final String ifEmpty;
 
     /**
-     * Set of characters not subject to percent-encoding
+     * Our character escaper
      *
-     * @see ExpressionType#isRawExpand()
+     * @see EscapeCharsets
      */
-    private final CharMatcher matcher;
-
     private final Escaper escaper;
 
     /**
@@ -79,8 +74,6 @@ public abstract class ValueRenderer
     {
         named = type.isNamed();
         ifEmpty = type.getIfEmpty();
-        matcher = type.isRawExpand() ? CharMatchers.RESERVED_PLUS_UNRESERVED
-            : CharMatchers.UNRESERVED;
         final String escaped = type.isRawExpand()
             ? EscapeCharsets.RESERVED_PLUS_UNRESERVED
             : EscapeCharsets.UNRESERVED;
@@ -107,41 +100,11 @@ public abstract class ValueRenderer
      *
      * @param s the string to encode
      * @return an encoded string
-     * @see CharMatchers
      * @see ExpressionType#isRawExpand()
      */
     protected final String pctEncode(final String s)
     {
         return escaper.escape(s);
-//        final int size = s.length();
-//        final StringBuilder sb = new StringBuilder(size);
-//
-//        char c;
-//
-//        for (int i = 0; i < size; i++) {
-//            c = s.charAt(i);
-//            sb.append(matcher.matches(c) ? c : encodeChar(c));
-//        }
-//        return sb.toString();
-    }
-
-    /**
-     * Perform a percent encoding of one character when necessary
-     *
-     * <p>As the RFC says, this method extracts the UTF-8 encoding of the
-     * character and percent-encodes each character.</p>
-     *
-     * @param c the character to encode
-     * @return the matching percent-encoded string
-     */
-    private static String encodeChar(final char c)
-    {
-        final String tmp = Character.toString(c);
-        final byte[] bytes = tmp.getBytes(Charsets.UTF_8);
-        final StringBuilder sb = new StringBuilder();
-        for (final byte b: bytes)
-            sb.append(String.format("%%%02X", b));
-        return sb.toString();
     }
 }
 
