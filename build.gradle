@@ -41,6 +41,13 @@ buildscript {
     }
 };
 
+configure(allprojects) {
+    apply(plugin: "propdeps");
+    apply(plugin: "propdeps-maven");
+    apply(plugin: "propdeps-idea");
+    apply(plugin: "propdeps-eclipse");
+}
+
 apply(plugin: "java");
 apply(plugin: "maven");
 apply(plugin: "signing");
