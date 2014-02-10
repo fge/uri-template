@@ -51,12 +51,14 @@ public abstract class ValueRenderer
      * @see ExpressionType#isNamed()
      */
     protected final boolean named;
+
     /**
      * Substitution string for an empty value/list member/map value
      *
      * @see ExpressionType#getIfEmpty()
      */
     protected final String ifEmpty;
+
     /**
      * Set of characters not subject to percent-encoding
      *
