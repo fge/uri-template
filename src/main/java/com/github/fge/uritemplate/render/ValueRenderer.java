@@ -24,6 +24,8 @@ import com.github.fge.uritemplate.vars.specs.VariableSpec;
 import com.github.fge.uritemplate.vars.values.VariableValue;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Charsets;
+import com.google.common.escape.Escaper;
+import com.google.common.net.PercentEscaper;
 
 import java.util.List;
 
@@ -66,6 +68,8 @@ public abstract class ValueRenderer
      */
     private final CharMatcher matcher;
 
+    private final Escaper escaper;
+
     /**
      * Constructor
      *
@@ -77,6 +81,10 @@ public abstract class ValueRenderer
         ifEmpty = type.getIfEmpty();
         matcher = type.isRawExpand() ? CharMatchers.RESERVED_PLUS_UNRESERVED
             : CharMatchers.UNRESERVED;
+        final String escaped = type.isRawExpand()
+            ? EscapeCharsets.RESERVED_PLUS_UNRESERVED
+            : EscapeCharsets.UNRESERVED;
+        escaper = new PercentEscaper(escaped, false);
     }
 
     /**
@@ -104,16 +112,17 @@ public abstract class ValueRenderer
      */
     protected final String pctEncode(final String s)
     {
-        final int size = s.length();
-        final StringBuilder sb = new StringBuilder(size);
-
-        char c;
-
-        for (int i = 0; i < size; i++) {
-            c = s.charAt(i);
-            sb.append(matcher.matches(c) ? c : encodeChar(c));
-        }
-        return sb.toString();
+        return escaper.escape(s);
+//        final int size = s.length();
+//        final StringBuilder sb = new StringBuilder(size);
+//
+//        char c;
+//
+//        for (int i = 0; i < size; i++) {
+//            c = s.charAt(i);
+//            sb.append(matcher.matches(c) ? c : encodeChar(c));
+//        }
+//        return sb.toString();
     }
 
     /**
