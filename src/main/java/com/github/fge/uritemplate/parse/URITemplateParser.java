@@ -19,7 +19,6 @@ package com.github.fge.uritemplate.parse;
 
 import com.github.fge.msgsimple.bundle.MessageBundle;
 import com.github.fge.msgsimple.load.MessageBundles;
-import com.github.fge.uritemplate.CharMatchers;
 import com.github.fge.uritemplate.URITemplate;
 import com.github.fge.uritemplate.URITemplateMessageBundle;
 import com.github.fge.uritemplate.URITemplateParseException;

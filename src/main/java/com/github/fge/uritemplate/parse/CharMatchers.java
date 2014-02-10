@@ -15,18 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.fge.uritemplate;
+package com.github.fge.uritemplate.parse;
 
 import com.google.common.base.CharMatcher;
 
 /**
  * Character sets needed by the parsing process
  */
-public final class CharMatchers
+final class CharMatchers
 {
-    public static final CharMatcher LITERALS;
-    public static final CharMatcher PERCENT = CharMatcher.is('%');
-    public static final CharMatcher HEXDIGIT = CharMatcher.inRange('0', '9')
+    private CharMatchers()
+    {
+    }
+
+    static final CharMatcher LITERALS;
+    static final CharMatcher PERCENT = CharMatcher.is('%');
+    static final CharMatcher HEXDIGIT = CharMatcher.inRange('0', '9')
         .or(CharMatcher.inRange('a', 'f')).or(CharMatcher.inRange('A', 'F'))
         .precomputed();
 
@@ -39,9 +43,5 @@ public final class CharMatchers
          */
         final CharMatcher other = CharMatcher.anyOf("\"'<>\\^`{|}");
         LITERALS = ctl.or(spc).or(other).negate().precomputed();
-    }
-
-    private CharMatchers()
-    {
     }
 }
