@@ -18,9 +18,9 @@
             "lat"          : "-122.427",
             "group_id"     : "12345",
             "query"        : "PREFIX dc: <http://purl.org/dc/elements/1.1/> SELECT ?book ?who WHERE { ?book dc:creator ?who }",
-            "uri"          : "http://example.org/?uri=http%3a%2f%2fexample.org%2f",
+            "uri"          : "http://example.org/?uri=http%3A%2F%2Fexample.org%2F",
             "word"         : "drücken",
-            "Stra%c3%9fe"  : "Grüner Weg",
+            "Stra%C3%9Fe"  : "Grüner Weg",
             "random"       : "šöäŸœñê€£¥‡ÑÒÓÔÕÖ×ØÙÚàáâãäåæçÿ",
             "assoc_special_chars"  :
               { "šöäŸœñê€£¥‡ÑÒÓÔÕ" : "Ö×ØÙÚàáâãäåæçÿ" }
@@ -44,12 +44,12 @@
             ["/set{?number}", "/set?number=6"],
             ["/loc{?long,lat}" , "/loc?long=37.76&lat=-122.427"],
             ["/base{/group_id,first_name}/pages{/page,lang}{?format,q}","/base/12345/John/pages/5/en?format=json&q=URI%20Templates"],
-            ["/sparql{?query}", "/sparql?query=PREFIX%20dc%3a%20%3chttp%3a%2f%2fpurl.org%2fdc%2felements%2f1.1%2f%3e%20SELECT%20%3fbook%20%3fwho%20WHERE%20%7b%20%3fbook%20dc%3acreator%20%3fwho%20%7d"],
-            ["/go{?uri}", "/go?uri=http%3a%2f%2fexample.org%2f%3furi%3dhttp%253a%252f%252fexample.org%252f"],
-            ["/service{?word}", "/service?word=dr%c3%bccken"],
-            ["/lookup{?Stra%c3%9fe}", "/lookup?Stra%c3%9fe=Gr%c3%bcner%20Weg"],
-            ["{random}" , "%c5%a1%c3%b6%c3%a4%c5%b8%c5%93%c3%b1%c3%aa%e2%82%ac%c2%a3%c2%a5%e2%80%a1%c3%91%c3%92%c3%93%c3%94%c3%95%c3%96%c3%97%c3%98%c3%99%c3%9a%c3%a0%c3%a1%c3%a2%c3%a3%c3%a4%c3%a5%c3%a6%c3%a7%c3%bf"],
-            ["{?assoc_special_chars*}", "?%c5%a1%c3%b6%c3%a4%c5%b8%c5%93%c3%b1%c3%aa%e2%82%ac%c2%a3%c2%a5%e2%80%a1%c3%91%c3%92%c3%93%c3%94%c3%95=%c3%96%c3%97%c3%98%c3%99%c3%9a%c3%a0%c3%a1%c3%a2%c3%a3%c3%a4%c3%a5%c3%a6%c3%a7%c3%bf"]
+            ["/sparql{?query}", "/sparql?query=PREFIX%20dc%3A%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%3E%20SELECT%20%3Fbook%20%3Fwho%20WHERE%20%7B%20%3Fbook%20dc%3Acreator%20%3Fwho%20%7D"],
+            ["/go{?uri}", "/go?uri=http%3A%2F%2Fexample.org%2F%3Furi%3Dhttp%253A%252F%252Fexample.org%252F"],
+            ["/service{?word}", "/service?word=dr%C3%BCcken"],
+            ["/lookup{?Stra%C3%9Fe}", "/lookup?Stra%C3%9Fe=Gr%C3%BCner%20Weg"],
+            ["{random}" , "%C5%A1%C3%B6%C3%A4%C5%B8%C5%93%C3%B1%C3%AA%E2%82%AC%C2%A3%C2%A5%E2%80%A1%C3%91%C3%92%C3%93%C3%94%C3%95%C3%96%C3%97%C3%98%C3%99%C3%9A%C3%A0%C3%A1%C3%A2%C3%A3%C3%A4%C3%A5%C3%A6%C3%A7%C3%BF"],
+            ["{?assoc_special_chars*}", "?%C5%A1%C3%B6%C3%A4%C5%B8%C5%93%C3%B1%C3%AA%E2%82%AC%C2%A3%C2%A5%E2%80%A1%C3%91%C3%92%C3%93%C3%94%C3%95=%C3%96%C3%97%C3%98%C3%99%C3%9A%C3%A0%C3%A1%C3%A2%C3%A3%C3%A4%C3%A5%C3%A6%C3%A7%C3%BF"]
         ]
     },
     "Additional Examples 2":{
@@ -109,11 +109,11 @@
             }
         },
         "testcases":[
-            [ "{42}", "The%20Answer%20to%20the%20Ultimate%20Question%20of%20Life%2c%20the%20Universe%2c%20and%20Everything"],
-            [ "{?42}", "?42=The%20Answer%20to%20the%20Ultimate%20Question%20of%20Life%2c%20the%20Universe%2c%20and%20Everything"],
+            [ "{42}", "The%20Answer%20to%20the%20Ultimate%20Question%20of%20Life%2C%20the%20Universe%2C%20and%20Everything"],
+            [ "{?42}", "?42=The%20Answer%20to%20the%20Ultimate%20Question%20of%20Life%2C%20the%20Universe%2C%20and%20Everything"],
             [ "{1337}", "leet,as,it,can,be"],
             [ "{?1337*}", "?1337=leet&1337=as&1337=it&1337=can&1337=be"],
-            [ "{?german*}", [ "?11=elf&12=zw%c3%b6lf", "?12=zw%c3%b6lf&11=elf"] ]
+            [ "{?german*}", [ "?11=elf&12=zw%C3%B6lf", "?12=zw%C3%B6lf&11=elf"] ]
         ]
     }
 }

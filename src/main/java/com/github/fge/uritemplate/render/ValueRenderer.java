@@ -129,7 +129,7 @@ public abstract class ValueRenderer
         final byte[] bytes = tmp.getBytes(Charsets.UTF_8);
         final StringBuilder sb = new StringBuilder();
         for (final byte b: bytes)
-            sb.append(String.format("%%%02x", b));
+            sb.append(String.format("%%%02X", b));
         return sb.toString();
     }
 }
