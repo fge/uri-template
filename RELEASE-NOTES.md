@@ -1,3 +1,11 @@
+## 0.8
+
+* Dual license LGPL 3.0/ASL 2.0; upgrade dependencies accordingly.
+* Upgrade to gradle 1.10.
+* Percent escapes are now uppercase and not lowercase (RFC 3986, section 2.1
+  recommends this).
+* Update guava dependency to 16.0.1 (for PercentEscaper).
+
 ## 0.7
 
 * Update msg-simple dependency; drop ServiceLoader support.

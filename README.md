@@ -1,7 +1,11 @@
 ## Read me first
 
-The license of this project is LGPLv3 or later. See file src/main/resources/LICENSE for the full
-text.
+This project, as of version 0.8, is licensed under both LGPLv3 and ASL 2.0. See
+file LICENSE for more details. Versions 0.7 and lower are licensed under LGPLv3
+only.
+
+**Note the "L" in "LGPL". LGPL AND GPL ARE QUITE DIFFERENT!**
+
 
 Note: this project uses [Gradle](http://www.gradle.org) as a build system. See the `BUILD.md` file
 for details.
@@ -18,7 +22,7 @@ is the wrong thing to do, see below.
 
 ## Versions
 
-The current version is **0.7**. Javadoc [here](http://fge.github.io/uri-template).
+The current version is **0.8**. Javadoc [here](http://fge.github.io/uri-template).
 
 ## Gradle/Maven artifact
 
