@@ -43,18 +43,18 @@ public final class CharMatchers
     public static final CharMatcher RESERVED_PLUS_UNRESERVED;
 
     static {
-        // reserved
-        final CharMatcher reserved = CharMatcher.inRange('a', 'z')
+        final CharMatcher matcher = CharMatcher.inRange('a', 'z')
             .or(CharMatcher.inRange('A', 'Z'))
             .or(CharMatcher.inRange('0', '9'))
             .or(CharMatcher.anyOf("-._~"));
+        UNRESERVED = matcher.precomputed();
+
         // gen-delims
         final CharMatcher genDelims = CharMatcher.anyOf(":/?#[]@");
         // sub-delims
         final CharMatcher subDelims = CharMatcher.anyOf("!$&'()*+,;=");
-        UNRESERVED = reserved.precomputed();
         // "reserved" is gen-delims or sub-delims
-        RESERVED_PLUS_UNRESERVED = reserved.or(genDelims).or(subDelims)
+        RESERVED_PLUS_UNRESERVED = matcher.or(genDelims).or(subDelims)
             .precomputed();
 
         final CharMatcher ctl = CharMatcher.JAVA_ISO_CONTROL;
