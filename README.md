@@ -113,7 +113,7 @@ Then, you need to create a URI template. This is done using the `URITemplate` cl
 final URITemplate template = new URITemplate("http://foo.bar/myPage{?map*}");
 
 // Expansion result as a string
-template.expand(vars);
+template.toString(vars);
 // Expansion result as a URI
 template.toURI(vars);
 // Expansion result as a URL
