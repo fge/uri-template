@@ -19,10 +19,7 @@
 package com.github.fge.uritemplate.expand;
 
 import com.beust.jcommander.internal.Lists;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.github.fge.jackson.JsonLoader;
 import com.github.fge.uritemplate.URITemplate;
 import com.github.fge.uritemplate.URITemplateException;
@@ -40,12 +37,9 @@ import java.util.Map;
 
 import static org.testng.Assert.*;
 
+@Test
 public abstract class AbstractExpansionTest
 {
-    private static final ObjectReader READER = new ObjectMapper()
-        .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
-        .reader();
-
     private final JsonNode testNode;
     private final VariableMap vars;
 
