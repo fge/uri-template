@@ -1,3 +1,10 @@
+## 0.9
+
+* License fixes (APK compatibility).
+* Gradle updates.
+* Fix bug with prefix lengths and Unicode characters outside the BMP.
+* Dependencies updates.
+
 ## 0.8
 
 * Dual license LGPL 3.0/ASL 2.0; upgrade dependencies accordingly.
