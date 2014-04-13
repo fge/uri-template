@@ -6,10 +6,6 @@ only.
 
 **Note the "L" in "LGPL". LGPL AND GPL ARE QUITE DIFFERENT!**
 
-
-Note: this project uses [Gradle](http://www.gradle.org) as a build system. See the `BUILD.md` file
-for details.
-
 ## What this is
 
 This is a 100% Java implementation of IETF's [RFC 6570](http://tools.ietf.org/html/rfc6570) (URI
@@ -22,16 +18,18 @@ is the wrong thing to do, see below.
 
 ## Versions
 
-The current version is **0.8**. Javadoc [here](http://fge.github.io/uri-template).
+The current version is **0.8**. Javadoc [here](http://fge.github.io/uri-template). See the
+`RELEASE-NOTES.md` file in this package for a list of changes.
 
 ## Gradle/Maven artifact
 
 Gradle:
 
-```
+```groovy
 dependencies {
     compile(group: "com.github.fge", name: "uri-template", version: "yourVersionHere");
 };
+```
 
 Maven:
 
