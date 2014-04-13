@@ -61,11 +61,19 @@ public final class StringRenderer
             ret += '=';
         }
         // Account for a prefix, if any. Note: explode modifier is ignored.
-        final int len = value.length();
+        final int len = value.codePointCount(0, value.length());
         final int prefixLen = varspec.getPrefixLength();
         final String val = prefixLen == -1 ? value
-            : value.substring(0, Math.min(len, prefixLen));
+            : nFirstCodePoints(value, Math.min(len, prefixLen));
         ret += pctEncode(val);
         return ret;
+    }
+
+    private static String nFirstCodePoints(final String s, final int n)
+    {
+        int realIndex = n;
+        while (s.codePointCount(0, realIndex) != n)
+            realIndex++;
+        return s.substring(0, realIndex);
     }
 }

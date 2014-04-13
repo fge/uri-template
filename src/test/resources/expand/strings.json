@@ -2,9 +2,11 @@
     "vars": {
         "var": "value",
         "hello": "Hello World!",
-        "empty": ""
+        "empty": "",
+        "poo": "\ud83d\udca9 is a pile of poo"
     },
     "tests": {
+        "{poo:4}": "%F0%9F%92%A9%20is",
         "{var}": "value",
         "{+var}": "value",
         "{.var}": ".value",
