@@ -51,25 +51,26 @@ public final class StringRenderer
 
     private String doRender(final VariableSpec varspec, final String value)
     {
-        String ret = "";
+        final StringBuilder sb = new StringBuilder(value.length());
         if (named) {
             // Note: variable names do not contain any character susceptible to
             // be percent encoded, so we leave them intact
-            ret += varspec.getName();
+            sb.append(varspec.getName());
             if (value.isEmpty())
-                return ret + ifEmpty;
-            ret += '=';
+                return sb.append(ifEmpty).toString();
+                //return ret + ifEmpty;
+            sb.append('=');
         }
         // Account for a prefix, if any. Note: explode modifier is ignored.
-        final int len = value.codePointCount(0, value.length());
         final int prefixLen = varspec.getPrefixLength();
-        final String val = prefixLen == -1 ? value
-            : nFirstCodePoints(value, Math.min(len, prefixLen));
-        ret += pctEncode(val);
-        return ret;
+        if (prefixLen == -1)
+            return sb.append(pctEncode(value)).toString();
+        final int len = value.codePointCount(0, value.length());
+        return len <= prefixLen ? sb.append(pctEncode(value)).toString()
+            :sb.append(pctEncode(nFirstChars(value, prefixLen))).toString();
     }
 
-    private static String nFirstCodePoints(final String s, final int n)
+    private static String nFirstChars(final String s, final int n)
     {
         int realIndex = n;
         while (s.codePointCount(0, realIndex) != n)
