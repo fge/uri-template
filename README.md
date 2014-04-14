@@ -18,7 +18,7 @@ is the wrong thing to do, see below.
 
 ## Versions
 
-The current version is **0.8**. Javadoc [here](http://fge.github.io/uri-template). See the
+The current version is **0.9**. Javadoc [here](http://fge.github.io/uri-template). See the
 `RELEASE-NOTES.md` file in this package for a list of changes.
 
 ## Gradle/Maven artifact
